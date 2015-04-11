@@ -1,0 +1,25 @@
+$v-background-color: hsl(230, 20%, 80%);
+$v-font-family: "Helvetica Neue", "Helvetica", "Arial", sans-serif;
+
+@import "../valo/valo";
+
+.experiment {
+  @include valo;
+
+  .v-panel-caption-not-selected-variable {
+    @include valo-panel-caption-style($background-color: hsl(230, 20%, 50%));
+  }
+
+  .v-panel-not-selected-variable {
+    @include valo-panel-style($background-color: hsl(230, 20%, 70%));
+  }
+
+  .v-panel-caption-selected-variable {
+    @include valo-panel-caption-style($background-color: hsl(230, 50%, 50%));
+  }
+
+  .v-panel-selected-variable {
+    @include valo-panel-style($background-color: hsl(230, 50%, 70%));
+  }
+
+}
