@@ -126,5 +126,5 @@ INSERT INTO experiment.text_resources (key, value) VALUES ('Setup.Trial.UnitPric
 INSERT INTO experiment.text_resources (key, value) VALUES ('Setup.Trial.TotalScore', '100');
 INSERT INTO experiment.text_resources (key, value) VALUES ('Setup.Trial.MaxSelectedVariables', '10');
 INSERT INTO experiment.text_resources (key, value) VALUES ('Setup.Trial.MinSelectedVariables', '3');
-INSERT INTO experiment.text_resources (key, value) VALUES ('Setup.Trial.Sequences', '+++,---,+-+,-+-,,');
-INSERT INTO experiment.text_resources (key, value) VALUES ('Setup.Trial.ShuffleRange', '2,4');
+INSERT INTO experiment.text_resources (key, value) VALUES ('Setup.Trial.Sequences', 'AAAAACCC|AC');
+INSERT INTO experiment.text_resources (key, value) VALUES ('Setup.Trial.EssentialVariables', '2');

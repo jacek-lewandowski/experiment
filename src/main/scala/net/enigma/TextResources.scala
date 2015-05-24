@@ -170,6 +170,8 @@ object TextResources {
 
       object EssentialVariables extends Resource
 
+      object SequenceLength extends Resource
+
     }
 
   }

@@ -11,7 +11,8 @@ case class TrialSetup(
   totalScore: Int,
   unitPrice: Int,
   essentialVarsCount: Int,
-  sequenceSetup: SequenceSetup
+  sequenceSetup: String,
+  sequenceLength: Int
 ) {
   require(essentialVarsCount < minSelectedVariablesCount)
   require(((maxSelectedVariablesCount - minSelectedVariablesCount) * unitPrice) <= totalScore)

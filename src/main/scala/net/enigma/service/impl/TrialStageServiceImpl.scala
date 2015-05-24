@@ -36,7 +36,7 @@ class TrialStageServiceImpl(val userCode: String, _trialSetup: TrialSetup) exten
       case Some(serialized) ⇒
         read[StageInfo](serialized)
       case None ⇒
-        val stageInfo = StageInfo(_trialSetup)
+        val stageInfo = newStageInfo()
         updateStageInfo(stageInfo)
         stageInfo
     }
@@ -174,12 +174,12 @@ class TrialStageServiceImpl(val userCode: String, _trialSetup: TrialSetup) exten
 
   override def isNextIterationAvailable: Boolean = {
     val info = getStageInfo
-    info.curIter.map(_.idx + 1).getOrElse(0) < trialSetup.sequenceSetup.sequences.length
+    info.curIter.map(_.idx + 1).getOrElse(0) < info.sequences.length
   }
 
   def isAwaitingNewVariables(info: StageInfo): Boolean = {
     (info.iterationState == IterationState.notReady || info.iterationState == IterationState.finished) &&
-        info.curIter.map(_.idx + 1).getOrElse(0) < trialSetup.sequenceSetup.sequences.length
+        info.curIter.map(_.idx + 1).getOrElse(0) < info.sequences.length
   }
 
   override def prepareVariables(): List[Variable] = {
@@ -195,7 +195,7 @@ class TrialStageServiceImpl(val userCode: String, _trialSetup: TrialSetup) exten
     }
 
     val iterationIdx = info.curIter.map(_.idx + 1).getOrElse(0)
-    val sequence = trialSetup.sequenceSetup.sequences(iterationIdx)
+    val sequence = info.sequences(iterationIdx)
 
     val initVars = getInitialVariables()
 
@@ -207,6 +207,11 @@ class TrialStageServiceImpl(val userCode: String, _trialSetup: TrialSetup) exten
 
     updateStageInfo(info.copy(curIter = Some(iteration), iterationState = IterationState.started))
     iteration
+  }
+
+  private def newStageInfo(): StageInfo = {
+    val sequences = new SequencesGeneratorImpl(_trialSetup).generateSequences()
+    StageInfo(_trialSetup, sequences)
   }
 
   override def getSelectedVariables(): List[Variable] = {
@@ -247,6 +252,7 @@ object TrialStageServiceImpl {
 
   case class StageInfo(
     trialSetup: TrialSetup,
+    sequences: List[List[TrialAnswerType]],
     curIter: Option[Iteration] = None,
     iterationState: IterationStateType = IterationState.notReady
   ) {
