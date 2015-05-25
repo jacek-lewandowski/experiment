@@ -23,6 +23,7 @@ object TextResources {
   }
 
   implicit def resrouceToWrappedString(resource: Resource): WrappedString = resource.stringValue
+
   implicit def resrouceToString(resource: Resource): String = resource.stringValue
 
   object Notifications extends ResourceGroup {
@@ -171,6 +172,12 @@ object TextResources {
       object EssentialVariables extends Resource
 
       object SequenceLength extends Resource
+
+    }
+
+    object Lottery extends ResourceGroup {
+
+      object LastIterationsCount extends Resource
 
     }
 

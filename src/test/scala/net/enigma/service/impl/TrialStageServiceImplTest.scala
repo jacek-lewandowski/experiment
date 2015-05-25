@@ -13,7 +13,7 @@ import net.enigma.service.impl.TrialStageServiceImpl.{Iteration, IterationState,
 /**
  * @author Jacek Lewandowski
  */
-class TrialStageServiceImplTest extends FunSpec with Matchers with GivenWhenThen {
+class TrialStageServiceImplTest extends FunSpec with Matchers {
   val trialSetup = TrialSetup(
     minSelectedVariablesCount = 3,
     maxSelectedVariablesCount = 4,

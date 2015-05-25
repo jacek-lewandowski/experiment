@@ -21,7 +21,7 @@ trait ExperimentServiceImpl extends ExperimentService {
   }
 
   override def getLotteryStageService: LotteryStageService = {
-    new LotteryStageServiceImpl(App.currentUser.get.code)
+    new LotteryStageServiceImpl(App.currentUser.get.code, TextResources.Setup.Lottery.LastIterationsCount.intValue)
   }
 
   override def getTrialSetup: TrialSetup = {

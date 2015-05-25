@@ -25,6 +25,11 @@ object StageDataDAO extends Entity {
     val stageInfoID = "stageInfo"
   }
 
+  object Lottery {
+    val stageID = "lottery"
+    val stageInfoID = "stageInfo"
+  }
+
   implicit val formats = Serialization.formats(ShortTypeHints(
     List()
   )) + new EnumNameSerializer(TrialAnswer) + new EnumNameSerializer(IterationState)
@@ -39,14 +44,14 @@ object StageDataDAO extends Entity {
     )
   }
 
-  def getStageData(usercode: String, stage: String, key: String, idx: Int = 0): Option[StageData] = {
+  def getStageData(userCode: String, stage: String, key: String, idx: Int = 0): Option[StageData] = {
     DBManager.connector.withSessionDo { session ⇒
       val stmt = session.prepare(
         // @formatter:off
         s"""
            |SELECT * FROM "$keyspace"."$table"
            |WHERE user_code = ? AND stage = ? AND key = ? AND idx = ?
-         """.stripMargin).bind(usercode, stage, key, idx: Integer)
+         """.stripMargin).bind(userCode, stage, key, idx: Integer)
         // @formatter:on
       session.execute(stmt).iterator().take(1).toSeq.headOption.map(mapToEntity)
     }

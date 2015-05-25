@@ -23,7 +23,7 @@ class TrialStageServiceImpl(val userCode: String, _trialSetup: TrialSetup) exten
 
   implicit val format = StageDataDAO.formats
 
-  def getStageInfo: StageInfo = {
+  override def getStageInfo: StageInfo = {
     loadStageInfo() match {
       case Some(serialized) ⇒
         read[StageInfo](serialized)
@@ -58,8 +58,23 @@ class TrialStageServiceImpl(val userCode: String, _trialSetup: TrialSetup) exten
     StageDataDAO.getStageData(userCode, Trial.stageID, Trial.stageInfoID).map(_.data)
   }
 
+  def loadIteration(idx: Int): Option[String] = {
+    StageDataDAO.getStageData(userCode, Trial.stageID, Trial.iterationID, idx).map(_.data)
+  }
+
   def getInitialVariables(): List[VariableDefinition] = {
     Random.shuffle(VariablesDAO.getVariablesDataSet("real"))
+  }
+
+  override def getIterations(from: Int, count: Int): List[Iteration] = {
+    val itersCount = getStageInfo.sequences.size
+    val itersIndices = if (from < 0) {
+      (0 until itersCount).slice(itersCount - from, itersCount - from + count)
+    } else {
+      (1 to itersCount).slice(from, from + count)
+    }
+
+    (for (idx ← itersIndices; json ← loadIteration(idx)) yield read[Iteration](json)).toList
   }
 
   override def isIterationStarted: Boolean = {
@@ -240,7 +255,13 @@ object TrialStageServiceImpl {
     confidence: Option[Int] = None,
     explanation: Option[String] = None,
     essentialVars: List[Variable] = Nil
-  )
+  ) {
+    lazy val isClear: Boolean =
+      sequence.forall(_ == sequence.head)
+
+    lazy val isAnswerCorrect: Option[Boolean] =
+      if (isClear) Some(selectedAnswer.get == sequence.head) else None
+  }
 
   case class StageInfo(
     trialSetup: TrialSetup,

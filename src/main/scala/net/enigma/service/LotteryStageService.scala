@@ -1,5 +1,7 @@
 package net.enigma.service
 
+import net.enigma.model.LotteryStageInfo
+
 /**
  * @author Jacek Lewandowski
  */
@@ -7,10 +9,11 @@ trait LotteryStageService {
 
   def getLotteryWinChance: Int
 
-  def confidence(): Unit
+  def confidence(): Boolean
 
   def lottery(): Boolean
 
   def isStageCompleted: Boolean
 
+  def getLotteryStageInfo(): LotteryStageInfo
 }

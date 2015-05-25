@@ -2,6 +2,7 @@ package net.enigma.service
 
 import net.enigma.model.TrialAnswer.TrialAnswerType
 import net.enigma.model._
+import net.enigma.service.impl.TrialStageServiceImpl.{Iteration, StageInfo}
 
 /**
  * @author Jacek Lewandowski
@@ -38,4 +39,8 @@ trait TrialStageService {
   def setExplanation(explanation: String)
 
   def setEssentialVariables(variables: List[Variable])
+
+  def getIterations(from: Int, count: Int): List[Iteration]
+
+  def getStageInfo: StageInfo
 }
