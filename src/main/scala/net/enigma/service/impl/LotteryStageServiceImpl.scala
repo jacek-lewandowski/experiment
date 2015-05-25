@@ -16,7 +16,7 @@ class LotteryStageServiceImpl(userCode: String, lastIterationsCount: Int) extend
 
   lazy val trialStageService = App.service.getTrialStageService
 
-  implicit val formats = StageDataDAO.formats
+  import StageDataDAO.Lottery.formats
 
   def saveLotteryInfo(json: String): Unit = {
     StageDataDAO.saveStageData(StageData(userCode, Lottery.stageID, Lottery.stageInfoID, 0, json))

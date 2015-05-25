@@ -1,6 +1,6 @@
 package net.enigma.service
 
-import net.enigma.model.TrialSetup
+import net.enigma.model.{VariablesSetup, TrialSetup}
 
 /**
  * @author Jacek Lewandowski
@@ -13,4 +13,6 @@ trait ExperimentService {
   def getLotteryStageService: LotteryStageService
 
   def getTrialSetup: TrialSetup
+
+  def getVariablesSetup: VariablesSetup
 }

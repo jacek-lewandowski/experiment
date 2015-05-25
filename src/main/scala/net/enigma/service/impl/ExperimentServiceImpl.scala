@@ -2,7 +2,7 @@ package net.enigma.service.impl
 
 import org.slf4j.LoggerFactory
 
-import net.enigma.model.TrialSetup
+import net.enigma.model.{TrialSetup, VariablesSetup}
 import net.enigma.service.{ExperimentService, LotteryStageService, TrialStageService, VariablesStageService}
 import net.enigma.{App, TextResources}
 
@@ -17,7 +17,7 @@ trait ExperimentServiceImpl extends ExperimentService {
   }
 
   override def getVariablesStageService: VariablesStageService = {
-    new VariablesStageServiceImpl(App.currentUser.get.code)
+    new VariablesStageServiceImpl(App.currentUser.get.code, getVariablesSetup)
   }
 
   override def getLotteryStageService: LotteryStageService = {
@@ -45,5 +45,16 @@ trait ExperimentServiceImpl extends ExperimentService {
       sequenceLength
     )
   }
+
+  override def getVariablesSetup: VariablesSetup = {
+    val maxSelectableVariables = TextResources.Setup.Variables.MaxSelectedVariables.toInt
+    val minSelectableVariables = TextResources.Setup.Variables.MinSelectedVariables.toInt
+
+    VariablesSetup(
+      maxSelectableVariables,
+      minSelectableVariables
+    )
+  }
+
 
 }

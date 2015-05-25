@@ -22,5 +22,7 @@ trait VariablesStageService {
 
   def getVariablesForExperiment(): List[Variable]
 
-  def getVariablesSetup(): VariablesSetup
+  def getVariablesStageInfo(): VariablesStageInfo
+
+  def variablesSetup: VariablesSetup
 }

@@ -104,7 +104,7 @@ class TrialStageServiceImplTest extends FunSpec with Matchers {
 
   describe("Json4s") {
     val stageService = new TrialStageServiceMock(trialSetup)
-    implicit val format = StageDataDAO.formats
+    import StageDataDAO.Trial.formats
 
     describe("when used to serialize / deserialize sequence setup") {
       it("should work when ss is empty") {

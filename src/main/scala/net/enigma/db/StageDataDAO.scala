@@ -2,13 +2,14 @@ package net.enigma.db
 
 import scala.collection.JavaConversions._
 
-import org.json4s.ShortTypeHints
-import org.json4s.ext.EnumNameSerializer
+import org.json4s.{NoTypeHints, ShortTypeHints}
+import org.json4s.ext.{EnumSerializer, EnumNameSerializer}
 import org.json4s.native.Serialization
 
 import com.datastax.driver.core.Row
 import com.datastax.spark.connector.types.TypeConverter
 import net.enigma.model.TrialStageInfo.IterationState
+import net.enigma.model.VariablesStageInfo.VariablesState
 import net.enigma.model.{StageData, TrialAnswer}
 
 /**
@@ -20,19 +21,32 @@ object StageDataDAO extends Entity {
   val stringConverter = TypeConverter.forType[String]
 
   object Trial {
+    implicit val formats = Serialization.formats(NoTypeHints) ++ Seq(
+      new EnumNameSerializer(TrialAnswer),
+      new EnumNameSerializer(IterationState)
+    )
+
     val stageID = "trial"
     val iterationID = "iteration"
     val stageInfoID = "stageInfo"
   }
 
   object Lottery {
+    implicit val formats = Serialization.formats(NoTypeHints)
+
     val stageID = "lottery"
     val stageInfoID = "stageInfo"
   }
 
-  implicit val formats = Serialization.formats(ShortTypeHints(
-    List()
-  )) + new EnumNameSerializer(TrialAnswer) + new EnumNameSerializer(IterationState)
+  object Variables {
+    implicit val formats = Serialization.formats(NoTypeHints) ++ Seq(
+      new EnumNameSerializer(VariablesState)
+    )
+
+    val stageID = "variables"
+    val stageInfoID = "stageInfo"
+  }
+
 
   def mapToEntity(row: Row): StageData = {
     StageData(

@@ -16,7 +16,7 @@ trait VariablesSelectionPresenter extends FlowPresenter {
 
   def stageService: VariablesStageService
 
-  lazy val setup = stageService.getVariablesSetup()
+  lazy val setup = stageService.variablesSetup
 
   def getInitialVariablesSet: Seq[Variable] = {
     stageService.prepareVariables()

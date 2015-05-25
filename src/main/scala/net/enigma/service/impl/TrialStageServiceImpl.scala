@@ -20,7 +20,7 @@ class TrialStageServiceImpl(val userCode: String, _trialSetup: TrialSetup) exten
 
   private val logger = LoggerFactory.getLogger(classOf[TrialStageServiceImpl])
 
-  implicit val format = StageDataDAO.formats
+  import StageDataDAO.Trial.formats
 
   override def getStageInfo: TrialStageInfo = {
     loadStageInfo() match {
