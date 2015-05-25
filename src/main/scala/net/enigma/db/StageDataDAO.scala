@@ -2,8 +2,8 @@ package net.enigma.db
 
 import scala.collection.JavaConversions._
 
-import org.json4s.{NoTypeHints, ShortTypeHints}
-import org.json4s.ext.{EnumSerializer, EnumNameSerializer}
+import org.json4s.NoTypeHints
+import org.json4s.ext.EnumNameSerializer
 import org.json4s.native.Serialization
 
 import com.datastax.driver.core.Row
@@ -45,6 +45,20 @@ object StageDataDAO extends Entity {
 
     val stageID = "variables"
     val stageInfoID = "stageInfo"
+  }
+
+  object Questionnnaire {
+    implicit val formats = Serialization.formats(NoTypeHints)
+
+    val stageID = "questionnaire"
+    val answerID = "answer"
+  }
+
+  object PersonalData {
+    implicit val formats = Serialization.formats(NoTypeHints)
+
+    val stageID = "personalData"
+    val answerID = "answer"
   }
 
 
