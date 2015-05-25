@@ -2,13 +2,11 @@ package net.enigma.service.impl
 
 import scala.util.Random
 
-import org.json4s.ShortTypeHints
-import org.json4s.ext.EnumNameSerializer
-import org.json4s.native.Serialization
 import org.json4s.native.Serialization.{read, write}
 import org.scalactic.Requirements._
 import org.slf4j.LoggerFactory
 
+import net.enigma.db.StageDataDAO.Trial
 import net.enigma.db.{StageDataDAO, VariablesDAO}
 import net.enigma.model.TrialAnswer.TrialAnswerType
 import net.enigma.model._
@@ -23,13 +21,7 @@ class TrialStageServiceImpl(val userCode: String, _trialSetup: TrialSetup) exten
 
   private val logger = LoggerFactory.getLogger(classOf[TrialStageServiceImpl])
 
-  val stageID = "trial"
-  val iterationID = "iteration"
-  val stageInfoID = "stageInfo"
-
-  implicit val formats = Serialization.formats(ShortTypeHints(
-    List()
-  )) + new EnumNameSerializer(TrialAnswer) + new EnumNameSerializer(IterationState)
+  implicit val format = StageDataDAO.formats
 
   def getStageInfo: StageInfo = {
     loadStageInfo() match {
@@ -55,15 +47,15 @@ class TrialStageServiceImpl(val userCode: String, _trialSetup: TrialSetup) exten
   }
 
   def saveFinishedIteration(iterationNumber: Int, json: String): Unit = {
-    StageDataDAO.saveStageData(StageData(userCode, stageID, iterationID, iterationNumber, json))
+    StageDataDAO.saveStageData(StageData(userCode, Trial.stageID, Trial.iterationID, iterationNumber, json))
   }
 
   def saveStageInfo(json: String): Unit = {
-    StageDataDAO.saveStageData(StageData(userCode, stageID, stageInfoID, 0, json))
+    StageDataDAO.saveStageData(StageData(userCode, Trial.stageID, Trial.stageInfoID, 0, json))
   }
 
   def loadStageInfo(): Option[String] = {
-    StageDataDAO.getStageData(userCode, stageID, stageInfoID).map(_.data)
+    StageDataDAO.getStageData(userCode, Trial.stageID, Trial.stageInfoID).map(_.data)
   }
 
   def getInitialVariables(): List[VariableDefinition] = {

@@ -5,6 +5,7 @@ import scala.collection.mutable
 import org.json4s.native.Serialization._
 import org.scalatest.{FunSpec, GivenWhenThen, Matchers}
 
+import net.enigma.db.StageDataDAO
 import net.enigma.model._
 import net.enigma.service.TrialStageService
 import net.enigma.service.impl.TrialStageServiceImpl.{Iteration, IterationState, StageInfo}
@@ -103,7 +104,7 @@ class TrialStageServiceImplTest extends FunSpec with Matchers with GivenWhenThen
 
   describe("Json4s") {
     val stageService = new TrialStageServiceMock(trialSetup)
-    implicit val format = stageService.formats
+    implicit val format = StageDataDAO.formats
 
     describe("when used to serialize / deserialize sequence setup") {
       it("should work when ss is empty") {
