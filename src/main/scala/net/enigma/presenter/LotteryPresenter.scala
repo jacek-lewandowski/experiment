@@ -20,6 +20,7 @@ trait LotteryPresenter extends FlowPresenter {
       App.service.completeStage(id)
       true
     } else {
+      Notification.show(TextResources.Notifications.MustChooseLotteryOrBet, Notification.Type.HUMANIZED_MESSAGE)
       false
     }
   }
@@ -28,8 +29,8 @@ trait LotteryPresenter extends FlowPresenter {
     selector.resetSelection()
     selector.setEnabled(false)
 
-    val lotteryResult = stageService.lottery()
-    if (lotteryResult) {
+    val result = stageService.lottery()
+    if (result) {
       Notification.show(TextResources.Notifications.WonTheLottery)
     } else {
       Notification.show(TextResources.Notifications.LoseTheLottery)
@@ -40,7 +41,12 @@ trait LotteryPresenter extends FlowPresenter {
     selector.resetSelection()
     selector.setEnabled(false)
 
-    stageService.confidence()
+    val result = stageService.confidence()
+    if (result) {
+      Notification.show(TextResources.Notifications.CorrectAnswerProvided)
+    } else {
+      Notification.show(TextResources.Notifications.NoCorrectAnswerProvided)
+    }
   }
 
   override def question: String =

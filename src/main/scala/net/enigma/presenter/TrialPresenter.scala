@@ -1,9 +1,10 @@
 package net.enigma.presenter
 
 import com.vaadin.navigator.ViewChangeListener.ViewChangeEvent
+import com.vaadin.ui.Notification
 import org.slf4j.LoggerFactory
 
-import net.enigma.App
+import net.enigma.{TextResources, App}
 import net.enigma.model.TrialAnswer.TrialAnswerType
 import net.enigma.model.{Variable, VariableValue}
 import net.enigma.service.TrialStageService
@@ -43,7 +44,15 @@ trait TrialPresenter extends FlowPresenter {
   }
 
   override def accept(): Boolean = {
-    stageService.isAnswerProvided
+    if (stageService.isAnswerProvided) {
+      true
+    } else {
+      Notification.show(
+        TextResources.Notifications.NeedToSelectAnswer,
+        Notification.Type.HUMANIZED_MESSAGE
+      )
+      false
+    }
   }
 
   def nextIteration(): Unit = {
@@ -57,7 +66,6 @@ trait TrialPresenter extends FlowPresenter {
   }
 
   override def entered(event: ViewChangeEvent): Unit = {
-    accept()
     App.service.setCurrentStage(id)
     nextIteration()
   }

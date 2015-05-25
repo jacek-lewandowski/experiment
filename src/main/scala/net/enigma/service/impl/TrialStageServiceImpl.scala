@@ -68,9 +68,9 @@ class TrialStageServiceImpl(val userCode: String, _trialSetup: TrialSetup) exten
   override def getIterations(from: Int, count: Int): List[Iteration] = {
     val itersCount = getStageInfo.sequences.size
     val itersIndices = if (from < 0) {
-      (0 until itersCount).slice(itersCount - from, itersCount - from + count)
+      (0 until itersCount).slice(itersCount + from, itersCount + from + count)
     } else {
-      (1 to itersCount).slice(from, from + count)
+      (0 until itersCount).slice(from, from + count)
     }
 
     (for (idx ← itersIndices; json ← loadIteration(idx)) yield read[Iteration](json)).toList
@@ -132,7 +132,9 @@ class TrialStageServiceImpl(val userCode: String, _trialSetup: TrialSetup) exten
     requireState(isAwaitingEssentialVariables(stageInfo))
     require(variables.map(_.id).distinct.size == stageInfo.trialSetup.essentialVarsCount)
     require(variables.forall(stageInfo.curIter.get.selectedVars.map(_.variable).contains))
-    updateStageInfo(stageInfo.withCurIter(_.copy(essentialVars = variables)).copy(iterationState = IterationState.finished))
+    val updatedStageInfo = stageInfo.withCurIter(_.copy(essentialVars = variables)).copy(iterationState = IterationState.finished)
+    updateStageInfo(updatedStageInfo)
+    saveFinishedIteration(updatedStageInfo.curIter.get)
   }
 
   override def isAnswerProvided: Boolean =

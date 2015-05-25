@@ -46,6 +46,18 @@ object TextResources {
 
     object LoginSuccessful extends Resource
 
+    object NeedToSelectAnswer extends Resource
+
+    object MustSelectExactlyNVariables extends Resource
+
+    object CorrectAnswerProvided extends Resource
+
+    object NoCorrectAnswerProvided extends Resource
+
+    object MustSelectExactlyNEssentialVariables extends Resource
+
+    object MustChooseLotteryOrBet extends Resource
+
   }
 
   object Titles extends ResourceGroup {
@@ -77,6 +89,8 @@ object TextResources {
     object Main extends Resource
 
     object Login extends Resource
+
+    object CannotContinue extends Resource
 
   }
 
@@ -150,9 +164,7 @@ object TextResources {
 
     object Variables extends ResourceGroup {
 
-      object MinSelectedVariables extends Resource
-
-      object MaxSelectedVariables extends Resource
+      object VariablesCount extends Resource
 
     }
 

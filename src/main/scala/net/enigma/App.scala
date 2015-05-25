@@ -3,6 +3,7 @@ package net.enigma
 import java.security.SecureRandom
 
 import scala.collection.mutable
+import scala.concurrent.forkjoin.ThreadLocalRandom
 import scala.util.Random
 
 import com.vaadin.navigator.{View, ViewProvider}
@@ -27,7 +28,10 @@ object App {
   val userKey = "user"
 
   private val secureRandom = new SecureRandom()
-  val random = new Random(secureRandom.nextLong())
+  private val threadLocalRandom = new ThreadLocal[Random]() {
+    override def initialValue(): Random = new Random(secureRandom.synchronized(secureRandom.nextLong()))
+  }
+  def random = threadLocalRandom.get()
 
   def ui = UI.getCurrent
 

@@ -1,5 +1,29 @@
-INSERT INTO experiment.text_resources (key, value) VALUES ('Setup.SequenceLength', '3');
-INSERT INTO experiment.text_resources (key, value) VALUES ('Setup.UnitPrice', '10');
-INSERT INTO experiment.text_resources (key, value) VALUES ('Setup.TotalScore', '70');
-INSERT INTO experiment.text_resources (key, value) VALUES ('Setup.MaxSelectedVariablesCount', '10');
-INSERT INTO experiment.text_resources (key, value) VALUES ('Setup.MinSelectedVariablesCount', '3');
+-- Ustawienia programu
+
+-- Etap wyboru zmiennych
+
+-- liczba zmiennych które musi wybrać użytkownik, docelowo 7
+INSERT INTO experiment.text_resources (key, value) VALUES ('Setup.Variables.VariablesCount', '3');
+
+
+-- Etap iteracji
+
+-- predefiniowana długość sekwencji
+INSERT INTO experiment.text_resources (key, value) VALUES ('Setup.Trial.SequenceLength', '2');
+-- koszt odsłonięcia jednej wartości
+INSERT INTO experiment.text_resources (key, value) VALUES ('Setup.Trial.UnitPrice', '10');
+-- całkowita liczba punktów do zużycia
+INSERT INTO experiment.text_resources (key, value) VALUES ('Setup.Trial.TotalScore', '100');
+-- minimalna liczba zmiennych, które można wybrać i których wybranie nic nie kosztuje
+INSERT INTO experiment.text_resources (key, value) VALUES ('Setup.Trial.MinSelectedVariables', '3');
+-- maksymalna liczba zmiennych które można wybrać
+INSERT INTO experiment.text_resources (key, value) VALUES ('Setup.Trial.MaxSelectedVariables', '5');
+-- konfiguracja sekwencji, docelowo CCCAAAAA|CA
+INSERT INTO experiment.text_resources (key, value) VALUES ('Setup.Trial.Sequences', 'C|A');
+-- liczba najważniejszych zmiennych, które ma wybrać użytkownik
+INSERT INTO experiment.text_resources (key, value) VALUES ('Setup.Trial.EssentialVariables', '2');
+
+-- Etap loterii
+
+-- liczba ostatnich iteracji branych pod uwagę
+INSERT INTO experiment.text_resources (key, value) VALUES ('Setup.Lottery.LastIterationsCount', '2');

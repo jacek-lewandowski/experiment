@@ -36,12 +36,16 @@ trait VariablesScoringPresenter extends FlowPresenter {
   }
 
   def accept(): Boolean = {
-    if (setScoredVariables(scorer.getVariables)) {
+    if (setScoredVariables(scorer.getVariables())) {
       App.service.completeStage(id)
       true
     } else {
       false
     }
+  }
+
+  override def totalScoreUpdated(totalScore: Int): Unit = {
+    score.setValue((100 - totalScore).toString)
   }
 
 }

@@ -34,14 +34,9 @@ trait VariablesSelectionPresenter extends FlowPresenter {
 
   override def accept(): Boolean = {
     val selectedVariables = grid.getVariables
-    if (selectedVariables.size < setup.minSelectableVariables) {
+    if (selectedVariables.size != setup.variablesCount) {
       Notification.show(
-        TextResources.Notifications.MustSelectAtLeastNVariables.format(setup.minSelectableVariables),
-        Notification.Type.HUMANIZED_MESSAGE)
-      false
-    } else if (selectedVariables.size > setup.maxSelectableVariables) {
-      Notification.show(
-        TextResources.Notifications.MustSelectAtMostNVariables.format(setup.maxSelectableVariables),
+        TextResources.Notifications.MustSelectExactlyNVariables.format(setup.variablesCount),
         Notification.Type.HUMANIZED_MESSAGE)
       false
     } else {

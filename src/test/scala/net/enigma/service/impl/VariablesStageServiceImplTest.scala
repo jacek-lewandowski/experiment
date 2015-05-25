@@ -9,7 +9,7 @@ import net.enigma.model._
  */
 class VariablesStageServiceImplTest extends FunSpec with Matchers {
 
-  class VariablesStageServiceImplMock extends VariablesStageServiceImpl("test", VariablesSetup(2, 1)) {
+  class VariablesStageServiceImplMock extends VariablesStageServiceImpl("test", VariablesSetup(2)) {
     var stageInfo: Option[String] = None
 
     override def loadVariablesStageInfo(): Option[String] = stageInfo

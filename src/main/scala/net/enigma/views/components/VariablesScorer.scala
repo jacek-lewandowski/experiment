@@ -1,5 +1,7 @@
 package net.enigma.views.components
 
+import scala.util.Try
+
 import com.vaadin.data.validator.IntegerRangeValidator
 import com.vaadin.ui._
 
@@ -21,20 +23,24 @@ class VariablesScorer extends Panel with ValueChangedListenable[Int] {
     }
   }
 
-  def getVariables: List[Variable] = {
+  def getVariables(validate: Boolean = true): List[Variable] = {
     val components = for (i ← 0 until layout.getComponentCount)
       yield layout.getComponent(i)
 
     components.collect {
       case p: VariableComponent ⇒ p.getData match {
         case variable: Variable ⇒
-          variable.withScore(p.value)
+          variable.withScore(p.value(validate))
       }
     }.toList
   }
 
   private def newComponent(variable: Variable): VariableComponent = {
     new VariableComponent(variable).withSizeFull
+  }
+
+  private def valueChanged(): Unit = {
+    Try(notifyListeners(getVariables(validate = false).flatMap(_.score).sum))
   }
 
   private class VariableComponent(variable: Variable) extends Panel(variable.title) {
@@ -49,7 +55,10 @@ class VariablesScorer extends Panel with ValueChangedListenable[Int] {
 
     textField
         .withFocusListener(_ ⇒ textField.selectAll())
-        .withBlurListener(_ ⇒ textField.validate())
+        .withBlurListener { _ ⇒
+      Try(textField.validate())
+      valueChanged()
+    }
 
     val layout = new HorizontalLayout(new Label(TextResources.Labels.Rank).withSizeUndefined, textField)
         .withWidth("100%")
@@ -59,8 +68,8 @@ class VariablesScorer extends Panel with ValueChangedListenable[Int] {
 
     setContent(layout)
 
-    def value: Int = {
-      textField.validate()
+    def value(validate: Boolean): Int = {
+      if (validate) textField.validate()
       textField.convertedValue[Integer]
     }
   }

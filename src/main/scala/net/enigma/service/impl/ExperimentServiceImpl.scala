@@ -47,13 +47,9 @@ trait ExperimentServiceImpl extends ExperimentService {
   }
 
   override def getVariablesSetup: VariablesSetup = {
-    val maxSelectableVariables = TextResources.Setup.Variables.MaxSelectedVariables.toInt
-    val minSelectableVariables = TextResources.Setup.Variables.MinSelectedVariables.toInt
+    val variablesCount = TextResources.Setup.Variables.VariablesCount.toInt
 
-    VariablesSetup(
-      maxSelectableVariables,
-      minSelectableVariables
-    )
+    VariablesSetup(variablesCount)
   }
 
 
