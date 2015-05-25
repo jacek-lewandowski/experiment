@@ -83,18 +83,25 @@ class VariablesStageServiceImpl(val userCode: String, _variablesSetup: Variables
   override def setSelectedVariables(variables: List[Variable]): Unit = {
     val info = getVariablesStageInfo()
     requireState(info.state == VariablesState.prepared)
+    require(variables.forall(v ⇒ v.score.isEmpty && v.ordinalNumber.isEmpty))
+    require(variables.forall(v ⇒ info.variables.contains(v)))
     saveVariablesStageInfo(info.copy(variables = variables, state = VariablesState.selected))
   }
 
   override def setReorderedVariables(variables: List[Variable]): Unit = {
     val info = getVariablesStageInfo()
     requireState(info.state == VariablesState.selected)
+    require(variables.forall(v ⇒ v.score.isEmpty && v.ordinalNumber.nonEmpty))
+    require(variables.forall(v ⇒ info.variables.contains(v.copy(ordinalNumber = None))))
     saveVariablesStageInfo(info.copy(variables = variables, state = VariablesState.ordered))
   }
 
   override def setScoredVariables(variables: List[Variable]): Unit = {
     val info = getVariablesStageInfo()
     requireState(info.state == VariablesState.ordered)
+    require(variables.forall(v ⇒ v.score.nonEmpty && v.ordinalNumber.nonEmpty))
+    require(variables.flatMap(_.score).sum == 100)
+    require(variables.forall(v ⇒ info.variables.contains(v.copy(score = None))))
     saveVariablesStageInfo(info.copy(variables = variables, state = VariablesState.scored))
   }
 
