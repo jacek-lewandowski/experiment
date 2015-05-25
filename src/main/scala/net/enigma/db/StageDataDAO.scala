@@ -8,8 +8,8 @@ import org.json4s.native.Serialization
 
 import com.datastax.driver.core.Row
 import com.datastax.spark.connector.types.TypeConverter
-import net.enigma.model.{TrialAnswer, StageData}
-import net.enigma.service.impl.TrialStageServiceImpl.IterationState
+import net.enigma.model.TrialStageInfo.IterationState
+import net.enigma.model.{StageData, TrialAnswer}
 
 /**
  * @author Jacek Lewandowski

@@ -6,9 +6,8 @@ import org.scalactic.Requirements._
 import net.enigma.App
 import net.enigma.db.StageDataDAO
 import net.enigma.db.StageDataDAO.Lottery
-import net.enigma.model.{LotteryStageInfo, StageData}
+import net.enigma.model.{Iteration, LotteryStageInfo, StageData}
 import net.enigma.service.LotteryStageService
-import net.enigma.service.impl.TrialStageServiceImpl.Iteration
 
 /**
  * @author Jacek Lewandowski

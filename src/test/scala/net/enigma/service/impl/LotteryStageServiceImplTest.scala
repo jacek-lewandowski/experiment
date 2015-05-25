@@ -5,7 +5,6 @@ import org.scalatest.{FunSpec, Matchers}
 import net.enigma.model.TrialAnswer.TrialAnswerType
 import net.enigma.model._
 import net.enigma.service.TrialStageService
-import net.enigma.service.impl.TrialStageServiceImpl.Iteration
 
 /**
  * @author Jacek Lewandowski

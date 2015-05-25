@@ -3,12 +3,12 @@ package net.enigma.service.impl
 import scala.collection.mutable
 
 import org.json4s.native.Serialization._
-import org.scalatest.{FunSpec, GivenWhenThen, Matchers}
+import org.scalatest.{FunSpec, Matchers}
 
 import net.enigma.db.StageDataDAO
+import net.enigma.model.TrialStageInfo.IterationState
 import net.enigma.model._
 import net.enigma.service.TrialStageService
-import net.enigma.service.impl.TrialStageServiceImpl.{Iteration, IterationState, StageInfo}
 
 /**
  * @author Jacek Lewandowski
@@ -108,90 +108,90 @@ class TrialStageServiceImplTest extends FunSpec with Matchers {
 
     describe("when used to serialize / deserialize sequence setup") {
       it("should work when ss is empty") {
-        val obj = StageInfo(trialSetup, Nil, None)
+        val obj = TrialStageInfo(trialSetup, Nil, None)
         val json = write(obj)
-        val readObj = read[StageInfo](json)
+        val readObj = read[TrialStageInfo](json)
         readObj shouldBe obj
       }
       it("should work when ss contains empty sequences") {
-        val obj = StageInfo(trialSetup, List(Nil, Nil), None)
+        val obj = TrialStageInfo(trialSetup, List(Nil, Nil), None)
         val json = write(obj)
-        val readObj = read[StageInfo](json)
+        val readObj = read[TrialStageInfo](json)
         readObj shouldBe obj
       }
       it("should work when ss contains regular sequences") {
-        val obj = StageInfo(trialSetup, List(List(TrialAnswer.Minus, TrialAnswer.Plus), List(TrialAnswer.Plus, TrialAnswer.Minus)), None)
+        val obj = TrialStageInfo(trialSetup, List(List(TrialAnswer.Minus, TrialAnswer.Plus), List(TrialAnswer.Plus, TrialAnswer.Minus)), None)
         val json = write(obj)
-        val readObj = read[StageInfo](json)
+        val readObj = read[TrialStageInfo](json)
         readObj shouldBe obj
       }
       it("should work when ss contains shuffle range") {
-        val obj = StageInfo(trialSetup, List(Nil, List(TrialAnswer.Minus, TrialAnswer.Plus)))
+        val obj = TrialStageInfo(trialSetup, List(Nil, List(TrialAnswer.Minus, TrialAnswer.Plus)))
         val json = write(obj)
-        val readObj = read[StageInfo](json)
+        val readObj = read[TrialStageInfo](json)
         readObj shouldBe obj
       }
     }
 
     describe("when used to serialize / deserialize stage info") {
       it("should work when si has no iteration defined") {
-        val obj = StageInfo(trialSetup, Nil, None)
+        val obj = TrialStageInfo(trialSetup, Nil, None)
         val json = write(obj)
-        val readObj = read[StageInfo](json)
+        val readObj = read[TrialStageInfo](json)
         readObj shouldBe obj
       }
       it("should work when si has empty iteration defined") {
-        val obj = StageInfo(trialSetup, Nil, Some(Iteration(0, Nil, Nil, Nil, None, None, None, Nil)))
+        val obj = TrialStageInfo(trialSetup, Nil, Some(Iteration(0, Nil, Nil, Nil, None, None, None, Nil)))
         val json = write(obj)
-        val readObj = read[StageInfo](json)
+        val readObj = read[TrialStageInfo](json)
         readObj shouldBe obj
       }
       it("should work when si has empty iteration with changed state defined") {
-        val obj = StageInfo(trialSetup, Nil, Some(Iteration(0, Nil, Nil, Nil, None, None, None, Nil)), IterationState.finished)
+        val obj = TrialStageInfo(trialSetup, Nil, Some(Iteration(0, Nil, Nil, Nil, None, None, None, Nil)), IterationState.finished)
         val json = write(obj)
-        val readObj = read[StageInfo](json)
+        val readObj = read[TrialStageInfo](json)
         readObj shouldBe obj
       }
       it("should work when si has iteration with some answer selected") {
-        val obj = StageInfo(trialSetup, Nil, Some(Iteration(0, Nil, Nil, Nil, Some(TrialAnswer.Plus), None, None, Nil)))
+        val obj = TrialStageInfo(trialSetup, Nil, Some(Iteration(0, Nil, Nil, Nil, Some(TrialAnswer.Plus), None, None, Nil)))
         val json = write(obj)
-        val readObj = read[StageInfo](json)
+        val readObj = read[TrialStageInfo](json)
         readObj shouldBe obj
       }
       it("should work when si has iteration with some confidence provided") {
-        val obj = StageInfo(trialSetup, Nil, Some(Iteration(0, Nil, Nil, Nil, None, Some(1), None, Nil)))
+        val obj = TrialStageInfo(trialSetup, Nil, Some(Iteration(0, Nil, Nil, Nil, None, Some(1), None, Nil)))
         val json = write(obj)
-        val readObj = read[StageInfo](json)
+        val readObj = read[TrialStageInfo](json)
         readObj shouldBe obj
       }
       it("should work when si has iteration with some explanation provided") {
-        val obj = StageInfo(trialSetup, Nil, Some(Iteration(0, Nil, Nil, Nil, None, None, Some("asdf"), Nil)))
+        val obj = TrialStageInfo(trialSetup, Nil, Some(Iteration(0, Nil, Nil, Nil, None, None, Some("asdf"), Nil)))
         val json = write(obj)
-        val readObj = read[StageInfo](json)
+        val readObj = read[TrialStageInfo](json)
         readObj shouldBe obj
       }
       it("should work when si has iteration with some essential variables provided") {
-        val obj = StageInfo(trialSetup, Nil, Some(Iteration(0, Nil, Nil, Nil, None, None, None, List(Variable(1, "asdf"), Variable(2, "bcde")))))
+        val obj = TrialStageInfo(trialSetup, Nil, Some(Iteration(0, Nil, Nil, Nil, None, None, None, List(Variable(1, "asdf"), Variable(2, "bcde")))))
         val json = write(obj)
-        val readObj = read[StageInfo](json)
+        val readObj = read[TrialStageInfo](json)
         readObj shouldBe obj
       }
       it("should work when si has iteration with some sequence defined") {
-        val obj = StageInfo(trialSetup, Nil, Some(Iteration(0, List(TrialAnswer.Minus, TrialAnswer.Plus), Nil, Nil, None, None, None, Nil)))
+        val obj = TrialStageInfo(trialSetup, Nil, Some(Iteration(0, List(TrialAnswer.Minus, TrialAnswer.Plus), Nil, Nil, None, None, None, Nil)))
         val json = write(obj)
-        val readObj = read[StageInfo](json)
+        val readObj = read[TrialStageInfo](json)
         readObj shouldBe obj
       }
       it("should work when si has iteration with some initial variables defined") {
-        val obj = StageInfo(trialSetup, Nil, Some(Iteration(0, Nil, List(VariableDefinition("a", 1, "asdf", "sdfg", "dfgh"), VariableDefinition("a", 1, "asdf", "sdfg", "dfgh")), Nil, None, None, None, Nil)))
+        val obj = TrialStageInfo(trialSetup, Nil, Some(Iteration(0, Nil, List(VariableDefinition("a", 1, "asdf", "sdfg", "dfgh"), VariableDefinition("a", 1, "asdf", "sdfg", "dfgh")), Nil, None, None, None, Nil)))
         val json = write(obj)
-        val readObj = read[StageInfo](json)
+        val readObj = read[TrialStageInfo](json)
         readObj shouldBe obj
       }
       it("should work when si has iteration with some selected variables provided") {
-        val obj = StageInfo(trialSetup, Nil, Some(Iteration(0, Nil, Nil, List(VariableValue(Variable(1, "asdf", None, None), TrialAnswer.Minus, "qwer"), VariableValue(Variable(1, "sdfg", Some(1), None), TrialAnswer.Minus, "erty"), VariableValue(Variable(1, "dfgh", None, Some(2)), TrialAnswer.Minus, "wert")), None, None, None, Nil)))
+        val obj = TrialStageInfo(trialSetup, Nil, Some(Iteration(0, Nil, Nil, List(VariableValue(Variable(1, "asdf", None, None), TrialAnswer.Minus, "qwer"), VariableValue(Variable(1, "sdfg", Some(1), None), TrialAnswer.Minus, "erty"), VariableValue(Variable(1, "dfgh", None, Some(2)), TrialAnswer.Minus, "wert")), None, None, None, Nil)))
         val json = write(obj)
-        val readObj = read[StageInfo](json)
+        val readObj = read[TrialStageInfo](json)
         readObj shouldBe obj
       }
     }

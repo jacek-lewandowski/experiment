@@ -9,6 +9,7 @@ import org.slf4j.LoggerFactory
 import net.enigma.db.StageDataDAO.Trial
 import net.enigma.db.{StageDataDAO, VariablesDAO}
 import net.enigma.model.TrialAnswer.TrialAnswerType
+import net.enigma.model.TrialStageInfo.IterationState
 import net.enigma.model._
 import net.enigma.service.TrialStageService
 
@@ -17,16 +18,14 @@ import net.enigma.service.TrialStageService
  */
 class TrialStageServiceImpl(val userCode: String, _trialSetup: TrialSetup) extends TrialStageService {
 
-  import net.enigma.service.impl.TrialStageServiceImpl._
-
   private val logger = LoggerFactory.getLogger(classOf[TrialStageServiceImpl])
 
   implicit val format = StageDataDAO.formats
 
-  override def getStageInfo: StageInfo = {
+  override def getStageInfo: TrialStageInfo = {
     loadStageInfo() match {
       case Some(serialized) ⇒
-        read[StageInfo](serialized)
+        read[TrialStageInfo](serialized)
       case None ⇒
         val stageInfo = newStageInfo()
         updateStageInfo(stageInfo)
@@ -36,7 +35,7 @@ class TrialStageServiceImpl(val userCode: String, _trialSetup: TrialSetup) exten
 
   override def trialSetup: TrialSetup = getStageInfo.trialSetup
 
-  def updateStageInfo(stageInfo: StageInfo): Unit = {
+  def updateStageInfo(stageInfo: TrialStageInfo): Unit = {
     val serialized = write(stageInfo)
     saveStageInfo(serialized)
   }
@@ -87,7 +86,7 @@ class TrialStageServiceImpl(val userCode: String, _trialSetup: TrialSetup) exten
     info.iterationState == IterationState.finished
   }
 
-  def isAwaitingAnswer(info: StageInfo): Boolean = {
+  def isAwaitingAnswer(info: TrialStageInfo): Boolean = {
     info.iterationState == IterationState.started &&
         info.curIter.get.selectedAnswer.isEmpty &&
         info.trialSetup.selectedVariablesCountRange.contains(info.curIter.get.selectedVars.length)
@@ -99,7 +98,7 @@ class TrialStageServiceImpl(val userCode: String, _trialSetup: TrialSetup) exten
     updateStageInfo(stageInfo.withCurIter(_.copy(selectedAnswer = Some(answer))))
   }
 
-  def isAwaitingConfidence(info: StageInfo): Boolean = {
+  def isAwaitingConfidence(info: TrialStageInfo): Boolean = {
     info.iterationState == IterationState.started &&
         info.curIter.get.selectedAnswer.isDefined &&
         info.curIter.get.confidence.isEmpty
@@ -111,7 +110,7 @@ class TrialStageServiceImpl(val userCode: String, _trialSetup: TrialSetup) exten
     updateStageInfo(stageInfo.withCurIter(_.copy(confidence = Some(confidence))))
   }
 
-  def isAwaitingExplanation(info: StageInfo): Boolean = {
+  def isAwaitingExplanation(info: TrialStageInfo): Boolean = {
     info.iterationState == IterationState.started &&
         info.curIter.get.confidence.isDefined &&
         info.curIter.get.explanation.isEmpty
@@ -123,7 +122,7 @@ class TrialStageServiceImpl(val userCode: String, _trialSetup: TrialSetup) exten
     updateStageInfo(stageInfo.withCurIter(_.copy(explanation = Some(explanation))))
   }
 
-  def isAwaitingEssentialVariables(info: StageInfo): Boolean = {
+  def isAwaitingEssentialVariables(info: TrialStageInfo): Boolean = {
     info.iterationState == IterationState.started &&
         info.curIter.get.explanation.isDefined
   }
@@ -150,7 +149,7 @@ class TrialStageServiceImpl(val userCode: String, _trialSetup: TrialSetup) exten
 
   private def randomValue: TrialAnswerType = Random.shuffle(Seq(TrialAnswer.Plus, TrialAnswer.Minus)).head
 
-  def isAwaitingVariableSelection(info: StageInfo): Boolean = {
+  def isAwaitingVariableSelection(info: TrialStageInfo): Boolean = {
     info.iterationState == IterationState.started &&
         info.curIter.get.selectedVars.length < info.trialSetup.maxSelectedVariablesCount &&
         info.curIter.get.selectedAnswer.isEmpty
@@ -184,7 +183,7 @@ class TrialStageServiceImpl(val userCode: String, _trialSetup: TrialSetup) exten
     info.curIter.map(_.idx + 1).getOrElse(0) < info.sequences.length
   }
 
-  def isAwaitingNewVariables(info: StageInfo): Boolean = {
+  def isAwaitingNewVariables(info: TrialStageInfo): Boolean = {
     (info.iterationState == IterationState.notReady || info.iterationState == IterationState.finished) &&
         info.curIter.map(_.idx + 1).getOrElse(0) < info.sequences.length
   }
@@ -195,7 +194,7 @@ class TrialStageServiceImpl(val userCode: String, _trialSetup: TrialSetup) exten
     newIteration(info).initVars.map(vd ⇒ Variable(vd.id, vd.title))
   }
 
-  private def newIteration(info: StageInfo): Iteration = {
+  private def newIteration(info: TrialStageInfo): Iteration = {
     info.curIter match {
       case Some(iter) ⇒ saveFinishedIteration(iter)
       case None ⇒
@@ -216,9 +215,9 @@ class TrialStageServiceImpl(val userCode: String, _trialSetup: TrialSetup) exten
     iteration
   }
 
-  private def newStageInfo(): StageInfo = {
+  private def newStageInfo(): TrialStageInfo = {
     val sequences = new SequencesGeneratorImpl(_trialSetup).generateSequences()
-    StageInfo(_trialSetup, sequences)
+    TrialStageInfo(_trialSetup, sequences)
   }
 
   override def getSelectedVariables(): List[Variable] = {
@@ -236,50 +235,5 @@ class TrialStageServiceImpl(val userCode: String, _trialSetup: TrialSetup) exten
 
 object TrialStageServiceImpl {
 
-  /**
-   * @param idx the number of iteration starting from 0
-   * @param initVars the set of variables presented to the user, in order
-   * @param selectedVars variables selected by the user, in order
-   * @param sequence a sequence of values presented to the user
-   * @param selectedAnswer an answer selected by the user
-   * @param confidence a confidence level entered by the user
-   * @param explanation an explanation provided by the user
-   * @param essentialVars most important variables selected by the user among those which are in `variables` collection
-   */
-  case class Iteration(
-    idx: Int,
-    sequence: List[TrialAnswerType],
-    initVars: List[VariableDefinition] = Nil,
-    selectedVars: List[VariableValue] = Nil,
-    selectedAnswer: Option[TrialAnswerType] = None,
-    confidence: Option[Int] = None,
-    explanation: Option[String] = None,
-    essentialVars: List[Variable] = Nil
-  ) {
-    lazy val isClear: Boolean =
-      sequence.forall(_ == sequence.head)
-
-    lazy val isAnswerCorrect: Option[Boolean] =
-      if (isClear) Some(selectedAnswer.get == sequence.head) else None
-  }
-
-  case class StageInfo(
-    trialSetup: TrialSetup,
-    sequences: List[List[TrialAnswerType]],
-    curIter: Option[Iteration] = None,
-    iterationState: IterationStateType = IterationState.notReady
-  ) {
-    def withCurIter(f: Iteration ⇒ Iteration): StageInfo = {
-      copy(curIter = Some(f(curIter.get)))
-    }
-  }
-
-  type IterationStateType = IterationState.Value
-
-  object IterationState extends Enumeration {
-    val notReady = Value(0, "not-ready")
-    val started = Value(1, "started")
-    val finished = Value(2, "finished")
-  }
 
 }
