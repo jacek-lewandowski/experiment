@@ -42,7 +42,17 @@ INSERT INTO experiment.text_resources (key, value) VALUES ('Instructions.TrialIn
 INSERT INTO experiment.text_resources (key, value) VALUES ('Instructions.QuestionnaireInstruction', 'Instrukcja do kwestionariusza');
 INSERT INTO experiment.text_resources (key, value) VALUES ('Instructions.InitialInstruction', 'Instrukcja wstępna');
 
-INSERT INTO experiment.text_resources (key, value) VALUES ('Instructions.Lottery', 'Czy wolisz z prawdopodobieństwiem %d wygrać w loterii czy nie?');
+INSERT INTO experiment.text_resources (key, value) VALUES ('Instructions.Lottery', '
+W tej części badania masz możliwość wygrania dodatkowo 50 złotych.
+Proponujemy Ci wybór między zakładem a loterią.
+<p/>
+Jeżeli wybierzesz zakład, wygrasz 50 złotych jeżeli trafnie odpowiedziałeś w jednym z dwóch ostatnich zadań - dziewiątym lub dziesiątym.
+<p/>
+Jeżeli wybierzesz loterię, możesz wygrać 50 złotych z prawdopodobieństwem %s.
+<p/>
+Niezależnie od tego, co wybierzesz, to czy wygrasz dodatkowe 50 złotych będzie wiadome przed końcem komputerowej części badania.
+');
+INSERT INTO experiment.text_resources (key, value) VALUES ('Instructions.LotteryQuestion', 'Kliknij w jedno z dwóch okienek, zgodnie z wyborem, którego dokonałeś.');
 
 INSERT INTO experiment.text_resources (key, value) VALUES ('Instructions.PreTutorial',
 '
@@ -101,12 +111,12 @@ Instrukcja do pytania o pewność
 
 INSERT INTO experiment.text_resources (key, value) VALUES ('Instructions.ExplanationQuestion',
 '
-Instrukcja do pytania o wyjaśnienie
+W kilku słowach uzasadnij dlaczego uznałeś te wskaźniki za diagnostyczne.
 ');
 
 INSERT INTO experiment.text_resources (key, value) VALUES ('Instructions.MostImportantVariables',
 '
-Instrukcja do pytania o najważniejsze czynniki
+Wybierz te dwa wskaźniki, które miały największy wpływ na Twoją decyzję.
 ');
 
 INSERT INTO experiment.text_resources (key, value) VALUES ('Instructions.Questionnaire',
@@ -119,12 +129,34 @@ INSERT INTO experiment.text_resources (key, value) VALUES ('Instructions.Persona
 Instrukcja do ankiety
 ');
 
+-- Ustawienia programu
+
+-- Etap wyboru zmiennych
+
+-- minimalna liczba zmiennych które musi wybrać użytkownik
 INSERT INTO experiment.text_resources (key, value) VALUES ('Setup.Variables.MinSelectedVariables', '3');
+-- maksymalna liczba zmiennych, które może wybrać użytkownik
 INSERT INTO experiment.text_resources (key, value) VALUES ('Setup.Variables.MaxSelectedVariables', '7');
+
+
+-- Etap iteracji
+
+-- predefiniowana długość sekwencji
 INSERT INTO experiment.text_resources (key, value) VALUES ('Setup.Trial.SequenceLength', '3');
+-- koszt odsłonięcia jednej wartości
 INSERT INTO experiment.text_resources (key, value) VALUES ('Setup.Trial.UnitPrice', '10');
+-- całkowita liczba punktów do zużycia
 INSERT INTO experiment.text_resources (key, value) VALUES ('Setup.Trial.TotalScore', '100');
-INSERT INTO experiment.text_resources (key, value) VALUES ('Setup.Trial.MaxSelectedVariables', '10');
+-- minimalna liczba zmiennych, które można wybrać i których wybranie nic nie kosztuje
 INSERT INTO experiment.text_resources (key, value) VALUES ('Setup.Trial.MinSelectedVariables', '3');
+-- maksymalna liczba zmiennych które można wybrać
+INSERT INTO experiment.text_resources (key, value) VALUES ('Setup.Trial.MaxSelectedVariables', '10');
+-- konfiguracja sekwencji
 INSERT INTO experiment.text_resources (key, value) VALUES ('Setup.Trial.Sequences', 'AAAAACCC|AC');
+-- liczba najważniejszych zmiennych, które ma wybrać użytkownik
 INSERT INTO experiment.text_resources (key, value) VALUES ('Setup.Trial.EssentialVariables', '2');
+
+-- Etap loterii
+
+-- liczba ostatnich iteracji branych pod uwagę
+INSERT INTO experiment.text_resources (key, value) VALUES ('Setup.Lottery.LastIterationsCount', '2');

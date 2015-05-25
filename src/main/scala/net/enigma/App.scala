@@ -230,7 +230,7 @@ object App {
 
           override def nextView: String = QuestionnaireInstruction.name
 
-          override def instructions: String = TextResources.Instructions.Lottery
+          override def instructions: String = TextResources.Instructions.Lottery.format(s"${stageService.getLotteryWinChance}%")
 
           override lazy val allowedToEnter = App.testMode ||
               App.currentUser.isDefined && App.service.checkForCompletedStages(

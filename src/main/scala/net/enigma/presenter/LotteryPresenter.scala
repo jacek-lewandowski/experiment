@@ -44,7 +44,7 @@ trait LotteryPresenter extends FlowPresenter {
   }
 
   override def question: String =
-    TextResources.Instructions.Lottery.format(stageService.getLotteryWinChance)
+    TextResources.Instructions.LotteryQuestion.format(stageService.getLotteryWinChance)
 
   override def entered(event: ViewChangeEvent): Unit = {
     App.service.setCurrentStage(id)

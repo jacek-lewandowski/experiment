@@ -142,6 +142,7 @@ object TextResources {
 
     object PersonalData extends Resource
 
+    object LotteryQuestion extends Resource
 
   }
 
