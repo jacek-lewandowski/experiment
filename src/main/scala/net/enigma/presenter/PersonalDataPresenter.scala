@@ -1,8 +1,11 @@
 package net.enigma.presenter
 
-import com.vaadin.navigator.ViewChangeListener.ViewChangeEvent
+import scala.util.{Failure, Success, Try}
 
-import net.enigma.App
+import com.vaadin.navigator.ViewChangeListener.ViewChangeEvent
+import com.vaadin.ui.Notification
+
+import net.enigma.{TextResources, App}
 import net.enigma.model.{Answer, Question}
 import net.enigma.views.SurveyView
 
@@ -29,10 +32,15 @@ trait PersonalDataPresenter extends FlowPresenter {
   }
 
   def accept(): Boolean = {
-    questionsContainer.validate()
-    saveResults(questionsContainer.getAnswers())
-    App.service.completeStage(id)
-    true
+    Try(questionsContainer.validate()) match {
+      case Success(_) ⇒
+        saveResults(questionsContainer.getAnswers())
+        App.service.completeStage(id)
+        true
+      case Failure(t) ⇒
+        Notification.show(TextResources.Notifications.ValidationError, Notification.Type.HUMANIZED_MESSAGE)
+        false
+    }
   }
 
   override def entered(event: ViewChangeEvent): Unit = {

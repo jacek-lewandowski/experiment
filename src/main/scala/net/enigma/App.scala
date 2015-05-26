@@ -3,13 +3,13 @@ package net.enigma
 import java.security.SecureRandom
 
 import scala.collection.mutable
-import scala.concurrent.forkjoin.ThreadLocalRandom
 import scala.util.Random
 
 import com.vaadin.navigator.{View, ViewProvider}
 import com.vaadin.ui.UI
 import org.slf4j.LoggerFactory
 
+import net.enigma.TextResources._
 import net.enigma.model.User
 import net.enigma.presenter._
 import net.enigma.service._
@@ -31,6 +31,7 @@ object App {
   private val threadLocalRandom = new ThreadLocal[Random]() {
     override def initialValue(): Random = new Random(secureRandom.synchronized(secureRandom.nextLong()))
   }
+
   def random = threadLocalRandom.get()
 
   def ui = UI.getCurrent
@@ -313,6 +314,38 @@ object App {
       logger.info(s"Getting view for name $viewName")
       subProviders.get(viewName).map(_.apply()).getOrElse(Login())
     }
+
+
+    import scala.reflect.runtime.universe._
+
+    val mirror = runtimeMirror(getClass.getClassLoader)
+
+    private def initialize(): Unit = {
+      val t = mirror.typeOf[Views.type]
+
+      def touch(modules: List[Symbol]): Unit = {
+        val name = modules.map(_.asModule.name).mkString(".")
+        val resource = mirror.reflectModule(modules.head.asModule).instance.asInstanceOf[Resource]
+        if (!resource.isDefined) {
+          println(s"INSERT INTO experiment.text_resources (key, value) VALUES ('$name', '');")
+        }
+      }
+
+      def touchModule(module: ModuleSymbol): Unit = {
+        val resource = mirror.reflectModule(module).instance.asInstanceOf[Provider]
+        logger.info(s"Registering view ${resource.name}")
+      }
+
+      for (declaration ← t.decls
+           if declaration.isModule
+           if declaration.typeSignature.baseClasses.exists(symbol ⇒
+             symbol.isType && symbol.asType.toType =:= mirror.typeOf[Provider])) {
+        touchModule(declaration.asModule)
+      }
+    }
+
+    initialize()
+
   }
 
 }

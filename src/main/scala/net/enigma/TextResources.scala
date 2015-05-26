@@ -58,6 +58,8 @@ object TextResources {
 
     object MustChooseLotteryOrBet extends Resource
 
+    object ValidationError extends Resource
+
   }
 
   object Titles extends ResourceGroup {
@@ -197,7 +199,6 @@ object TextResources {
   }
 
   import scala.reflect.runtime.universe._
-
 
   val mirror = runtimeMirror(getClass.getClassLoader)
 

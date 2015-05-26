@@ -2,10 +2,11 @@ package net.enigma.views.components
 
 import scala.util.{Failure, Try}
 
-import com.vaadin.data.Validator
 import com.vaadin.data.validator.{IntegerRangeValidator, RegexpValidator, StringLengthValidator}
 import com.vaadin.ui._
 import org.slf4j.LoggerFactory
+
+import net.enigma.Utils._
 import net.enigma.model.Question
 
 /**
@@ -99,21 +100,27 @@ object SurveyItem {
     override def validate(): Unit = component.validate()
   }
 
-  case class OpenSurveyItem(question: Question, validators: Seq[Validator]) extends SurveyItem {
+  case class OpenSurveyItem(question: Question) extends SurveyItem {
     lazy val component = new Panel() {
-      val component = new TextField(question.caption, "")
-      component.setRequired(question.required)
-      component.setValidationVisible(true)
-      for (validator ← validators) component.addValidator(validator)
+      val textField = new TextField(question.caption, "")
 
-      val layout = new HorizontalLayout(component)
+      textField.withBlurListener(_ ⇒ Try(textField.validate()))
+      textField.withFocusListener(_ ⇒ textField.selectAll())
+      textField.setRequired(question.required)
+
+      Try(applyValidators(question.validatorName, question.validatorParams, textField)) match {
+        case Failure(t) ⇒ logger.error("Invalid validator", t)
+        case _ ⇒ logger.info("Created validators")
+      }
+
+      val layout = new HorizontalLayout(textField)
       layout.setMargin(true)
       layout.setSpacing(true)
       setContent(layout)
 
-      def value: String = component.getValue
+      def value: String = textField.getValue
 
-      def validate(): Unit = component.validate()
+      def validate(): Unit = textField.validate()
     }
 
     override def value: String = component.value
@@ -137,7 +144,7 @@ object SurveyItem {
     logger.info("Create closed question")
     val (_, answers) =
       (for ((key, value) ← question.validatorParams) yield (key.toInt, value))
-        .toIndexedSeq.sortBy(_._1).unzip
+          .toIndexedSeq.sortBy(_._1).unzip
 
     ClosedSurveyItem(question, answers)
   }
@@ -148,33 +155,35 @@ object SurveyItem {
   }
 
   private def createOpenSurveyItem(question: Question): OpenSurveyItem = {
-    val validators = Try(createValidator(question.validatorName, question.validatorParams))
-    validators match {
-      case Failure(t) ⇒ logger.error("Invalid validator", t)
-      case _ ⇒ logger.info("Creating validator: " + question)
-    }
-    OpenSurveyItem(question, validators.toOption.toSeq)
+    OpenSurveyItem(question)
   }
 
-  private def createValidator(name: String, params: Map[String, String]): Validator = {
+  private def applyValidators(name: String, params: Map[String, String], component: AbstractField[_]) {
     (name, params) match {
-      case StringLength(validator) ⇒ validator
-      case IntegerRange(validator) ⇒ validator
-      case RegExp(validator) ⇒ validator
+      case StringLength(min, max, msg) ⇒
+        val validator = new StringLengthValidator(msg)
+        min.foreach(x ⇒ validator.setMinLength(x))
+        max.foreach(x ⇒ validator.setMaxLength(x))
+        component.addValidator(validator)
+
+      case IntegerRange(min, max, msg) ⇒
+        component.setConverter(classOf[Integer])
+        component.addValidator(new IntegerRangeValidator(msg, min, max))
+        component.setConvertedValue(0)
+
+      case RegExp((exp, msg)) ⇒
+        component.addValidator(new RegexpValidator(exp, msg))
     }
   }
 
   private object StringLength {
-    def unapply(nameAndParams: (String, Map[String, String])): Option[StringLengthValidator] = {
+    def unapply(nameAndParams: (String, Map[String, String])): Option[(Option[Int], Option[Int], String)] = {
       val (name, params) = nameAndParams
       if (name == "length") {
         val errorMessage = params("message")
-        val min = params.get("min").map(_.toInt: Integer)
-        val max = params.get("max").map(_.toInt: Integer)
-        val validator = new StringLengthValidator(errorMessage)
-        min.foreach(validator.setMinLength)
-        max.foreach(validator.setMaxLength)
-        Some(validator)
+        val min = params.get("min").map(_.toInt)
+        val max = params.get("max").map(_.toInt)
+        Some((min, max, errorMessage))
       } else {
         None
       }
@@ -182,14 +191,13 @@ object SurveyItem {
   }
 
   private object IntegerRange {
-    def unapply(nameAndParams: (String, Map[String, String])): Option[IntegerRangeValidator] = {
+    def unapply(nameAndParams: (String, Map[String, String])): Option[(Int, Int, String)] = {
       val (name, params) = nameAndParams
       if (name == "range") {
         val errorMessage = params("message")
-        val min = params.get("min").map(_.toInt: Integer).get
-        val max = params.get("max").map(_.toInt: Integer).get
-        val validator = new IntegerRangeValidator(errorMessage, min, max)
-        Some(validator)
+        val min = params.get("min").map(_.toInt).get
+        val max = params.get("max").map(_.toInt).get
+        Some((min, max, errorMessage))
       } else {
         None
       }
@@ -197,13 +205,12 @@ object SurveyItem {
   }
 
   private object RegExp {
-    def unapply(nameAndParams: (String, Map[String, String])): Option[RegexpValidator] = {
+    def unapply(nameAndParams: (String, Map[String, String])): Option[(String, String)] = {
       val (name, params) = nameAndParams
       if (name == "length") {
         val errorMessage = params("message")
         val regExp = params("pattern")
-        val validator = new RegexpValidator(regExp, errorMessage)
-        Some(validator)
+        Some((regExp, errorMessage))
       } else {
         None
       }

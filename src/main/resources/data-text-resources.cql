@@ -47,6 +47,7 @@ INSERT INTO experiment.text_resources (key, value) VALUES ('Notifications.NeedTo
 
 INSERT INTO experiment.text_resources (key, value) VALUES ('Notifications.CorrectAnswerProvided', 'Wygrałeś/aś zakład');
 INSERT INTO experiment.text_resources (key, value) VALUES ('Notifications.NoCorrectAnswerProvided', 'Przegrałeś/aś zakład');
+INSERT INTO experiment.text_resources (key, value) VALUES ('Notifications.ValidationError', 'Uzupełnij poprawnie wszystkie pola');
 
 INSERT INTO experiment.text_resources (key, value) VALUES ('Instructions.TrialInstruction', 'Instrukcja do iteracji');
 INSERT INTO experiment.text_resources (key, value) VALUES ('Instructions.QuestionnaireInstruction', 'Instrukcja do kwestionariusza');
