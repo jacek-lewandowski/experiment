@@ -233,7 +233,7 @@ object App {
 
           override lazy val stageService: LotteryStageService = App.service.getLotteryStageService
 
-          override def nextView: String = QuestionnaireInstruction.name
+          override def nextView: String = PersonalData.name
 
           override def instructions: String = TextResources.Instructions.Lottery.format(s"${stageService.getLotteryWinChance}%")
 
@@ -284,7 +284,7 @@ object App {
 
           override lazy val allowedToEnter = App.testMode ||
               App.currentUser.isDefined && App.service.checkForCompletedStages(
-                requiredKeys = Set(Questionnaire.name), forbiddenKeys = Set(PersonalData.name))
+                requiredKeys = Set(Lottery.name), forbiddenKeys = Set(PersonalData.name))
         }
     }
 
