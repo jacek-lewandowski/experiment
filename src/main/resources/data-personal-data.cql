@@ -12,7 +12,7 @@ INSERT INTO experiment.surveys (category, id, caption, required, validator_name,
 );
 INSERT INTO experiment.surveys (category, id, caption, required, validator_name, validator_params) VALUES (
     'personalData', 4, 'Wykształcenie', true,
-    'selection', {'1':'brak', '2':'wyższe - ekonomiczne', '3':'wyższe - inne'}
+    'selection', {'1':'ekonomiczne', '2':'humanistyczne', '3':'biologiczne', '4':'techniczne'}
 );
 INSERT INTO experiment.surveys (category, id, caption, required, validator_name, validator_params) VALUES (
     'personalData', 5, 'Czas poświecany na inwestowanie', true,

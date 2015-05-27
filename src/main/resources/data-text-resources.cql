@@ -49,11 +49,27 @@ INSERT INTO experiment.text_resources (key, value) VALUES ('Notifications.Correc
 INSERT INTO experiment.text_resources (key, value) VALUES ('Notifications.NoCorrectAnswerProvided', 'Przegrałeś/aś zakład');
 INSERT INTO experiment.text_resources (key, value) VALUES ('Notifications.ValidationError', 'Uzupełnij poprawnie wszystkie pola');
 
-INSERT INTO experiment.text_resources (key, value) VALUES ('Instructions.TrialInstruction', 'Instrukcja do iteracji');
+INSERT INTO experiment.text_resources (key, value) VALUES ('Instructions.TrialInstruction', '
+W kolejnym etapie Twoim zadaniem będzie udzielenie odpowiedzi na pytanie: <quote>Czy na rynku papierów
+wartościowych jest hossa czy bessa?</quote> w oparciu o podane informacje.
+<p/>
+Za chwilę na ekranie pojawi się 16 informacji z rynku kapitałowego. Informacji jest 16, ale musisz
+wykorzystać co najmniej 3 i możesz wykorzystać co najwyżej 10 spośród nich. Pierwsze 3 informacje
+nic nie kosztują, ale każda następna kosztuje 10 punktów, które są odliczane od 70 punktów, które
+otrzymuje uczestnik na początku badania. Punkty można zachować lub wydać, zależy to od tego ile
+informacji wykorzystasz do podjęcia decyzji. Licznik wskazujący aktualną liczbę punktów znajduje się
+w prawej górnej części ekranu.
+<p/>
+Pięciu uczestników, którzy zachowają największą liczbę punktów i uzyskają największą trafność odpowiedzi,
+dostanie nagrody pieniężne w wysokości 500 zł.
+');
 INSERT INTO experiment.text_resources (key, value) VALUES ('Instructions.QuestionnaireInstruction', 'Instrukcja do kwestionariusza');
 INSERT INTO experiment.text_resources (key, value) VALUES ('Instructions.InitialInstruction', '
-<p>Zapraszamy do udziału w badaniu finansowanym z grantu nr…., przyznanego przez Narodowe Centrum Nauki. Badanie jest w pełni anonimowe i służy wyłącznie do celów naukowych. Udział w badaniu jest dobrowolny. W każdej chwili możesz się wycofać bez podawania powodów. Jeśli wyrażasz zgodę na udział w badaniu, kliknij przycisk “dalej”.</p>
-<p>Za chwilę na ekranie pojawi się lista 16 wskaźników makroekonomicznych i rynkowych. Wybierz 7 z nich, najważniejszych i wystarczających Twoim zdaniem do udzielenia odpowiedzi na pytanie: czy na rynku jest hossa czy bessa.</p>
+Zapraszamy do udziału w badaniu finansowanym z grantu nr 2014/13/B/HS4/01533, przyznanego przez Narodowe Centrum Nauki. Badanie jest
+w pełni anonimowe i służy wyłącznie do celów naukowych. Udział w badaniu jest dobrowolny i w każdej chwili możesz się wycofać bez
+podawania powodów. Niektórzy uczestnicy badania otrzymają nagrody finansowe.
+<p/>
+Jeśli wyrażasz zgodę na udział w badaniu, kliknij przycisk "Dalej".
 ');
 
 INSERT INTO experiment.text_resources (key, value) VALUES ('Instructions.Lottery', '
@@ -77,8 +93,8 @@ INSERT INTO experiment.text_resources (key, value) VALUES ('Instructions.Thanks'
 
 INSERT INTO experiment.text_resources (key, value) VALUES ('Instructions.VariablesSelection',
 '
-Wybierz 7 z nich, najważniejszych i wystarczających Twoim zdaniem do udzielenia odpowiedzi na pytanie:
-czy na rynku jest hossa czy bessa.
+Na ekranie znajduje się 16 wskaźników z rynku kapitałowego. Wybierz 7 z nich, najważniejszych i wystarczających Twoim zdaniem
+do udzielenia odpowiedzi na pytanie: czy na rynku jest hossa czy bessa.
 ');
 
 INSERT INTO experiment.text_resources (key, value) VALUES ('Instructions.VariablesOrdering',
@@ -95,7 +111,7 @@ Poniżej znajduje się lista wybranych przez Ciebie wskaźników. Prosimy przypi
 ');
 
 INSERT INTO experiment.text_resources (key, value) VALUES ('Instructions.Trial', '
-Instrukcja iteracji
+Wybierz od 3 do 10 wskaźników i odpowiedz na pytanie: Czy na rynku papierów wartościowych jest hossa czy bessa?
 ');
 
 INSERT INTO experiment.text_resources (key, value) VALUES ('Instructions.ConfidenceQuestion',
