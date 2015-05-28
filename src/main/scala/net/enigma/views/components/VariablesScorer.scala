@@ -43,8 +43,11 @@ class VariablesScorer extends Panel with ValueChangedListenable[Int] {
     Try(notifyListeners(getVariables(validate = false).flatMap(_.score).sum))
   }
 
-  private class VariableComponent(variable: Variable) extends Panel(variable.title) {
+  private class VariableComponent(variable: Variable) extends HorizontalLayout() {
     setData(variable)
+
+    private val label = new Label(variable.title)
+        .withSizeUndefined
 
     private val textField = new TextField()
         .withConverter[Integer]
@@ -52,6 +55,7 @@ class VariablesScorer extends Panel with ValueChangedListenable[Int] {
         .withConvertedValue(0)
         .withMaxLength(2)
         .withConversionError(TextResources.Notifications.RankValueOutOfRange)
+        .withSizeUndefined
 
     textField
         .withFocusListener(_ ⇒ textField.selectAll())
@@ -60,13 +64,15 @@ class VariablesScorer extends Panel with ValueChangedListenable[Int] {
       valueChanged()
     }
 
-    val layout = new HorizontalLayout(new Label(TextResources.Labels.Rank).withSizeUndefined, textField)
-        .withWidth("100%")
-        .withMargins
-        .withSpacing
-        .withExpandRatio(textField, 1)
+    private val spacer = new HorizontalLayout().withFullWidth
+    addComponents(spacer, label, textField)
 
-    setContent(layout)
+    this
+        .withExpandRatio(spacer, 1)
+        .withComponentAlignment(label, Alignment.TOP_RIGHT)
+        .withComponentAlignment(textField, Alignment.TOP_RIGHT)
+        .withSpacing
+        .withVerticalMargins
 
     def value(validate: Boolean): Int = {
       if (validate) textField.validate()
