@@ -278,13 +278,30 @@ object App {
         new SimpleView(this.name, TextResources.Titles.PersonalData)
             with SurveyView with PersonalDataPresenter {
 
-          override def nextView: String = Thanks.name
+          override def nextView: String = EmailAddress.name
 
           override def instructions: String = TextResources.Instructions.PersonalData
 
           override lazy val allowedToEnter = App.testMode ||
               App.currentUser.isDefined && App.service.checkForCompletedStages(
                 requiredKeys = Set(Lottery.name), forbiddenKeys = Set(PersonalData.name))
+        }
+    }
+
+    object EmailAddress extends Provider("email-address") {
+      override def apply() =
+        new SimpleView(this.name, TextResources.Titles.EmailAddress)
+            with OpenQuestionView with EmailPresenter {
+
+          override def nextView: String = Thanks.name
+
+          override def instructions: String = TextResources.Instructions.EmailAddress
+
+          override lazy val allowedToEnter = App.testMode ||
+              App.currentUser.isDefined && App.service.checkForCompletedStages(
+                requiredKeys = Set(PersonalData.name), forbiddenKeys = Set(EmailAddress.name))
+
+          override def userService: UserService = App.service
         }
     }
 
@@ -299,7 +316,7 @@ object App {
 
           override lazy val allowedToEnter = App.testMode ||
               App.currentUser.isDefined && App.service.checkForCompletedStages(
-                requiredKeys = Set(PersonalData.name), forbiddenKeys = Set())
+                requiredKeys = Set(EmailAddress.name), forbiddenKeys = Set())
         }
     }
 

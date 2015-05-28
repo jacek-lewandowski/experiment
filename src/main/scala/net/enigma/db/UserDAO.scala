@@ -12,6 +12,12 @@ import net.enigma.model.User
  * @author Jacek Lewandowski
  */
 object UserDAO extends Entity {
+  def setEmailAddress(code: String, emailAddress: String): Unit = {
+    DBManager.connector.withSessionDo { session ⇒
+      session.execute(s"UPDATE $keyspace.$table SET email_address = ? WHERE code = ?", emailAddress, code)
+    }
+  }
+
   def getCurrentStage(code: String): Option[String] = {
     DBManager.connector.withSessionDo { session ⇒
       val rs = session.execute(s"SELECT current_stage FROM $keyspace.$table WHERE code = ?", code)

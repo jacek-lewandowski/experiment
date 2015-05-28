@@ -60,6 +60,8 @@ object TextResources {
 
     object ValidationError extends Resource
 
+    object InvalidEmailAddress extends Resource
+
   }
 
   object Titles extends ResourceGroup {
@@ -93,6 +95,8 @@ object TextResources {
     object Login extends Resource
 
     object CannotContinue extends Resource
+
+    object EmailAddress extends Resource
 
   }
 
@@ -128,6 +132,8 @@ object TextResources {
 
     object TrialQuestion extends Resource
 
+    object EmailQuestion extends Resource
+
   }
 
   object Instructions extends ResourceGroup {
@@ -161,6 +167,8 @@ object TextResources {
     object PersonalData extends Resource
 
     object LotteryQuestion extends Resource
+
+    object EmailAddress extends Resource
 
   }
 

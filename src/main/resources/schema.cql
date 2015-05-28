@@ -58,6 +58,7 @@ CREATE TABLE IF NOT EXISTS experiment.user_variables (
 
 CREATE TABLE IF NOT EXISTS experiment.users (
 	code				TEXT,
+	email_address		TEXT,
 	completed_stages	SET<TEXT>,
 	current_stage       TEXT,
 
