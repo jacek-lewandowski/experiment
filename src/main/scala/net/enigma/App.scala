@@ -178,7 +178,7 @@ object App {
     object ConfidenceQuestion extends Provider("confidence-question") {
       override def apply(): View =
         new SimpleView(this.name, TextResources.Titles.ConfidenceQuestion)
-            with OpenQuestionView with ConfidenceQuestionPresenter {
+            with ConfidenceQuestionView with ConfidenceQuestionPresenter {
 
           override lazy val stageService: TrialStageService = App.service.getTrialStageService
 

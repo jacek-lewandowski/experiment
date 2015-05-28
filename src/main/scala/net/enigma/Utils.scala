@@ -3,7 +3,8 @@ package net.enigma
 import scala.language.implicitConversions
 import scala.reflect.ClassTag
 
-import com.vaadin.data.Validator
+import com.vaadin.data.Property.{ValueChangeEvent, ValueChangeListener}
+import com.vaadin.data.{Property, Validator}
 import com.vaadin.event.FieldEvents.{BlurEvent, BlurListener, FocusEvent, FocusListener}
 import com.vaadin.shared.ui.MarginInfo
 import com.vaadin.shared.ui.label.ContentMode
@@ -58,6 +59,11 @@ object Utils {
 
     def withData(data: AnyRef): T = {
       component.setData(data)
+      component
+    }
+
+    def withImmediate: T = {
+      component.setImmediate(true)
       component
     }
   }
@@ -123,9 +129,15 @@ object Utils {
     }
   }
 
-  implicit def toButtonClickListener(f: Button.ClickEvent ⇒ Unit): Button.ClickListener = {
+  implicit def toButtonClickListener(f: Button.ClickEvent ⇒ Any): Button.ClickListener = {
     new ClickListener {
       override def buttonClick(clickEvent: ClickEvent): Unit = f(clickEvent)
+    }
+  }
+
+  implicit def toPropertyValueChangeListener(f: Property.ValueChangeEvent ⇒ Any): Property.ValueChangeListener = {
+    new ValueChangeListener {
+      override def valueChange(event: ValueChangeEvent): Unit = f(event)
     }
   }
 

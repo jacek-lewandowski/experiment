@@ -1,41 +1,40 @@
 package net.enigma.presenter
 
-import scala.util.Try
-
-import com.vaadin.data.validator.IntegerRangeValidator
+import com.vaadin.data.Property
 import com.vaadin.navigator.ViewChangeListener.ViewChangeEvent
+import com.vaadin.ui.Notification
 
 import net.enigma.TextResources
 import net.enigma.Utils._
 import net.enigma.service.TrialStageService
-import net.enigma.views.OpenQuestionView
+import net.enigma.views.ConfidenceQuestionView
 
 /**
  * @author Jacek Lewandowski
  */
 trait ConfidenceQuestionPresenter extends FlowPresenter {
-  self: OpenQuestionView ⇒
+  self: ConfidenceQuestionView ⇒
 
   def stageService: TrialStageService
 
+  private var clicked = false
+
   override def entered(event: ViewChangeEvent): Unit = {
-    answerField
-        .withBlurListener(_ ⇒ Try(answerField.validate()))
-        .withFocusListener(_ ⇒ answerField.selectAll())
-        .withConverter[Integer]
-        .withConversionError(TextResources.Notifications.ConfidenceValueInvalid)
-        .withConvertedValue(50)
-        .withMaxLength(3)
-        .withAdditionalValidator(
-          new IntegerRangeValidator(TextResources.Notifications.ConfidenceValueInvalid, 50, 100))
-        .setRequired(true)
+    answerSlider.setRequired(true)
+    answerSlider.addValueChangeListener { e: Property.ValueChangeEvent ⇒ clicked = true }
+
   }
 
   override def question: String = TextResources.Labels.ConfidenceQuestion
 
   override def accept(): Boolean = {
-    answerField.validate()
-    stageService.setConfidence(answerField.convertedValue[Integer])
-    stageService.isConfidenceProvided
+    answerSlider.validate()
+    if (!clicked) {
+      Notification.show(TextResources.Notifications.ConfidenceValueInvalid)
+      false
+    } else {
+      stageService.setConfidence(answerSlider.getValue.toInt)
+      stageService.isConfidenceProvided
+    }
   }
 }

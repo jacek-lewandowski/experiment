@@ -1,6 +1,6 @@
 package net.enigma.views
 
-import com.vaadin.ui.{Alignment, Label, TextField}
+import com.vaadin.ui.{Slider, Alignment, Label, TextField}
 
 import net.enigma.Utils._
 
