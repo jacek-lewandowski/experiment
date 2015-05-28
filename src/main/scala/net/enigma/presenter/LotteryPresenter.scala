@@ -3,9 +3,9 @@ package net.enigma.presenter
 import com.vaadin.navigator.ViewChangeListener.ViewChangeEvent
 import com.vaadin.ui.Notification
 
-import net.enigma.{App, TextResources}
 import net.enigma.service.LotteryStageService
 import net.enigma.views.LotteryView
+import net.enigma.{App, TextResources}
 
 /**
  * @author Jacek Lewandowski
@@ -32,8 +32,10 @@ trait LotteryPresenter extends FlowPresenter {
     val result = stageService.lottery()
     if (result) {
       Notification.show(TextResources.Notifications.WonTheLottery)
+      resultLabel.setValue(TextResources.Notifications.WonTheLottery)
     } else {
       Notification.show(TextResources.Notifications.LoseTheLottery)
+      resultLabel.setValue(TextResources.Notifications.LoseTheLottery)
     }
   }
 
@@ -41,11 +43,13 @@ trait LotteryPresenter extends FlowPresenter {
     selector.resetSelection()
     selector.setEnabled(false)
 
-    val result = stageService.confidence()
+    val (result, iterIdx) = stageService.confidence()
     if (result) {
-      Notification.show(TextResources.Notifications.CorrectAnswerProvided)
+      Notification.show(TextResources.Notifications.CorrectAnswerProvided.format(iterIdx + 1))
+      resultLabel.setValue(TextResources.Notifications.CorrectAnswerProvided.format(iterIdx + 1))
     } else {
-      Notification.show(TextResources.Notifications.NoCorrectAnswerProvided)
+      Notification.show(TextResources.Notifications.NoCorrectAnswerProvided.format(iterIdx + 1))
+      resultLabel.setValue(TextResources.Notifications.NoCorrectAnswerProvided.format(iterIdx + 1))
     }
   }
 

@@ -9,7 +9,7 @@ trait LotteryStageService {
 
   def getLotteryWinChance: Int
 
-  def confidence(): Boolean
+  def confidence(): (Boolean, Int)
 
   def lottery(): Boolean
 

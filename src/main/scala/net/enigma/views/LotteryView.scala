@@ -9,12 +9,11 @@ import net.enigma.views.components._
  * @author Jacek Lewandowski
  */
 trait LotteryView extends AbstractView {
-  val questionLabel = new Label(question)
 
   val lotteryOption = TextResources.Labels.Lottery: String
   val confidenceOption = TextResources.Labels.NotLottery: String
 
-  val selector = new ButtonsSelector(None, lotteryOption, confidenceOption)
+  val selector = new ButtonsSelector(Some(question), lotteryOption, confidenceOption)
 
   selector.addValueChangedListener {
     case `lotteryOption` ⇒ lotterySelected()
@@ -23,8 +22,10 @@ trait LotteryView extends AbstractView {
 
   addInfo(instructions)
 
-  content.addComponents(questionLabel, selector)
-  content.setComponentAlignment(questionLabel, Alignment.TOP_CENTER)
+  val resultLabel = new Label()
+
+  content.addComponents(selector, resultLabel)
+  content.setComponentAlignment(resultLabel, Alignment.TOP_CENTER)
   content.setComponentAlignment(selector, Alignment.MIDDLE_CENTER)
 
   def lotterySelected(): Unit
