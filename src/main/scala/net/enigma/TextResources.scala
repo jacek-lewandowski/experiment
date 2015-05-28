@@ -126,6 +126,8 @@ object TextResources {
 
     object ConfidenceQuestion extends Resource
 
+    object TrialQuestion extends Resource
+
   }
 
   object Instructions extends ResourceGroup {

@@ -2,7 +2,7 @@ package net.enigma.views.components
 
 import scala.util.Random
 
-import com.vaadin.ui.{Button, HorizontalLayout, Panel}
+import com.vaadin.ui.{Label, Button, HorizontalLayout, Panel}
 
 import net.enigma.Utils._
 import net.enigma.ValueChangedListenable
@@ -10,13 +10,12 @@ import net.enigma.ValueChangedListenable
 /**
  * @author Jacek Lewandowski
  */
-class ButtonsSelector[T <: AnyRef](options: T*) extends Panel with ValueChangedListenable[T] {
-
-  private var selectedValue: Option[T] = None
+class ButtonsSelector[T <: AnyRef](text: Option[String], options: T*) extends Panel with ValueChangedListenable[T] {
 
   val buttons = options.map(option ⇒ new Button(option.toString).withData(option).withFullWidth)
 
-  setContent(new HorizontalLayout(Random.shuffle(buttons): _*).withSpacing.withMargins)
+  private val components = text.map(new Label(_)).toList ::: Random.shuffle(buttons).toList
+  setContent(new HorizontalLayout(components: _*).withSpacing.withMargins)
 
   val SelectedStyleName = "two-option-question-button-selected"
 
@@ -34,7 +33,5 @@ class ButtonsSelector[T <: AnyRef](options: T*) extends Panel with ValueChangedL
   override def setEnabled(enabled: Boolean): Unit = {
     buttons.foreach(_.setEnabled(enabled))
   }
-
-  def isSelected: Boolean = selectedValue.isDefined
 
 }

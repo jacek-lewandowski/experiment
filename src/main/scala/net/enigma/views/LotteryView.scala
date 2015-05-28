@@ -14,7 +14,7 @@ trait LotteryView extends AbstractView {
   val lotteryOption = TextResources.Labels.Lottery: String
   val confidenceOption = TextResources.Labels.NotLottery: String
 
-  val selector = new ButtonsSelector(lotteryOption, confidenceOption)
+  val selector = new ButtonsSelector(None, lotteryOption, confidenceOption)
 
   selector.addValueChangedListener {
     case `lotteryOption` ⇒ lotterySelected()

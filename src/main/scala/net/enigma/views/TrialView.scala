@@ -17,13 +17,14 @@ trait TrialView extends AbstractView {
   val bearMarket = TextResources.Labels.Minus: String
 
   val grid = new ExperimentGrid(computeNextValue).withSizeFull
-  val decisionSelector = new ButtonsSelector(bullMarket, bearMarket)
+  val decisionSelector = new ButtonsSelector(Some(question), bullMarket, bearMarket)
       .withSizeUndefined
   val score = new ScoreCounter(100, TextResources.Labels.Score).withSizeUndefined
   val spacer = new HorizontalLayout()
+  val questionLabel = new Label(question)
 
   addInfo(instructions)
-  top.addComponents(decisionSelector, spacer, score)
+  top.addComponents(spacer, score, decisionSelector)
   top.setComponentAlignment(score, Alignment.MIDDLE_RIGHT)
   top.setExpandRatio(spacer, 1)
 
@@ -37,6 +38,8 @@ trait TrialView extends AbstractView {
   }
 
   def instructions: String
+
+  def question: String
 
   def computeNextValue(selectedVariable: Variable): VariableValue
 

@@ -22,6 +22,8 @@ trait TrialPresenter extends FlowPresenter {
 
   val trialSetup = stageService.trialSetup
 
+  override def question: String = TextResources.Labels.TrialQuestion
+
   override def computeNextValue(selectedVariable: Variable): VariableValue =
     stageService.selectVariable(selectedVariable)
 
