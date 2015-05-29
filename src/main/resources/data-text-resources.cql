@@ -58,34 +58,40 @@ INSERT INTO experiment.text_resources (key, value) VALUES ('Instructions.TrialIn
 W kolejnym etapie Twoim zadaniem będzie udzielenie odpowiedzi na pytanie: <quote>Czy na rynku papierów
 wartościowych jest hossa czy bessa?</quote> w oparciu o podane informacje.
 <p/>
-Za chwilę na ekranie pojawi się 16 informacji z rynku kapitałowego. Informacji jest 16, ale musisz
-wykorzystać co najmniej 3 i możesz wykorzystać co najwyżej 10 spośród nich. Pierwsze 3 informacje
-nic nie kosztują, ale każda następna kosztuje 10 punktów, które są odliczane od 70 punktów, które
-otrzymuje uczestnik na początku badania. Punkty można zachować lub wydać, zależy to od tego ile
-informacji wykorzystasz do podjęcia decyzji. Licznik wskazujący aktualną liczbę punktów znajduje się
-w prawej górnej części ekranu.
+Zgodnie z zapowiedzią, pięciu uczestników otrzyma nagrody pieniężne wysokości 500 zł. Nagrody otrzymają ci, którzy uzyskają najwyższą trafność odpowiedzi oraz zachowają największą liczbę z przypisanych każdej osobie 70 punktów.
+Punkty można zachować lub wydać, zależy to od tego ile informacji wykorzystasz żeby odpowiedzieć na pytanie: czy na rynku papierów wartościowych jest hossa czy bessa?
+Za chwilę pojawi się 16 informacji z rynku kapitałowego. Pierwsze 3 nic nie kosztuje, ale każda następna kosztuje 10 punktów, które są odliczane od 70 punktów.
+Informacji jest 16. Musisz wykorzystać 3 (darmowe) i możesz wykorzystać co najwyżej 10 spośród nich (każda powyżej trzech kosztuje 10 punktów).
 <p/>
-Pięciu uczestników, którzy zachowają największą liczbę punktów i uzyskają największą trafność odpowiedzi,
-dostanie nagrody pieniężne w wysokości 500 zł.
+Licznik wskazujący aktualną liczbę punktów znajduje się w górnej części ekranu.
+<p/>
+Jeśli chcesz wziąć udział w konkursie, musisz na końcu podać swój e-mail.
+<p/>
 ');
 INSERT INTO experiment.text_resources (key, value) VALUES ('Instructions.QuestionnaireInstruction', 'Instrukcja do kwestionariusza');
 INSERT INTO experiment.text_resources (key, value) VALUES ('Instructions.InitialInstruction', '
 Zapraszamy do udziału w badaniu finansowanym z grantu nr 2014/13/B/HS4/01533, przyznanego przez Narodowe Centrum Nauki. Badanie jest
-w pełni anonimowe i służy wyłącznie do celów naukowych. Udział w badaniu jest dobrowolny i w każdej chwili możesz się wycofać bez
-podawania powodów. Niektórzy uczestnicy badania otrzymają nagrody finansowe.
+w pełni anonimowe i służy wyłącznie do celów naukowych. Udział w badaniu jest dobrowolny i w każdej chwili możesz się z niego wycofać. 
+<p/>
+Celem badania jest ustalenie jakimi wskaźnikami posługują się prywatni inwestorzy przy ocenie trendów rynkowych. Badanie zajmuje około 30 minut. Niektórzy badani otrzymają nagrody finansowe – szczegóły w dalszej części badania.
+<p/>
+W przypadku jakichkolwiek pytań i wątpliwości prosimy o kontakt:
+<p/>
+Agnieszka Lewandowska amyrczek-lewandowska@swps.edu.pl
+<p/>
+Sandra Siemieniec ssiemieniec@st.swps.edu.pl
 <p/>
 Jeśli wyrażasz zgodę na udział w badaniu, kliknij przycisk "Dalej".
 ');
 
 INSERT INTO experiment.text_resources (key, value) VALUES ('Instructions.Lottery', '
-W tej części badania masz możliwość wygrania dodatkowo 50 złotych.
-Proponujemy Ci wybór między zakładem a loterią.
+Proponujemy Ci wybór między zakładem, że trafnie odpowiedziałeś, że jest hossa lub bessa a loterią. 
 <p/>
-Jeżeli wybierzesz zakład, wygrasz 50 złotych jeżeli trafnie odpowiedziałeś w jednym z dwóch ostatnich zadań - dziewiątym lub dziesiątym.
+Jeśli wybierzesz zakład, wygrasz 50 złotych jeśli trafnie określiłeś trend rynkowy w jednym z dwóch ostatnich pytań - 9 lub 10.
+Nie wiesz jednak które to będzie pytanie. Przez komputer wylosowane będzie jedno pytanie, czyli są jednakowe szanse na to, że będzie to pytanie 9 lub 10.
 <p/>
-Jeżeli wybierzesz loterię, możesz wygrać 50 złotych z prawdopodobieństwem %s.
-<p/>
-Niezależnie od tego co wybierzesz, to czy wygrasz dodatkowe 50 złotych będzie wiadome przed końcem komputerowej części badania.
+Jeżeli wybierzesz loterię możesz wygrać 50 złotych, jeżeli w urny będzie wylosowana przez komputer kula biała. W urnie jest 100 kul, a białych jest …%
+
 ');
 INSERT INTO experiment.text_resources (key, value) VALUES ('Instructions.LotteryQuestion', 'Kliknij w jedno z dwóch okienek, zgodnie z wyborem, którego dokonałeś.');
 
@@ -116,19 +122,24 @@ Poniżej znajduje się lista wybranych przez Ciebie wskaźników. Prosimy przypi
 ');
 
 INSERT INTO experiment.text_resources (key, value) VALUES ('Instructions.Trial', '
-Wybierz od 3 do 10 wskaźników i odpowiedz na pytanie: Czy na rynku papierów wartościowych jest hossa czy bessa?
+Wybierz co najmniej 3 i co najwyżej 10 wskaźników. Informacja odsłoni się gdy klikniesz na wybranym polu. 
+<p/>
+Przeczytaj informacje i odpowiedz na pytanie: czy na rynku papierów wartościowych jest hossa czy bessa?
 ');
 
 INSERT INTO experiment.text_resources (key, value) VALUES ('Instructions.ConfidenceQuestion',
 '
-Prosimy teraz o określenie stopnia pewności, że odpowiedziałeś prawidłowo na pytanie "Czy na rynku jest hossa czy bessa?" na skali 50%-100%.
-Twoja odpowiedź może być dowolną liczbą z tego zakresu.
-Wybór 50% oznacza, że strzelałeś, wybór 100% - że jesteś całkowicie pewien trafności swojej odpowiedzi.
+Na ile jesteś przekonany, że odpowiedziałeś prawidłowo na pytanie o trendy rynkowe?
+<p/>
+Zaznacz swoje przekonanie na skali 50-100%. Ponieważ odpowiedzi są tylko dwie, 50% oznacza, że zgadywałeś, a 100% że jesteś całkowicie pewien swojej odpowiedzi.
+<p/>
+Jak bardzo jesteś pewien, że odpowiedziałeś prawidłowo?
+
 ');
 
 INSERT INTO experiment.text_resources (key, value) VALUES ('Instructions.ExplanationQuestion',
 '
-W kilku słowach uzasadnij dlaczego uznałeś te wskaźniki za diagnostyczne.
+W kilku słowach uzasadnij dlaczego uznałeś te wskaźniki za diagnostyczne. Wpisz komentarz.
 ');
 
 INSERT INTO experiment.text_resources (key, value) VALUES ('Instructions.MostImportantVariables',
