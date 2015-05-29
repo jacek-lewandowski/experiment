@@ -90,16 +90,14 @@ Proponujemy Ci wybór między zakładem, że trafnie odpowiedziałeś, że jest 
 Jeśli wybierzesz zakład, wygrasz 50 złotych jeśli trafnie określiłeś trend rynkowy w jednym z dwóch ostatnich pytań - 9 lub 10.
 Nie wiesz jednak które to będzie pytanie. Przez komputer wylosowane będzie jedno pytanie, czyli są jednakowe szanse na to, że będzie to pytanie 9 lub 10.
 <p/>
-Jeżeli wybierzesz loterię możesz wygrać 50 złotych, jeżeli w urny będzie wylosowana przez komputer kula biała. W urnie jest 100 kul, a białych jest …%
-
+Jeżeli wybierzesz loterię możesz wygrać 50 złotych, jeżeli w urny będzie wylosowana przez komputer kula biała. W urnie jest 100 kul, a białych jest %s.
 ');
 INSERT INTO experiment.text_resources (key, value) VALUES ('Instructions.LotteryQuestion', 'Kliknij w jedno z dwóch okienek, zgodnie z wyborem, którego dokonałeś.');
 
 INSERT INTO experiment.text_resources (key, value) VALUES ('Instructions.Thanks',
 '
 <h1>Dziękujemy za udział w badaniu</h1>
-<p>W celu uzyskania wyników końcowych skontaktuj się z nami pod <a href="mailto:badanie@das-experiment.org">tym adresem</a>.</p>
-<p>Tutaj można sobie dodać jakiś opis, może być kolorowy, zawierać obrazki, itd.
+<p>W celu uzyskania wyników końcowych skontaktuj się z nami pod <a href="mailto:amyrczek-lewandowska@swps.edu.pl">tym adresem</a>.</p>
 ');
 
 INSERT INTO experiment.text_resources (key, value) VALUES ('Instructions.VariablesSelection',
@@ -152,13 +150,13 @@ INSERT INTO experiment.text_resources (key, value) VALUES ('Instructions.Questio
 Instrukcja do kwestionariusza
 ');
 
-INSERT INTO experiment.text_resources (key, value) VALUES ('Instructions.PersonalData',
-'
-Instrukcja do ankiety
-');
+INSERT INTO experiment.text_resources (key, value) VALUES ('Instructions.PersonalData', '');
 
 INSERT INTO experiment.text_resources (key, value) VALUES ('Instructions.EmailAddress', '
-Jakaś intrukcja do adresu email
+Jeżeli chcesz wziąc udział w konkursie, wpisz swój email.
 ');
 
-INSERT INTO experiment.text_resources (key, value) VALUES ('Instructions.Justifications', 'Instrukcja do uzasadnień');
+INSERT INTO experiment.text_resources (key, value) VALUES ('Instructions.Justifications', '
+Poniżej znajduje się lista wskaźników, które wybrałeś w badaniu aby odpowiedzieć na pytanie o trendy
+rynkowe. Dlaczego uznałeś je za diagnostyczne? Wpisz komentarz.
+');
