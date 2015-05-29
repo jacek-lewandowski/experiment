@@ -68,7 +68,7 @@ object TextResources {
 
     object MostImportantVariables extends Resource
 
-    object ExplanationQuestion extends Resource
+    object Justifications extends Resource
 
     object ConfidenceQuestion extends Resource
 
@@ -158,7 +158,7 @@ object TextResources {
 
     object ConfidenceQuestion extends Resource
 
-    object ExplanationQuestion extends Resource
+    object Justifications extends Resource
 
     object MostImportantVariables extends Resource
 

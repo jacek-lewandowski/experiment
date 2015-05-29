@@ -81,14 +81,8 @@ class TrialStageServiceImplTest extends FunSpec with Matchers {
     initialService
   }
 
-  def serviceWithProvidedExplanation(initialService: TrialStageService = serviceInInitialState()) = {
-    serviceWithProvidedConfidence(initialService)
-    initialService.setExplanation("abc")
-    initialService
-  }
-
   def serviceWithProvidedEssentialVars(initialService: TrialStageService = serviceInInitialState()) = {
-    serviceWithProvidedExplanation(initialService)
+    serviceWithProvidedConfidence(initialService)
     val vars = initialService.getSelectedVariables().take(initialService.trialSetup.essentialVarsCount)
     initialService.setEssentialVariables(vars)
     initialService
@@ -205,7 +199,6 @@ class TrialStageServiceImplTest extends FunSpec with Matchers {
         intercept[IllegalStateException](stageService.selectVariable(Variable(1, "aaa")))
         intercept[IllegalStateException](stageService.setAnswer(TrialAnswer.Plus))
         intercept[IllegalStateException](stageService.setConfidence(75))
-        intercept[IllegalStateException](stageService.setExplanation("explanation"))
         intercept[IllegalStateException](stageService.getSelectedVariables())
         intercept[IllegalStateException](stageService.setEssentialVariables(List(Variable(1, "aaa"))))
       }
@@ -213,7 +206,6 @@ class TrialStageServiceImplTest extends FunSpec with Matchers {
       it("should report a valid state") {
         stageService.isAnswerProvided shouldBe false
         stageService.isConfidenceProvided shouldBe false
-        stageService.isExplanationProvided shouldBe false
         stageService.isMostImportantVariablesProvided shouldBe false
         stageService.isIterationStarted shouldBe false
         stageService.isIterationFinished shouldBe false
@@ -228,14 +220,12 @@ class TrialStageServiceImplTest extends FunSpec with Matchers {
         intercept[IllegalStateException](stageService.prepareVariables())
         intercept[IllegalStateException](stageService.setAnswer(TrialAnswer.Plus))
         intercept[IllegalStateException](stageService.setConfidence(75))
-        intercept[IllegalStateException](stageService.setExplanation("explanation"))
         intercept[IllegalStateException](stageService.setEssentialVariables(List(Variable(1, "aaa"))))
       }
 
       it("should report a valid state") {
         stageService.isAnswerProvided shouldBe false
         stageService.isConfidenceProvided shouldBe false
-        stageService.isExplanationProvided shouldBe false
         stageService.isMostImportantVariablesProvided shouldBe false
         stageService.isIterationStarted shouldBe true
         stageService.isIterationFinished shouldBe false
@@ -250,36 +240,12 @@ class TrialStageServiceImplTest extends FunSpec with Matchers {
         intercept[IllegalStateException](stageService.prepareVariables())
         intercept[IllegalStateException](stageService.selectVariable(Variable(1, "aaa")))
         intercept[IllegalStateException](stageService.setAnswer(TrialAnswer.Plus))
-        intercept[IllegalStateException](stageService.setExplanation("explanation"))
         intercept[IllegalStateException](stageService.setEssentialVariables(List(Variable(1, "aaa"))))
       }
 
       it("should report a valid state") {
         stageService.isAnswerProvided shouldBe true
         stageService.isConfidenceProvided shouldBe false
-        stageService.isExplanationProvided shouldBe false
-        stageService.isMostImportantVariablesProvided shouldBe false
-        stageService.isIterationStarted shouldBe true
-        stageService.isIterationFinished shouldBe false
-        stageService.isNextIterationAvailable shouldBe true
-      }
-    }
-
-    describe("when confidence is provided") {
-      val stageService = serviceWithProvidedConfidence()
-
-      it("should not allow to do anything but providing explanation") {
-        intercept[IllegalStateException](stageService.prepareVariables())
-        intercept[IllegalStateException](stageService.selectVariable(Variable(1, "aaa")))
-        intercept[IllegalStateException](stageService.setAnswer(TrialAnswer.Plus))
-        intercept[IllegalStateException](stageService.setConfidence(75))
-        intercept[IllegalStateException](stageService.setEssentialVariables(List(Variable(1, "aaa"))))
-      }
-
-      it("should report a valid state") {
-        stageService.isAnswerProvided shouldBe true
-        stageService.isConfidenceProvided shouldBe true
-        stageService.isExplanationProvided shouldBe false
         stageService.isMostImportantVariablesProvided shouldBe false
         stageService.isIterationStarted shouldBe true
         stageService.isIterationFinished shouldBe false
@@ -288,20 +254,18 @@ class TrialStageServiceImplTest extends FunSpec with Matchers {
     }
 
     describe("when explanation is provided") {
-      val stageService = serviceWithProvidedExplanation()
+      val stageService = serviceWithProvidedConfidence()
 
       it("should not allow to do anything but providing essential variables set") {
         intercept[IllegalStateException](stageService.prepareVariables())
         intercept[IllegalStateException](stageService.selectVariable(Variable(1, "aaa")))
         intercept[IllegalStateException](stageService.setAnswer(TrialAnswer.Plus))
         intercept[IllegalStateException](stageService.setConfidence(75))
-        intercept[IllegalStateException](stageService.setExplanation("explanation"))
       }
 
       it("should report a valid state") {
         stageService.isAnswerProvided shouldBe true
         stageService.isConfidenceProvided shouldBe true
-        stageService.isExplanationProvided shouldBe true
         stageService.isMostImportantVariablesProvided shouldBe false
         stageService.isIterationStarted shouldBe true
         stageService.isIterationFinished shouldBe false
@@ -316,14 +280,12 @@ class TrialStageServiceImplTest extends FunSpec with Matchers {
         intercept[IllegalStateException](stageService.selectVariable(Variable(1, "aaa")))
         intercept[IllegalStateException](stageService.setAnswer(TrialAnswer.Plus))
         intercept[IllegalStateException](stageService.setConfidence(75))
-        intercept[IllegalStateException](stageService.setExplanation("explanation"))
         intercept[IllegalStateException](stageService.setEssentialVariables(List(Variable(1, "aaa"))))
       }
 
       it("should report a valid state") {
         stageService.isAnswerProvided shouldBe true
         stageService.isConfidenceProvided shouldBe true
-        stageService.isExplanationProvided shouldBe true
         stageService.isMostImportantVariablesProvided shouldBe true
         stageService.isIterationStarted shouldBe false
         stageService.isIterationFinished shouldBe true
@@ -339,14 +301,12 @@ class TrialStageServiceImplTest extends FunSpec with Matchers {
         intercept[IllegalStateException](stageService.selectVariable(Variable(1, "aaa")))
         intercept[IllegalStateException](stageService.setAnswer(TrialAnswer.Plus))
         intercept[IllegalStateException](stageService.setConfidence(75))
-        intercept[IllegalStateException](stageService.setExplanation("explanation"))
         intercept[IllegalStateException](stageService.setEssentialVariables(List(Variable(1, "aaa"))))
       }
 
       it("should report a valid state") {
         stageService.isAnswerProvided shouldBe true
         stageService.isConfidenceProvided shouldBe true
-        stageService.isExplanationProvided shouldBe true
         stageService.isMostImportantVariablesProvided shouldBe true
         stageService.isIterationStarted shouldBe false
         stageService.isIterationFinished shouldBe true
@@ -383,14 +343,14 @@ class TrialStageServiceImplTest extends FunSpec with Matchers {
     }
 
     describe("when wrong amount of essential variables are provided") {
-      val stageService = serviceWithProvidedExplanation()
+      val stageService = serviceWithProvidedConfidence()
       val selectedVars = stageService.getSelectedVariables()
       intercept[IllegalArgumentException](stageService.setEssentialVariables(Nil))
       intercept[IllegalArgumentException](stageService.setEssentialVariables(selectedVars))
     }
 
     describe("when essential variables from outside the previously selected variables are provided") {
-      val stageService = serviceWithProvidedExplanation()
+      val stageService = serviceWithProvidedConfidence()
       val varDefs = stageService.getPreparedVariables()
       val vars = for (VariableDefinition(_, id, title, _, _) ← varDefs) yield Variable(id, title)
       val selectedVars = stageService.getSelectedVariables()
@@ -399,7 +359,7 @@ class TrialStageServiceImplTest extends FunSpec with Matchers {
     }
 
     describe("when duplicated essential variables are provided") {
-      val stageService = serviceWithProvidedExplanation()
+      val stageService = serviceWithProvidedConfidence()
       val selectedVars = Iterator.continually(stageService.getSelectedVariables().head).take(stageService.trialSetup.essentialVarsCount)
       intercept[IllegalArgumentException](stageService.setEssentialVariables(selectedVars.toList))
     }

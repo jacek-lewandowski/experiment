@@ -12,6 +12,8 @@ trait ExperimentService {
 
   def getLotteryStageService: LotteryStageService
 
+  def getJustificationsStageService: JustificationsStageService
+
   def getTrialSetup: TrialSetup
 
   def getVariablesSetup: VariablesSetup

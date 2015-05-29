@@ -110,21 +110,9 @@ class TrialStageServiceImpl(val userCode: String, _trialSetup: TrialSetup) exten
     updateStageInfo(stageInfo.withCurIter(_.copy(confidence = Some(confidence))))
   }
 
-  def isAwaitingExplanation(info: TrialStageInfo): Boolean = {
-    info.iterationState == IterationState.started &&
-        info.curIter.get.confidence.isDefined &&
-        info.curIter.get.explanation.isEmpty
-  }
-
-  override def setExplanation(explanation: String): Unit = {
-    val stageInfo = getStageInfo
-    requireState(isAwaitingExplanation(stageInfo))
-    updateStageInfo(stageInfo.withCurIter(_.copy(explanation = Some(explanation))))
-  }
-
   def isAwaitingEssentialVariables(info: TrialStageInfo): Boolean = {
     info.iterationState == IterationState.started &&
-        info.curIter.get.explanation.isDefined
+        info.curIter.get.confidence.isDefined
   }
 
   override def setEssentialVariables(variables: List[Variable]): Unit = {
@@ -142,9 +130,6 @@ class TrialStageServiceImpl(val userCode: String, _trialSetup: TrialSetup) exten
 
   override def isConfidenceProvided: Boolean =
     getStageInfo.curIter.fold(false)(_.confidence.isDefined)
-
-  override def isExplanationProvided: Boolean =
-    getStageInfo.curIter.fold(false)(_.explanation.isDefined)
 
   override def isMostImportantVariablesProvided: Boolean =
     getStageInfo.curIter.fold(false)(_.essentialVars.nonEmpty)

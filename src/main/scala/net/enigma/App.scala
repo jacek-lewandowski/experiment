@@ -182,26 +182,9 @@ object App {
 
           override lazy val stageService: TrialStageService = App.service.getTrialStageService
 
-          override def nextView = ExplanationQuestion.name
-
-          override def instructions: String = TextResources.Instructions.ConfidenceQuestion
-
-          override lazy val allowedToEnter = App.testMode ||
-              App.currentUser.isDefined && App.service.checkForCompletedStages(
-                requiredKeys = Set(TrialInstruction.name), forbiddenKeys = Set(Trial.name)) // TODO check iteration state
-        }
-    }
-
-    object ExplanationQuestion extends Provider("explanation-question") {
-      override def apply(): View =
-        new SimpleView(this.name, TextResources.Titles.ExplanationQuestion)
-            with OpenQuestionView with ExplanationPresenter {
-
-          override lazy val stageService: TrialStageService = App.service.getTrialStageService
-
           override def nextView = MostImportantVariables.name
 
-          override def instructions: String = TextResources.Instructions.ExplanationQuestion
+          override def instructions: String = TextResources.Instructions.ConfidenceQuestion
 
           override lazy val allowedToEnter = App.testMode ||
               App.currentUser.isDefined && App.service.checkForCompletedStages(
@@ -216,13 +199,30 @@ object App {
 
           override lazy val stageService: TrialStageService = App.service.getTrialStageService
 
-          override def nextView = if (stageService.isNextIterationAvailable) Trial.name else Lottery.name
+          override def nextView = if (stageService.isNextIterationAvailable) Trial.name else Justifications.name
 
           override def instructions: String = TextResources.Instructions.MostImportantVariables
 
           override lazy val allowedToEnter = App.testMode ||
               App.currentUser.isDefined && App.service.checkForCompletedStages(
                 requiredKeys = Set(TrialInstruction.name), forbiddenKeys = Set(Trial.name)) // TODO check iteration state
+        }
+    }
+
+    object Justifications extends Provider("justifications") {
+      override def apply(): View =
+        new SimpleView(this.name, TextResources.Titles.Justifications)
+            with JustificationsView with JustificationsPresenter {
+
+          override lazy val stageService: JustificationsStageService = App.service.getJustificationsStageService
+
+          override def nextView = Lottery.name
+
+          override def instructions: String = TextResources.Instructions.Justifications
+
+          override lazy val allowedToEnter = App.testMode ||
+              App.currentUser.isDefined && App.service.checkForCompletedStages(
+                requiredKeys = Set(Trial.name), forbiddenKeys = Set(Justifications.name))
         }
     }
 

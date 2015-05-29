@@ -17,19 +17,15 @@ trait ConfidenceQuestionPresenter extends FlowPresenter {
 
   def stageService: TrialStageService
 
-  private var clicked = false
-
   override def entered(event: ViewChangeEvent): Unit = {
     answerSlider.setRequired(true)
-    answerSlider.addValueChangeListener { e: Property.ValueChangeEvent ⇒ clicked = true }
-
   }
 
   override def question: String = TextResources.Labels.ConfidenceQuestion
 
   override def accept(): Boolean = {
     answerSlider.validate()
-    if (!clicked) {
+    if (answerSlider.getValue < 50) {
       Notification.show(TextResources.Notifications.ConfidenceValueInvalid)
       false
     } else {

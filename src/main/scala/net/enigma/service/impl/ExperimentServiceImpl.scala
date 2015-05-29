@@ -3,7 +3,7 @@ package net.enigma.service.impl
 import org.slf4j.LoggerFactory
 
 import net.enigma.model.{TrialSetup, VariablesSetup}
-import net.enigma.service.{ExperimentService, LotteryStageService, TrialStageService, VariablesStageService}
+import net.enigma.service._
 import net.enigma.{App, TextResources}
 
 /**
@@ -22,6 +22,10 @@ trait ExperimentServiceImpl extends ExperimentService {
 
   override def getLotteryStageService: LotteryStageService = {
     new LotteryStageServiceImpl(App.currentUser.get.code, TextResources.Setup.Lottery.LastIterationsCount.intValue)
+  }
+
+  override def getJustificationsStageService: JustificationsStageService = {
+    new JustificationsStageServiceImpl(App.currentUser.get.code)
   }
 
   override def getTrialSetup: TrialSetup = {

@@ -14,6 +14,7 @@ INSERT INTO experiment.text_resources (key, value) VALUES ('Titles.VariablesOrde
 INSERT INTO experiment.text_resources (key, value) VALUES ('Titles.VariablesScoring', 'Określanie ważności czynników');
 INSERT INTO experiment.text_resources (key, value) VALUES ('Titles.CannotContinue', 'Nie można kontynuować');
 INSERT INTO experiment.text_resources (key, value) VALUES ('Titles.EmailAddress', 'Adres email');
+INSERT INTO experiment.text_resources (key, value) VALUES ('Titles.Justifications', 'Uzasadnienia');
 
 INSERT INTO experiment.text_resources (key, value) VALUES ('Labels.Lottery', 'Wybieram loterię');
 INSERT INTO experiment.text_resources (key, value) VALUES ('Labels.NotLottery', 'Wybieram zakład');
@@ -48,8 +49,8 @@ INSERT INTO experiment.text_resources (key, value) VALUES ('Notifications.MustCh
 -- powiadomienie w czasie iteracji, jak ktors chce iść dalej nie wybierając uprzednio odpowiedzi
 INSERT INTO experiment.text_resources (key, value) VALUES ('Notifications.NeedToSelectAnswer', 'Należy wybrać odpowiedź');
 
-INSERT INTO experiment.text_resources (key, value) VALUES ('Notifications.CorrectAnswerProvided', 'Wygrałeś/aś zakład');
-INSERT INTO experiment.text_resources (key, value) VALUES ('Notifications.NoCorrectAnswerProvided', 'Przegrałeś/aś zakład');
+INSERT INTO experiment.text_resources (key, value) VALUES ('Notifications.CorrectAnswerProvided', 'Wygrałeś/aś zakład - Twoja odpowiedź w iteracji %d była poprawna');
+INSERT INTO experiment.text_resources (key, value) VALUES ('Notifications.NoCorrectAnswerProvided', 'Przegrałeś/aś zakład - Twoja odpowiedź w iteracji %d była błędna');
 INSERT INTO experiment.text_resources (key, value) VALUES ('Notifications.ValidationError', 'Uzupełnij poprawnie wszystkie pola');
 INSERT INTO experiment.text_resources (key, value) VALUES ('Notifications.InvalidEmailAddress', 'Podany adres email jest nieprawidłowy');
 
@@ -148,3 +149,5 @@ Instrukcja do ankiety
 INSERT INTO experiment.text_resources (key, value) VALUES ('Instructions.EmailAddress', '
 Jakaś intrukcja do adresu email
 ');
+
+INSERT INTO experiment.text_resources (key, value) VALUES ('Instructions.Justifications', 'Instrukcja do uzasadnień');

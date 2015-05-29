@@ -8,7 +8,7 @@ import net.enigma.Utils._
  * @author Jacek Lewandowski
  */
 trait ConfidenceQuestionView extends AbstractView {
-  val answerSlider = new Slider(question, 50, 100)
+  val answerSlider = new Slider(question, 0, 100)
       .withFullWidth
       .withImmediate
 
@@ -16,8 +16,8 @@ trait ConfidenceQuestionView extends AbstractView {
 
   addInfo(instructions)
 
-  private val leftLabel = new Label("50").withSizeUndefined
-  private val rightLabel = new Label("100").withSizeUndefined
+  private val leftLabel = new Label("0%").withSizeUndefined
+  private val rightLabel = new Label("100%").withSizeUndefined
   private val sliderLayout = new HorizontalLayout(leftLabel, answerSlider, rightLabel)
   sliderLayout
       .withWidth("70%")

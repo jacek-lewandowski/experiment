@@ -40,7 +40,7 @@ class LotteryStageServiceImplTest extends FunSpec with Matchers {
       it("should allow to choose confidence and return true when the answer was correct") {
         val stageService = new LotteryStageServiceImplMock(true)
         stageService.isStageCompleted shouldBe false
-        stageService.confidence() shouldBe true
+        stageService.confidence()._1 shouldBe true
         stageService.isStageCompleted shouldBe true
         intercept[IllegalStateException](stageService.confidence())
         intercept[IllegalStateException](stageService.lottery())
@@ -49,7 +49,7 @@ class LotteryStageServiceImplTest extends FunSpec with Matchers {
       it("should allow to choose confidence and return false when the answer was incorrect") {
         val stageService = new LotteryStageServiceImplMock(true, TrialAnswer.Minus)
         stageService.isStageCompleted shouldBe false
-        stageService.confidence() shouldBe false
+        stageService.confidence()._1 shouldBe false
         stageService.isStageCompleted shouldBe true
         intercept[IllegalStateException](stageService.confidence())
         intercept[IllegalStateException](stageService.lottery())

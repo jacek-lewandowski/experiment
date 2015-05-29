@@ -13,8 +13,6 @@ trait TrialStageService {
 
   def isMostImportantVariablesProvided: Boolean
 
-  def isExplanationProvided: Boolean
-
   def isConfidenceProvided: Boolean
 
   def isAnswerProvided: Boolean
@@ -34,8 +32,6 @@ trait TrialStageService {
   def setAnswer(answer: TrialAnswerType)
 
   def setConfidence(confidence: Int)
-
-  def setExplanation(explanation: String)
 
   def setEssentialVariables(variables: List[Variable])
 

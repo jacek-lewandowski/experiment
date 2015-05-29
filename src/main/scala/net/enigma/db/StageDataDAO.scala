@@ -38,6 +38,13 @@ object StageDataDAO extends Entity {
     val stageInfoID = "stageInfo"
   }
 
+  object Justifications {
+    implicit val formats = Serialization.formats(NoTypeHints)
+
+    val stageID = "justifications"
+    val stageInfoID = "stageInfo"
+  }
+
   object Variables {
     implicit val formats = Serialization.formats(NoTypeHints) ++ Seq(
       new EnumNameSerializer(VariablesState)

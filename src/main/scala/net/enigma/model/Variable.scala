@@ -7,7 +7,8 @@ case class Variable(
   id: Int,
   title: String,
   ordinalNumber: Option[Int] = None,
-  score: Option[Int] = None
+  score: Option[Int] = None,
+  justification: Option[String] = None
 ) {
 
   def withOrdinalNumber(ordinalNumber: Int): Variable =
