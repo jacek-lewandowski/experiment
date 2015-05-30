@@ -28,8 +28,9 @@ trait TrialPresenter extends FlowPresenter {
   override def computeNextValue(selectedVariable: Variable): VariableValue =
     stageService.selectVariable(selectedVariable)
 
-  override def updateSelectionCount(selectionCount: Int): Unit = {
+  override def updateSelectionCount(): Unit = {
     import trialSetup._
+    val selectionCount = stageService.getSelectedVariables().size
     if (selectionCount >= maxSelectedVariablesCount) {
       grid.disable()
     }
@@ -70,6 +71,7 @@ trait TrialPresenter extends FlowPresenter {
     decisionSelector.resetSelection()
     decisionSelector.setEnabled(false)
     score.setValue(stageService.availableScore.toString)
+    updateSelectionCount()
   }
 
   override def entered(event: ViewChangeEvent): Unit = {

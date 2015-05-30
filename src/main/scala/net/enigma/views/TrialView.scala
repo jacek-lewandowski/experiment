@@ -31,7 +31,7 @@ trait TrialView extends AbstractView {
   content.addComponents(grid)
   content.setExpandRatio(grid, 1)
 
-  grid.addValueChangedListener(updateSelectionCount)
+  grid.addValueChangedListener(x ⇒ updateSelectionCount())
   decisionSelector.addValueChangedListener {
     case `bullMarket` ⇒ selectAnswer(Plus)
     case `bearMarket` ⇒ selectAnswer(Minus)
@@ -43,7 +43,7 @@ trait TrialView extends AbstractView {
 
   def computeNextValue(selectedVariable: Variable): VariableValue
 
-  def updateSelectionCount(selectionCount: Int): Unit
+  def updateSelectionCount(): Unit
 
   def selectAnswer(answer: TrialAnswerType): Unit
 
