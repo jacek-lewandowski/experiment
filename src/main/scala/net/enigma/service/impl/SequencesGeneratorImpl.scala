@@ -13,7 +13,7 @@ class SequencesGeneratorImpl(trialSetup: TrialSetup) {
   def generateSequences(): List[List[TrialAnswerType]] = {
     val seqGroups = parseSetup(trialSetup.sequenceSetup)
     val shuffledSeqGroups = seqGroups.map(App.random.shuffle(_))
-    val clearSeqSource = makeClearSequenceSource(trialSetup.sequenceLength)
+    val clearSeqSource = makeClearSequenceSource(trialSetup.maxSelectedVariablesCount)
     val ambiguousSeqSource = makeAmbiguousSequenceSource(trialSetup.sequenceLength)
     generateSequences(shuffledSeqGroups, clearSeqSource, ambiguousSeqSource)
   }
@@ -23,12 +23,14 @@ class SequencesGeneratorImpl(trialSetup: TrialSetup) {
    * to the user is a flattened list of sequences.
    */
   private def parseSetup(setup: String): List[List[Sequence.Value]] = {
-    for (shuffleRange ← setup.split("|").toList if shuffleRange.nonEmpty) yield {
+    val groups = for (shuffleRange ← setup.split('|').toList if shuffleRange.nonEmpty) yield {
       shuffleRange.toUpperCase.toList.collect {
         case 'A' ⇒ Sequence.ambiguous
         case 'C' ⇒ Sequence.clear
       }
     }
+
+    groups.filter(_.nonEmpty)
   }
 
   private def generateSequences(
