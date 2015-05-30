@@ -5,6 +5,17 @@
           http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd"
          version="3.0">
 
+    <context-param>
+        <param-name>heartbeatInterval</param-name>
+        <param-value>30</param-value>
+    </context-param>
+
+    <context-param>
+        <param-name>productionMode</param-name>
+        <param-value>true</param-value>
+        <description>Vaadin production mode</description>
+    </context-param>
+
     <servlet>
         <servlet-name>myservlet</servlet-name>
         <servlet-class>
@@ -15,10 +26,20 @@
             <param-name>UI</param-name>
             <param-value>net.enigma.ExperimentUI</param-value>
         </init-param>
-        
+
         <init-param>
             <param-name>widgetset</param-name>
             <param-value>net.enigma.experiment.Widgetset</param-value>
+        </init-param>
+
+        <init-param>
+            <param-name>closeIdleSessions</param-name>
+            <param-value>true</param-value>
+        </init-param>
+
+        <init-param>
+            <param-name>pushmode</param-name>
+            <param-value>automatic</param-value>
         </init-param>
 
         <async-supported>true</async-supported>
@@ -29,4 +50,7 @@
         <url-pattern>/*</url-pattern>
     </servlet-mapping>
 
+    <session-config>
+        <session-timeout>60</session-timeout>
+    </session-config>
 </web-app>
