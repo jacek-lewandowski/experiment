@@ -12420,26 +12420,67 @@ div.v-layout.v-horizontal.v-widget {
 	line-height: 36px;
 	border-bottom: none;
 	margin-bottom: 1px;
-	background-color: #4055bf;
-	background-image: -webkit-linear-gradient(top, #4156c0 2%, #3d52bb 98%);
-	background-image: linear-gradient(to bottom,#4156c0 2%, #3d52bb 98%);
-	color: #d0d4e7;
+	background-color: #508ca5;
+	background-image: -webkit-linear-gradient(top, #518ea6 2%, #4d87a1 98%);
+	background-image: linear-gradient(to bottom,#518ea6 2%, #4d87a1 98%);
+	color: #d2dde2;
 	font-weight: 400;
 	font-size: 14px;
-	-webkit-box-shadow: inset 0 1px 0 #6e7ac5, inset 0 -1px 0 #3d51b2, 0 0 0 1px #3648a2;
-	box-shadow: inset 0 1px 0 #6e7ac5, inset 0 -1px 0 #3d51b2, 0 0 0 1px #3648a2;
+	-webkit-box-shadow: inset 0 1px 0 #7998af, inset 0 -1px 0 #4c829a, 0 0 0 1px #44778c;
+	box-shadow: inset 0 1px 0 #7998af, inset 0 -1px 0 #4c829a, 0 0 0 1px #44778c;
 	text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.05);
 }
 
 .v-ie8 .experiment .v-panel-caption-selected-variable {
-	outline: 1px solid #3648a2;
+	outline: 1px solid #44778c;
 }
 
 .experiment .v-panel-selected-variable {
-	background: #8c99d9;
-	color: #222742;
+	background: #eceeef;
+	color: #3f4446;
 	border-radius: 4px;
-	border: 1px solid #7782b9;
+	border: 1px solid #a5a8b6;
 	-webkit-box-shadow: 0 2px 3px rgba(0, 0, 0, 0.05);
 	box-shadow: 0 2px 3px rgba(0, 0, 0, 0.05);
+}
+
+.experiment .v-button {
+	height: 37px;
+	padding: 0 16px;
+	color: #0c1016;
+	font-weight: 400;
+	
+	
+	border-radius: 4px;
+	border: 1px solid #5c7ba9;
+	border-top-color: #6380ac;
+	border-bottom-color: #50709f;
+	background-color: #759cd7;
+	background-image: -webkit-linear-gradient(top, #7ea3da 2%, #668eca 98%);
+	background-image: linear-gradient(to bottom,#7ea3da 2%, #668eca 98%);
+	-webkit-box-shadow: inset 0 1px 0 #a5badd, inset 0 -1px 0 #6189c5, 0 2px 3px rgba(0, 0, 0, 0.05);
+	box-shadow: inset 0 1px 0 #a5badd, inset 0 -1px 0 #6189c5, 0 2px 3px rgba(0, 0, 0, 0.05);
+	text-shadow: 0 1px 0 rgba(255, 255, 255, 0.05);
+}
+
+.experiment .v-button:after {
+	border: inherit;
+	top: -1px;
+	right: -1px;
+	bottom: -1px;
+	left: -1px;
+}
+
+.experiment .v-button:hover:after {
+	background-color: rgba(46, 91, 158, 0.1);
+}
+
+.experiment .v-button:focus:after {
+	border-color: #102dbc;
+	-webkit-box-shadow: 0 0 0 2px rgba(16, 45, 188, 0.5);
+	box-shadow: 0 0 0 2px rgba(16, 45, 188, 0.5);
+}
+
+.experiment .v-button:active:after {
+	background-color: rgba(17, 70, 149, 0.2);
 }
