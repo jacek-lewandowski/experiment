@@ -1,7 +1,10 @@
 package net.enigma.db
 
+import java.util.concurrent.TimeUnit
+
 import scala.collection.JavaConversions._
 
+import com.google.common.cache.{CacheBuilder, CacheLoader}
 import org.json4s.NoTypeHints
 import org.json4s.ext.EnumNameSerializer
 import org.json4s.native.Serialization
@@ -19,6 +22,17 @@ object StageDataDAO extends Entity {
   override val table: String = "stage_data"
 
   val stringConverter = TypeConverter.forType[String]
+
+  private val cache = CacheBuilder.newBuilder()
+      .concurrencyLevel(16)
+      .expireAfterWrite(10, TimeUnit.MINUTES)
+      .initialCapacity(1000)
+      .maximumSize(10000)
+      .build[(String, String, String, Int), Option[StageData]](new CacheLoader[(String, String, String, Int), Option[StageData]]() {
+    override def load(k: (String, String, String, Int)): Option[StageData] = {
+      loadStageData(k._1, k._2, k._3, k._4)
+    }
+  })
 
   object Trial {
     implicit val formats = Serialization.formats(NoTypeHints) ++ Seq(
@@ -87,6 +101,10 @@ object StageDataDAO extends Entity {
   }
 
   def getStageData(userCode: String, stage: String, key: String, idx: Int = 0): Option[StageData] = {
+    cache.get((userCode, stage, key, idx))
+  }
+
+  private[StageDataDAO] def loadStageData(userCode: String, stage: String, key: String, idx: Int = 0): Option[StageData] = {
     DBManager.connector.withSessionDo { session ⇒
       val stmt = session.prepare(
         // @formatter:off
@@ -112,6 +130,7 @@ object StageDataDAO extends Entity {
 
       session.execute(stmt)
     }
+    cache.put((stageData.usercode, stageData.stage, stageData.key, stageData.idx), Some(stageData))
   }
 
 }
