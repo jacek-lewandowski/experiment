@@ -10,7 +10,8 @@ case class TrialStageInfo(
   trialSetup: TrialSetup,
   sequences: List[List[TrialAnswerType]],
   curIter: Option[Iteration] = None,
-  iterationState: IterationStateType = IterationState.notReady
+  iterationState: IterationStateType = IterationState.notReady,
+  timestamp: Long = System.currentTimeMillis()
 ) {
   def withCurIter(f: Iteration ⇒ Iteration): TrialStageInfo = {
     copy(curIter = Some(f(curIter.get)))

@@ -5,5 +5,6 @@ package net.enigma.model
  */
 case class JustificationsStageInfo(
   variables: List[Variable],
-  justified: Boolean
+  justified: Boolean,
+  timestamp: Long = System.currentTimeMillis()
 )

@@ -8,7 +8,8 @@ import net.enigma.model.VariablesStageInfo.{VariablesState, VariablesStateType}
 case class VariablesStageInfo(
   variables: List[Variable],
   state: VariablesStateType = VariablesState.notReady,
-  variablesSetup: VariablesSetup
+  variablesSetup: VariablesSetup,
+  timestamp: Long = System.currentTimeMillis()
 )
 
 object VariablesStageInfo {
