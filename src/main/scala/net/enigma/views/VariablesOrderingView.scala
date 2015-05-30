@@ -1,5 +1,7 @@
 package net.enigma.views
 
+import com.vaadin.ui.Alignment
+
 import net.enigma.Utils._
 import net.enigma.views.components._
 
@@ -15,6 +17,7 @@ trait VariablesOrderingView extends AbstractView {
 
   content.addComponents(reorderer)
   content.setExpandRatio(reorderer, 1)
+  content.setComponentAlignment(reorderer, Alignment.TOP_CENTER)
 
   def instructions: String
 }
