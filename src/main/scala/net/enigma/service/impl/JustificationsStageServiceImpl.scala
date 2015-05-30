@@ -59,7 +59,7 @@ class JustificationsStageServiceImpl(userCode: String) extends JustificationsSta
       case None ⇒
         requireState(isAllowedToStart)
         val variables = trialStageService.getIterations(0, trialStageService.getStageInfo.sequences.length)
-            .flatMap(_.selectedVars).map(_.variable).distinct
+            .flatMap(_.essentialVars).distinct
         val definedInfo = JustificationsStageInfo(
           variables = variables,
           justified = false
