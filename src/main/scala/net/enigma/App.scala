@@ -355,6 +355,7 @@ object App {
       logger.info(s"Getting view name for $viewAndParameters")
       subProviders.keys
           .find(key ⇒ viewAndParameters == key || viewAndParameters.startsWith(s"$key/"))
+          .map(foundView ⇒ {logger.info(s"Going to view $foundView with params $viewAndParameters"); foundView})
           .getOrElse(findAllowedProvider())
     }
 
