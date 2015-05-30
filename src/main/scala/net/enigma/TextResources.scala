@@ -170,8 +170,6 @@ object TextResources {
 
     object Questionnaire extends Resource
 
-    object PersonalData extends Resource
-
     object LotteryQuestion extends Resource
 
     object EmailAddress extends Resource

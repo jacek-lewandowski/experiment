@@ -310,8 +310,6 @@ object App {
 
           override def nextView: String = EmailAddress.name
 
-          override def instructions: String = TextResources.Instructions.PersonalData
-
           override def allowedToEnter = App.testMode || allowed
         }
 

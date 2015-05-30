@@ -11,12 +11,8 @@ import net.enigma.views.components.QuestionsContainer
 trait SurveyView extends AbstractView {
   val questionsContainer = new QuestionsContainer().withFullHeight.withWidth("70%")
 
-  addInfo(instructions)
-
   content.addComponent(questionsContainer)
   content.setExpandRatio(questionsContainer, 1)
   content.setComponentAlignment(questionsContainer, Alignment.TOP_CENTER)
-
-  def instructions: String
 
 }
