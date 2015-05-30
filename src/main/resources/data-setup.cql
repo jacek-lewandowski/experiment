@@ -9,7 +9,7 @@ INSERT INTO experiment.text_resources (key, value) VALUES ('Setup.Variables.Vari
 -- Etap iteracji
 
 -- predefiniowana długość sekwencji
-INSERT INTO experiment.text_resources (key, value) VALUES ('Setup.Trial.SequenceLength', '2');
+INSERT INTO experiment.text_resources (key, value) VALUES ('Setup.Trial.SequenceLength', '3');
 -- koszt odsłonięcia jednej wartości
 INSERT INTO experiment.text_resources (key, value) VALUES ('Setup.Trial.UnitPrice', '10');
 -- całkowita liczba punktów do zużycia
@@ -17,9 +17,9 @@ INSERT INTO experiment.text_resources (key, value) VALUES ('Setup.Trial.TotalSco
 -- minimalna liczba zmiennych, które można wybrać i których wybranie nic nie kosztuje
 INSERT INTO experiment.text_resources (key, value) VALUES ('Setup.Trial.MinSelectedVariables', '3');
 -- maksymalna liczba zmiennych które można wybrać
-INSERT INTO experiment.text_resources (key, value) VALUES ('Setup.Trial.MaxSelectedVariables', '5');
+INSERT INTO experiment.text_resources (key, value) VALUES ('Setup.Trial.MaxSelectedVariables', '10');
 -- konfiguracja sekwencji, docelowo CCCAAAAA|CA
-INSERT INTO experiment.text_resources (key, value) VALUES ('Setup.Trial.Sequences', 'C|A');
+INSERT INTO experiment.text_resources (key, value) VALUES ('Setup.Trial.Sequences', 'AAAAACCC|AC');
 -- liczba najważniejszych zmiennych, które ma wybrać użytkownik
 INSERT INTO experiment.text_resources (key, value) VALUES ('Setup.Trial.EssentialVariables', '2');
 

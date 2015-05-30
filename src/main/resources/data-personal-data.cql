@@ -8,7 +8,7 @@ INSERT INTO experiment.surveys (category, id, caption, required, validator_name,
     'range', {'min':'15', 'max':'80', 'message':'Wartość musi być z przedzialu od 15 do 80'}
 );
 INSERT INTO experiment.surveys (category, id, caption, required, validator_name, validator_params) VALUES (
-    'personalData', 3, 'Staż inwestycyjny', true,
+    'personalData', 3, 'Jak od ilu lat inwestujesz?', true,
     'range', {'min':'0', 'max':'80', 'message':'Wartość musi być z przedzialu od 0 do 80'}
 );
 INSERT INTO experiment.surveys (category, id, caption, required, validator_name, validator_params) VALUES (
