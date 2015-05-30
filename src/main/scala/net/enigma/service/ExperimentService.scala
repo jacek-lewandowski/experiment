@@ -14,6 +14,8 @@ trait ExperimentService {
 
   def getJustificationsStageService: JustificationsStageService
 
+  def getMissingVariablesStageService: MissingVariablesStageService
+
   def getTrialSetup: TrialSetup
 
   def getVariablesSetup: VariablesSetup

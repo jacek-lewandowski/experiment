@@ -28,6 +28,10 @@ trait ExperimentServiceImpl extends ExperimentService {
     new JustificationsStageServiceImpl(App.currentUser.get.code)
   }
 
+  override def getMissingVariablesStageService: MissingVariablesStageService = {
+    new MissingVariablesStageServiceImpl(App.currentUser.get.code)
+  }
+
   override def getTrialSetup: TrialSetup = {
     val ts = TextResources.Setup.Trial
 

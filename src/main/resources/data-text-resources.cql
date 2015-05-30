@@ -15,6 +15,7 @@ INSERT INTO experiment.text_resources (key, value) VALUES ('Titles.VariablesScor
 INSERT INTO experiment.text_resources (key, value) VALUES ('Titles.CannotContinue', 'Nie można kontynuować');
 INSERT INTO experiment.text_resources (key, value) VALUES ('Titles.EmailAddress', 'Adres email');
 INSERT INTO experiment.text_resources (key, value) VALUES ('Titles.Justifications', 'Uzasadnienia');
+INSERT INTO experiment.text_resources (key, value) VALUES ('Titles.MissingVariables', 'Brakujące zmienne');
 
 INSERT INTO experiment.text_resources (key, value) VALUES ('Labels.Lottery', 'Wybieram loterię');
 INSERT INTO experiment.text_resources (key, value) VALUES ('Labels.NotLottery', 'Wybieram zakład');
@@ -32,6 +33,7 @@ INSERT INTO experiment.text_resources (key, value) VALUES ('Labels.ExplanationQu
 INSERT INTO experiment.text_resources (key, value) VALUES ('Labels.ConfidenceQuestion', 'Jak bardzo jesteś pewien/pewna swojego wyboru?');
 INSERT INTO experiment.text_resources (key, value) VALUES ('Labels.TrialQuestion', 'Czy na rynku papierów wartościowych jest hossa czy bessa?');
 INSERT INTO experiment.text_resources (key, value) VALUES ('Labels.EmailQuestion', 'Wprowadź swój adres email');
+INSERT INTO experiment.text_resources (key, value) VALUES ('Labels.MissingVariables', 'Wprowadź brakujące zmienne');
 
 INSERT INTO experiment.text_resources (key, value) VALUES ('Notifications.LoseTheLottery', 'Przegrana');
 INSERT INTO experiment.text_resources (key, value) VALUES ('Notifications.WonTheLottery', 'Wygrana');
@@ -53,6 +55,7 @@ INSERT INTO experiment.text_resources (key, value) VALUES ('Notifications.Correc
 INSERT INTO experiment.text_resources (key, value) VALUES ('Notifications.NoCorrectAnswerProvided', 'Przegrałeś/aś zakład - Twoja odpowiedź w iteracji %d była błędna');
 INSERT INTO experiment.text_resources (key, value) VALUES ('Notifications.ValidationError', 'Uzupełnij poprawnie wszystkie pola');
 INSERT INTO experiment.text_resources (key, value) VALUES ('Notifications.InvalidEmailAddress', 'Podany adres email jest nieprawidłowy');
+INSERT INTO experiment.text_resources (key, value) VALUES ('Notifications.InvalidMissingVariables', 'Nieprawidło wprowadzona informacja o brakujących zmiennych');
 
 INSERT INTO experiment.text_resources (key, value) VALUES ('Instructions.TrialInstruction', '
 W kolejnym etapie Twoim zadaniem będzie udzielenie odpowiedzi na pytanie: <quote>Czy na rynku papierów

@@ -246,7 +246,7 @@ object App {
 
           override lazy val stageService: LotteryStageService = App.service.getLotteryStageService
 
-          override def nextView: String = PersonalData.name
+          override def nextView: String = MissingVariables.name
 
           override def instructions: String = TextResources.Instructions.Lottery.format(s"${stageService.getLotteryWinChance}%")
 
@@ -255,6 +255,22 @@ object App {
 
       override def allowed = App.currentUser.isDefined && App.service.checkForCompletedStages(
         requiredKeys = Set(Justifications.name), forbiddenKeys = Set(Lottery.name))
+    }
+
+    object MissingVariables extends Provider("missing-variables") {
+      override def apply() =
+        new SimpleView(this.name, TextResources.Titles.MissingVariables)
+            with MissingVariablesQuestionView with MissingVariablesQuestionPresenter {
+
+          override def missingVariablesStageService: MissingVariablesStageService = App.service.getMissingVariablesStageService
+
+          override def nextView: String = PersonalData.name
+
+          override def allowedToEnter = App.testMode || allowed
+        }
+
+      override def allowed = App.currentUser.isDefined && App.service.checkForCompletedStages(
+        requiredKeys = Set(Lottery.name), forbiddenKeys = Set(MissingVariables.name))
     }
 
     //    object QuestionnaireInstruction extends Provider("questionnaire-instruction") {

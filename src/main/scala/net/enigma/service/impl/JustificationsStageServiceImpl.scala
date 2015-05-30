@@ -16,7 +16,7 @@ class JustificationsStageServiceImpl(userCode: String) extends JustificationsSta
 
   lazy val trialStageService = App.service.getTrialStageService
 
-  import net.enigma.db.StageDataDAO.Lottery.formats
+  import net.enigma.db.StageDataDAO.Justifications.formats
 
   override def setJustifiedVariables(variables: List[Variable]): Unit = {
     val info = getJustificationsStageInfo()

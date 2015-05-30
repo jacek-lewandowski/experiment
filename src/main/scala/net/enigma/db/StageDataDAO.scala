@@ -38,6 +38,13 @@ object StageDataDAO extends Entity {
     val stageInfoID = "stageInfo"
   }
 
+  object MissingVariables {
+    implicit val formats = Serialization.formats(NoTypeHints)
+
+    val stageID = "missingVariables"
+    val stageInfoID = "stageInfo"
+  }
+
   object Justifications {
     implicit val formats = Serialization.formats(NoTypeHints)
 

@@ -62,6 +62,8 @@ object TextResources {
 
     object InvalidEmailAddress extends Resource
 
+    object InvalidMissingVariables extends Resource
+
   }
 
   object Titles extends ResourceGroup {
@@ -98,6 +100,8 @@ object TextResources {
 
     object EmailAddress extends Resource
 
+    object MissingVariables extends Resource
+
   }
 
   object Labels extends ResourceGroup {
@@ -133,6 +137,8 @@ object TextResources {
     object TrialQuestion extends Resource
 
     object EmailQuestion extends Resource
+
+    object MissingVariables extends Resource
 
   }
 
