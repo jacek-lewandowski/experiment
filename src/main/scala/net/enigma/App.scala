@@ -64,6 +64,8 @@ object App {
       subProviders += name → this
 
       def apply(): View
+
+      def allowed: Boolean
     }
 
     object Login extends Provider("login") {
@@ -75,6 +77,8 @@ object App {
 
           override lazy val allowedToEnter = true
         }
+
+      override def allowed: Boolean = true
     }
 
     object InitialInstruction extends Provider("welcome") {
@@ -86,10 +90,11 @@ object App {
 
           override def nextView: String = VariablesSelection.name
 
-          override lazy val allowedToEnter = App.testMode ||
-              App.currentUser.isDefined && App.service.checkForCompletedStages(
-                requiredKeys = Set(), forbiddenKeys = Set())
+          override def allowedToEnter = App.testMode || allowed
         }
+
+      override def allowed = App.currentUser.isDefined && App.service.checkForCompletedStages(
+        requiredKeys = Set(), forbiddenKeys = Set(VariablesSelection.name))
     }
 
     object VariablesSelection extends Provider("variables-selection") {
@@ -103,10 +108,11 @@ object App {
 
           override def instructions: String = TextResources.Instructions.VariablesSelection
 
-          override lazy val allowedToEnter = App.testMode ||
-              App.currentUser.isDefined && App.service.checkForCompletedStages(
-                requiredKeys = Set(InitialInstruction.name), forbiddenKeys = Set(VariablesSelection.name))
+          override def allowedToEnter = App.testMode || allowed
         }
+
+      override def allowed = App.currentUser.isDefined && App.service.checkForCompletedStages(
+        requiredKeys = Set(InitialInstruction.name), forbiddenKeys = Set(VariablesSelection.name))
     }
 
     object VariablesOrdering extends Provider("variables-ordering") {
@@ -120,10 +126,11 @@ object App {
 
           override def instructions: String = TextResources.Instructions.VariablesOrdering
 
-          override lazy val allowedToEnter = App.testMode ||
-              App.currentUser.isDefined && App.service.checkForCompletedStages(
-                requiredKeys = Set(VariablesSelection.name), forbiddenKeys = Set(VariablesOrdering.name))
+          override def allowedToEnter = App.testMode || allowed
         }
+
+      override def allowed = App.currentUser.isDefined && App.service.checkForCompletedStages(
+        requiredKeys = Set(VariablesSelection.name), forbiddenKeys = Set(VariablesOrdering.name))
     }
 
     object VariablesScoring extends Provider("variables-scoring") {
@@ -137,10 +144,11 @@ object App {
 
           override def instructions: String = TextResources.Instructions.VariablesScoring
 
-          override lazy val allowedToEnter = App.testMode ||
-              App.currentUser.isDefined && App.service.checkForCompletedStages(
-                requiredKeys = Set(VariablesOrdering.name), forbiddenKeys = Set(VariablesScoring.name))
+          override def allowedToEnter = App.testMode || allowed
         }
+
+      override def allowed = App.currentUser.isDefined && App.service.checkForCompletedStages(
+        requiredKeys = Set(VariablesOrdering.name), forbiddenKeys = Set(VariablesScoring.name))
     }
 
     object TrialInstruction extends Provider("trial-instruction") {
@@ -152,10 +160,11 @@ object App {
 
           override def nextView: String = Trial.name
 
-          override lazy val allowedToEnter = App.testMode ||
-              App.currentUser.isDefined && App.service.checkForCompletedStages(
-                requiredKeys = Set(VariablesScoring.name), forbiddenKeys = Set())
+          override def allowedToEnter = App.testMode || allowed
         }
+
+      override def allowed = App.currentUser.isDefined && App.service.checkForCompletedStages(
+        requiredKeys = Set(VariablesScoring.name), forbiddenKeys = Set(Trial.name))
     }
 
     object Trial extends Provider("trial") {
@@ -165,14 +174,15 @@ object App {
 
           override lazy val stageService: TrialStageService = App.service.getTrialStageService
 
-          override def nextView: String = ConfidenceQuestion.name
+          override def nextView: String = if (allowed) ConfidenceQuestion.name else Justifications.name
 
           override def instructions: String = TextResources.Instructions.Trial
 
-          override lazy val allowedToEnter = App.testMode ||
-              App.currentUser.isDefined && App.service.checkForCompletedStages(
-                requiredKeys = Set(TrialInstruction.name), forbiddenKeys = Set(Trial.name))
+          override def allowedToEnter = App.testMode || allowed
         }
+
+      override def allowed = App.currentUser.isDefined && App.service.checkForCompletedStages(
+        requiredKeys = Set(TrialInstruction.name), forbiddenKeys = Set(Trial.name))
     }
 
     object ConfidenceQuestion extends Provider("confidence-question") {
@@ -186,10 +196,11 @@ object App {
 
           override def instructions: String = TextResources.Instructions.ConfidenceQuestion
 
-          override lazy val allowedToEnter = App.testMode ||
-              App.currentUser.isDefined && App.service.checkForCompletedStages(
-                requiredKeys = Set(TrialInstruction.name), forbiddenKeys = Set(Trial.name)) // TODO check iteration state
+          override def allowedToEnter = App.testMode || allowed
         }
+
+      override def allowed = App.currentUser.isDefined && App.service.checkForCompletedStages(
+        requiredKeys = Set(TrialInstruction.name), forbiddenKeys = Set(Trial.name))
     }
 
     object MostImportantVariables extends Provider("most-important-variables") {
@@ -199,14 +210,15 @@ object App {
 
           override lazy val stageService: TrialStageService = App.service.getTrialStageService
 
-          override def nextView = if (stageService.isNextIterationAvailable) Trial.name else Justifications.name
+          override def nextView = Trial.name
 
           override def instructions: String = TextResources.Instructions.MostImportantVariables
 
-          override lazy val allowedToEnter = App.testMode ||
-              App.currentUser.isDefined && App.service.checkForCompletedStages(
-                requiredKeys = Set(TrialInstruction.name), forbiddenKeys = Set(Trial.name)) // TODO check iteration state
+          override def allowedToEnter = App.testMode || allowed
         }
+
+      override def allowed = App.currentUser.isDefined && App.service.checkForCompletedStages(
+        requiredKeys = Set(TrialInstruction.name), forbiddenKeys = Set(Trial.name))
     }
 
     object Justifications extends Provider("justifications") {
@@ -220,10 +232,11 @@ object App {
 
           override def instructions: String = TextResources.Instructions.Justifications
 
-          override lazy val allowedToEnter = App.testMode ||
-              App.currentUser.isDefined && App.service.checkForCompletedStages(
-                requiredKeys = Set(Trial.name), forbiddenKeys = Set(Justifications.name))
+          override def allowedToEnter = App.testMode || allowed
         }
+
+      override def allowed = App.currentUser.isDefined && App.service.checkForCompletedStages(
+        requiredKeys = Set(Trial.name), forbiddenKeys = Set(Justifications.name))
     }
 
     object Lottery extends Provider("lottery") {
@@ -237,41 +250,42 @@ object App {
 
           override def instructions: String = TextResources.Instructions.Lottery.format(s"${stageService.getLotteryWinChance}%")
 
-          override lazy val allowedToEnter = App.testMode ||
-              App.currentUser.isDefined && App.service.checkForCompletedStages(
-                requiredKeys = Set(Trial.name), forbiddenKeys = Set(Lottery.name))
+          override def allowedToEnter = App.testMode || allowed
         }
+
+      override def allowed = App.currentUser.isDefined && App.service.checkForCompletedStages(
+        requiredKeys = Set(Justifications.name), forbiddenKeys = Set(Lottery.name))
     }
 
-    object QuestionnaireInstruction extends Provider("questionnaire-instruction") {
-      override def apply() =
-        new SimpleView(this.name, TextResources.Titles.Instruction)
-            with InstructionView with InstructionPresenter {
-
-          override lazy val instructions: String = TextResources.Instructions.QuestionnaireInstruction
-
-          override def nextView: String = Questionnaire.name
-
-          override lazy val allowedToEnter = App.testMode ||
-              App.currentUser.isDefined && App.service.checkForCompletedStages(
-                requiredKeys = Set(Lottery.name), forbiddenKeys = Set())
-        }
-    }
-
-    object Questionnaire extends Provider("questionnaire") {
-      override def apply() =
-        new SimpleView(this.name, TextResources.Titles.Questionnaire)
-            with SurveyView with QuestionnairePresenter {
-
-          override def nextView: String = PersonalData.name
-
-          override def instructions: String = TextResources.Instructions.Questionnaire
-
-          override lazy val allowedToEnter = App.testMode ||
-              App.currentUser.isDefined && App.service.checkForCompletedStages(
-                requiredKeys = Set(QuestionnaireInstruction.name), forbiddenKeys = Set(Questionnaire.name))
-        }
-    }
+    //    object QuestionnaireInstruction extends Provider("questionnaire-instruction") {
+    //      override def apply() =
+    //        new SimpleView(this.name, TextResources.Titles.Instruction)
+    //            with InstructionView with InstructionPresenter {
+    //
+    //          override lazy val instructions: String = TextResources.Instructions.QuestionnaireInstruction
+    //
+    //          override def nextView: String = Questionnaire.name
+    //
+    //          override lazy val allowedToEnter = App.testMode ||
+    //              App.currentUser.isDefined && App.service.checkForCompletedStages(
+    //                requiredKeys = Set(Lottery.name), forbiddenKeys = Set())
+    //        }
+    //    }
+    //
+    //    object Questionnaire extends Provider("questionnaire") {
+    //      override def apply() =
+    //        new SimpleView(this.name, TextResources.Titles.Questionnaire)
+    //            with SurveyView with QuestionnairePresenter {
+    //
+    //          override def nextView: String = PersonalData.name
+    //
+    //          override def instructions: String = TextResources.Instructions.Questionnaire
+    //
+    //          override lazy val allowedToEnter = App.testMode ||
+    //              App.currentUser.isDefined && App.service.checkForCompletedStages(
+    //                requiredKeys = Set(QuestionnaireInstruction.name), forbiddenKeys = Set(Questionnaire.name))
+    //        }
+    //    }
 
     object PersonalData extends Provider("personal-data") {
       override def apply() =
@@ -282,10 +296,11 @@ object App {
 
           override def instructions: String = TextResources.Instructions.PersonalData
 
-          override lazy val allowedToEnter = App.testMode ||
-              App.currentUser.isDefined && App.service.checkForCompletedStages(
-                requiredKeys = Set(Lottery.name), forbiddenKeys = Set(PersonalData.name))
+          override def allowedToEnter = App.testMode || allowed
         }
+
+      override def allowed = App.currentUser.isDefined && App.service.checkForCompletedStages(
+        requiredKeys = Set(Lottery.name), forbiddenKeys = Set(PersonalData.name))
     }
 
     object EmailAddress extends Provider("email-address") {
@@ -297,12 +312,13 @@ object App {
 
           override def instructions: String = TextResources.Instructions.EmailAddress
 
-          override lazy val allowedToEnter = App.testMode ||
-              App.currentUser.isDefined && App.service.checkForCompletedStages(
-                requiredKeys = Set(PersonalData.name), forbiddenKeys = Set(EmailAddress.name))
+          override def allowedToEnter = App.testMode || allowed
 
           override def userService: UserService = App.service
         }
+
+      override def allowed = App.currentUser.isDefined && App.service.checkForCompletedStages(
+        requiredKeys = Set(PersonalData.name), forbiddenKeys = Set(EmailAddress.name))
     }
 
     object Thanks extends Provider("thanks") {
@@ -314,24 +330,24 @@ object App {
 
           override def nextView: String = Login.name
 
-          override lazy val allowedToEnter = App.testMode ||
-              App.currentUser.isDefined && App.service.checkForCompletedStages(
-                requiredKeys = Set(EmailAddress.name), forbiddenKeys = Set())
+          override def allowedToEnter = App.testMode || allowed
         }
+
+      override def allowed = App.currentUser.isDefined && App.service.checkForCompletedStages(
+        requiredKeys = Set(EmailAddress.name), forbiddenKeys = Set())
     }
 
     override def getViewName(viewAndParameters: String): String = {
       logger.info(s"Getting view name for $viewAndParameters")
       subProviders.keys
           .find(key ⇒ viewAndParameters == key || viewAndParameters.startsWith(s"$key/"))
-          .getOrElse(Login.name)
+          .getOrElse(findAllowedProvider())
     }
 
     override def getView(viewName: String): View = {
       logger.info(s"Getting view for name $viewName")
-      subProviders.get(viewName).map(_.apply()).getOrElse(Login())
+      subProviders.get(viewName).find(_.allowed).getOrElse(subProviders(findAllowedProvider())).apply()
     }
-
 
     import scala.reflect.runtime.universe._
 
@@ -363,6 +379,18 @@ object App {
 
     initialize()
 
+    def findAllowedProvider() = {
+      if (currentUser.isEmpty) {
+        Login.name
+      } else {
+        val availableProviders = subProviders - Login.name
+        val selectedProviders = for (provider ← availableProviders.values if provider.allowed) 
+          yield provider.name
+
+        logger.info(s"Found $selectedProviders providers")
+        selectedProviders.headOption.getOrElse(Login.name)
+      }
+    }
   }
 
 }

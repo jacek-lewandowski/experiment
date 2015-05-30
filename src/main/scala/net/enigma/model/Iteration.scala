@@ -9,7 +9,6 @@ import net.enigma.model.TrialAnswer._
  * @param sequence a sequence of values presented to the user
  * @param selectedAnswer an answer selected by the user
  * @param confidence a confidence level entered by the user
- * @param explanation an explanation provided by the user
  * @param essentialVars most important variables selected by the user among those which are in `variables` collection
  *
  * @author Jacek Lewandowski
@@ -22,7 +21,6 @@ case class Iteration(
   selectedVars: List[VariableValue] = Nil,
   selectedAnswer: Option[TrialAnswerType] = None,
   confidence: Option[Int] = None,
-  explanation: Option[String] = None,
   essentialVars: List[Variable] = Nil
 ) {
   lazy val isClear: Boolean =

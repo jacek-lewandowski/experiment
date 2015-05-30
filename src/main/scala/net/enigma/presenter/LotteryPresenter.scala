@@ -29,21 +29,25 @@ trait LotteryPresenter extends FlowPresenter {
     selector.resetSelection()
     selector.setEnabled(false)
 
-    val result = stageService.lottery()
-    if (result) {
-      Notification.show(TextResources.Notifications.WonTheLottery)
-      resultLabel.setValue(TextResources.Notifications.WonTheLottery)
-    } else {
-      Notification.show(TextResources.Notifications.LoseTheLottery)
-      resultLabel.setValue(TextResources.Notifications.LoseTheLottery)
-    }
+    stageService.lottery()
+    showLotteryResult()
   }
 
   override def confidenceSelected(): Unit = {
     selector.resetSelection()
     selector.setEnabled(false)
 
-    val (result, iterIdx) = stageService.confidence()
+    stageService.bet()
+    showBetResult()
+  }
+
+  override def question: String =
+    TextResources.Instructions.LotteryQuestion.format(stageService.getLotteryWinChance)
+
+  def showBetResult() = {
+    val stageInfo = stageService.getLotteryStageInfo()
+    val result = stageInfo.result.get
+    val iterIdx = stageInfo.selectedIterIdx
     if (result) {
       Notification.show(TextResources.Notifications.CorrectAnswerProvided.format(iterIdx + 1))
       resultLabel.setValue(TextResources.Notifications.CorrectAnswerProvided.format(iterIdx + 1))
@@ -53,11 +57,32 @@ trait LotteryPresenter extends FlowPresenter {
     }
   }
 
-  override def question: String =
-    TextResources.Instructions.LotteryQuestion.format(stageService.getLotteryWinChance)
+  def showLotteryResult() = {
+    val stageInfo = stageService.getLotteryStageInfo()
+    val result = stageInfo.result.get
+    if (result) {
+      Notification.show(TextResources.Notifications.WonTheLottery)
+      resultLabel.setValue(TextResources.Notifications.WonTheLottery)
+    } else {
+      Notification.show(TextResources.Notifications.LoseTheLottery)
+      resultLabel.setValue(TextResources.Notifications.LoseTheLottery)
+    }
+  }
 
   override def entered(event: ViewChangeEvent): Unit = {
     App.service.setCurrentStage(id)
+    if (stageService.isStageCompleted) {
+      selector.resetSelection()
+      selector.setEnabled(false)
+
+      if (stageService.getLotteryStageInfo().lotterySelected) {
+        showLotteryResult()
+      } else {
+        showBetResult()
+      }
+    }
   }
+
+
 
 }

@@ -3,6 +3,7 @@ package net.enigma.presenter
 import com.vaadin.navigator.ViewChangeListener.ViewChangeEvent
 import com.vaadin.ui.Notification
 
+import net.enigma.model.VariablesStageInfo.VariablesState
 import net.enigma.model._
 import net.enigma.service.VariablesStageService
 import net.enigma.views.VariablesSelectionView
@@ -19,7 +20,9 @@ trait VariablesSelectionPresenter extends FlowPresenter {
   lazy val setup = stageService.variablesSetup
 
   def getInitialVariablesSet: Seq[Variable] = {
-    stageService.prepareVariables()
+    if (stageService.getVariablesStageInfo().state == VariablesState.notReady) {
+      stageService.prepareVariables()
+    }
     stageService.getVariablesForSelection()
   }
 

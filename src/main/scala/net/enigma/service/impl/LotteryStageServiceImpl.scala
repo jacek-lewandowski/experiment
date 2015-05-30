@@ -36,22 +36,19 @@ class LotteryStageServiceImpl(userCode: String, lastIterationsCount: Int) extend
     info.winChance
   }
 
-  override def confidence(): (Boolean, Int) = {
+  override def bet(): Unit = {
     val info = getLotteryStageInfo()
     requireState(info.result.isEmpty)
-    val result = for (iteration ← getLastIterations(); result ← iteration.isAnswerCorrect) yield {
-      saveLotteryInfo(info.copy(lotterySelected = false, result = Some(result)))
-      (result, iteration.idx)
-    }
-    result.head
+    val iteration = getLastIterations().find(_.idx == info.selectedIterIdx).get
+    val result = iteration.isAnswerCorrect
+    saveLotteryInfo(info.copy(lotterySelected = false, result = result))
   }
 
-  override def lottery(): Boolean = {
+  override def lottery(): Unit = {
     val info = getLotteryStageInfo()
     requireState(info.result.isEmpty)
     val result = App.random.nextInt(100) < info.winChance
     saveLotteryInfo(info.copy(lotterySelected = true, result = Some(result)))
-    result
   }
 
   override def isStageCompleted: Boolean = {
@@ -71,9 +68,11 @@ class LotteryStageServiceImpl(userCode: String, lastIterationsCount: Int) extend
         val lastIters = getLastIterations()
         val confidences = for (iter ← lastIters; confidence ← iter.confidence) yield confidence.toDouble
         val winChance = (confidences.sum / confidences.length.toDouble).toInt
+        val selectedIterIdx = for (iteration ← lastIters; if iteration.isClear) yield iteration.idx
         val definedInfo = LotteryStageInfo(
           winChance,
           lastItersCount = lastIterationsCount,
+          selectedIterIdx = selectedIterIdx.head,
           lotterySelected = false,
           result = None
         )

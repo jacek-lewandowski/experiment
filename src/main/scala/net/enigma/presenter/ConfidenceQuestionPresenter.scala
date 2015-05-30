@@ -1,11 +1,9 @@
 package net.enigma.presenter
 
-import com.vaadin.data.Property
 import com.vaadin.navigator.ViewChangeListener.ViewChangeEvent
 import com.vaadin.ui.Notification
 
 import net.enigma.TextResources
-import net.enigma.Utils._
 import net.enigma.service.TrialStageService
 import net.enigma.views.ConfidenceQuestionView
 
@@ -18,7 +16,11 @@ trait ConfidenceQuestionPresenter extends FlowPresenter {
   def stageService: TrialStageService
 
   override def entered(event: ViewChangeEvent): Unit = {
-    answerSlider.setRequired(true)
+    if (stageService.isAwaitingConfidence) {
+      answerSlider.setRequired(true)
+    } else {
+      navigateTo(nextView)
+    }
   }
 
   override def question: String = TextResources.Labels.ConfidenceQuestion

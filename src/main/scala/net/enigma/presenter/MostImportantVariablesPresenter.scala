@@ -18,20 +18,24 @@ trait MostImportantVariablesPresenter extends FlowPresenter {
   override def accept(): Boolean = {
     val trialSetup = stageService.trialSetup
     val selectedVariables = grid.getVariables
-    if (selectedVariables.size != trialSetup.essentialVarsCount) {
+    val result = if (selectedVariables.size != trialSetup.essentialVarsCount) {
       Notification.show(
         TextResources.Notifications.MustSelectExactlyNEssentialVariables.format(trialSetup.essentialVarsCount),
         Notification.Type.HUMANIZED_MESSAGE)
       false
     } else {
       stageService.setEssentialVariables(selectedVariables)
-      stageService.isMostImportantVariablesProvided
-      true
+      stageService.isEssentialVariablesProvided
     }
+    result
   }
 
   override def entered(event: ViewChangeEvent): Unit = {
-    val variables = stageService.getSelectedVariables()
-    grid.setVariables(variables)
+    if (stageService.isAwaitingEssentialVariables) {
+      val variables = stageService.getSelectedVariables()
+      grid.setVariables(variables.map(_.variable))
+    } else {
+      navigateTo(nextView)
+    }
   }
 }

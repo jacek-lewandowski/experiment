@@ -30,7 +30,7 @@ trait FlowPresenter {
   override def failedToEnter(event: ViewChangeEvent): Unit = {
     App.service.getCurrentStage() match {
       case Some(stage) ⇒ navigateTo(stage)
-      case _ ⇒ navigateTo(Login.name)
+      case _ ⇒ navigateTo(App.Views.findAllowedProvider())
     }
   }
 }

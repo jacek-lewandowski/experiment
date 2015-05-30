@@ -9,9 +9,9 @@ trait LotteryStageService {
 
   def getLotteryWinChance: Int
 
-  def confidence(): (Boolean, Int)
+  def bet(): Unit
 
-  def lottery(): Boolean
+  def lottery(): Unit
 
   def isStageCompleted: Boolean
 

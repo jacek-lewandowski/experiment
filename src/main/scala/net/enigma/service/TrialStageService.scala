@@ -9,9 +9,9 @@ import net.enigma.model._
 trait TrialStageService {
   def getPreparedVariables(): List[VariableDefinition]
 
-  def getSelectedVariables(): List[Variable]
+  def getSelectedVariables(): List[VariableValue]
 
-  def isMostImportantVariablesProvided: Boolean
+  def isEssentialVariablesProvided: Boolean
 
   def isConfidenceProvided: Boolean
 
@@ -38,4 +38,16 @@ trait TrialStageService {
   def getIterations(from: Int, count: Int): List[Iteration]
 
   def getStageInfo: TrialStageInfo
+
+  def isAwaitingAnswer: Boolean
+
+  def isAwaitingConfidence: Boolean
+
+  def isAwaitingEssentialVariables: Boolean
+
+  def isAwaitingVariableSelection: Boolean
+
+  def isAwaitingNewVariables: Boolean
+
+  def availableScore: Int
 }

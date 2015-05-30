@@ -86,6 +86,21 @@ class TrialStageServiceImpl(val userCode: String, _trialSetup: TrialSetup) exten
     info.iterationState == IterationState.finished
   }
 
+  override def isAwaitingAnswer: Boolean = isAwaitingAnswer(getStageInfo)
+
+  override def isAwaitingConfidence: Boolean = isAwaitingConfidence(getStageInfo)
+
+  override def isAwaitingEssentialVariables: Boolean = isAwaitingEssentialVariables(getStageInfo)
+
+  override def isAwaitingVariableSelection: Boolean = isAwaitingVariableSelection(getStageInfo)
+
+  override def isAwaitingNewVariables: Boolean = isAwaitingNewVariables(getStageInfo)
+
+  override def availableScore: Int = {
+    val stageInfo = getStageInfo
+    stageInfo.trialSetup.totalScore - (stageInfo.curIter.get.selectedVars.size * stageInfo.trialSetup.unitPrice)
+  }
+
   def isAwaitingAnswer(info: TrialStageInfo): Boolean = {
     info.iterationState == IterationState.started &&
         info.curIter.get.selectedAnswer.isEmpty &&
@@ -131,7 +146,7 @@ class TrialStageServiceImpl(val userCode: String, _trialSetup: TrialSetup) exten
   override def isConfidenceProvided: Boolean =
     getStageInfo.curIter.fold(false)(_.confidence.isDefined)
 
-  override def isMostImportantVariablesProvided: Boolean =
+  override def isEssentialVariablesProvided: Boolean =
     getStageInfo.curIter.fold(false)(_.essentialVars.nonEmpty)
 
   private def randomValue: TrialAnswerType = Random.shuffle(Seq(TrialAnswer.Plus, TrialAnswer.Minus)).head
@@ -207,10 +222,10 @@ class TrialStageServiceImpl(val userCode: String, _trialSetup: TrialSetup) exten
     TrialStageInfo(_trialSetup, sequences)
   }
 
-  override def getSelectedVariables(): List[Variable] = {
+  override def getSelectedVariables(): List[VariableValue] = {
     val stageInfo = getStageInfo
     requireState(stageInfo.curIter.isDefined)
-    stageInfo.curIter.get.selectedVars.map(_.variable)
+    stageInfo.curIter.get.selectedVars
   }
 
   override def getPreparedVariables(): List[VariableDefinition] = {

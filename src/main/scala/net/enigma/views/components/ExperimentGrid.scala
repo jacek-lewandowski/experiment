@@ -7,6 +7,7 @@ import com.vaadin.ui._
 import org.slf4j.LoggerFactory
 
 import net.enigma.Utils._
+import net.enigma.model.TrialAnswer.TrialAnswerType
 import net.enigma.model.{Variable, VariableValue}
 import net.enigma.{TextResources, ValueChangedListenable}
 
@@ -20,16 +21,19 @@ class ExperimentGrid(valueResolver: Variable ⇒ VariableValue)
 
   setSpacing(true)
 
-  def setVariables(variables: List[Variable]): Unit = {
+  def setVariables(variables: List[Variable], resolved: List[VariableValue]): Unit = {
     logger.info(s"Setting variables: $variables")
     removeAllComponents()
     val (columns, rows) = getGridSize(variables.length)
     setColumns(columns)
     setRows(rows)
 
+    val resolvedMap = resolved.map(vv ⇒ (vv.variable.id, vv)).toMap
+    val variablesMap = variables.map(v ⇒ (v, resolvedMap.get(v.id)))
+
     val locations = for (c ← 0 until columns; r ← 0 until rows) yield (c, r)
-    for (((c, r), variable) ← locations zip variables) {
-      val component = newComponent(variable)
+    for (((c, r), (variable, optValue)) ← locations zip variablesMap) {
+      val component = newComponent(variable, optValue.map(vv ⇒ (vv.value, vv.description)))
       addComponent(component, c, r)
       component.checkbox.addValueChangeListener(new CounterListener)
     }
@@ -71,13 +75,15 @@ class ExperimentGrid(valueResolver: Variable ⇒ VariableValue)
     (columns, rows)
   }
 
-  private def newComponent(variable: Variable): VariableComponent = {
-    new VariableComponent(variable).withSizeFull
+  private def newComponent(variable: Variable, varValue: Option[(TrialAnswerType, String)]): VariableComponent = {
+    new VariableComponent(variable, varValue).withSizeFull
   }
 
-  private class VariableComponent(variable: Variable) extends Panel(variable.title) {
+  private class VariableComponent(variable: Variable, varValue: Option[(TrialAnswerType, String)])
+      extends Panel(variable.title) {
+
     setData(variable)
-    addStyleName("not-selected-variable")
+
 
     val checkbox = new CheckBox(TextResources.Labels.Select)
         .withWidth("100%")
@@ -89,6 +95,18 @@ class ExperimentGrid(valueResolver: Variable ⇒ VariableValue)
     val layout = new VerticalLayout(checkbox, label).withSizeFull.withSpacing.withMargins
     layout.setExpandRatio(checkbox, 1)
     layout.setExpandRatio(label, 1)
+
+    varValue match {
+      case Some((trialAnswer, description)) ⇒
+        addStyleName("selected-variable")
+        checkbox.setReadOnly(true)
+        layout.removeComponent(checkbox)
+        setData(VariableValue(variable, trialAnswer, description))
+        label.setValue(description)
+
+      case _ ⇒
+        addStyleName("not-selected-variable")
+    }
 
     checkbox.addValueChangeListener(new ValueChangeListener {
       override def valueChange(valueChangeEvent: ValueChangeEvent): Unit = {

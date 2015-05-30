@@ -84,7 +84,7 @@ class TrialStageServiceImplTest extends FunSpec with Matchers {
   def serviceWithProvidedEssentialVars(initialService: TrialStageService = serviceInInitialState()) = {
     serviceWithProvidedConfidence(initialService)
     val vars = initialService.getSelectedVariables().take(initialService.trialSetup.essentialVarsCount)
-    initialService.setEssentialVariables(vars)
+    initialService.setEssentialVariables(vars.map(_.variable))
     initialService
   }
 
@@ -135,55 +135,49 @@ class TrialStageServiceImplTest extends FunSpec with Matchers {
         readObj shouldBe obj
       }
       it("should work when si has empty iteration defined") {
-        val obj = TrialStageInfo(trialSetup, Nil, Some(Iteration(0, Nil, Nil, Nil, None, None, None, Nil)))
+        val obj = TrialStageInfo(trialSetup, Nil, Some(Iteration(0, Nil, Nil, Nil, None, None, Nil)))
         val json = write(obj)
         val readObj = read[TrialStageInfo](json)
         readObj shouldBe obj
       }
       it("should work when si has empty iteration with changed state defined") {
-        val obj = TrialStageInfo(trialSetup, Nil, Some(Iteration(0, Nil, Nil, Nil, None, None, None, Nil)), IterationState.finished)
+        val obj = TrialStageInfo(trialSetup, Nil, Some(Iteration(0, Nil, Nil, Nil, None, None, Nil)), IterationState.finished)
         val json = write(obj)
         val readObj = read[TrialStageInfo](json)
         readObj shouldBe obj
       }
       it("should work when si has iteration with some answer selected") {
-        val obj = TrialStageInfo(trialSetup, Nil, Some(Iteration(0, Nil, Nil, Nil, Some(TrialAnswer.Plus), None, None, Nil)))
+        val obj = TrialStageInfo(trialSetup, Nil, Some(Iteration(0, Nil, Nil, Nil, Some(TrialAnswer.Plus), None, Nil)))
         val json = write(obj)
         val readObj = read[TrialStageInfo](json)
         readObj shouldBe obj
       }
       it("should work when si has iteration with some confidence provided") {
-        val obj = TrialStageInfo(trialSetup, Nil, Some(Iteration(0, Nil, Nil, Nil, None, Some(1), None, Nil)))
-        val json = write(obj)
-        val readObj = read[TrialStageInfo](json)
-        readObj shouldBe obj
-      }
-      it("should work when si has iteration with some explanation provided") {
-        val obj = TrialStageInfo(trialSetup, Nil, Some(Iteration(0, Nil, Nil, Nil, None, None, Some("asdf"), Nil)))
+        val obj = TrialStageInfo(trialSetup, Nil, Some(Iteration(0, Nil, Nil, Nil, None, Some(1), Nil)))
         val json = write(obj)
         val readObj = read[TrialStageInfo](json)
         readObj shouldBe obj
       }
       it("should work when si has iteration with some essential variables provided") {
-        val obj = TrialStageInfo(trialSetup, Nil, Some(Iteration(0, Nil, Nil, Nil, None, None, None, List(Variable(1, "asdf"), Variable(2, "bcde")))))
+        val obj = TrialStageInfo(trialSetup, Nil, Some(Iteration(0, Nil, Nil, Nil, None, None, List(Variable(1, "asdf"), Variable(2, "bcde")))))
         val json = write(obj)
         val readObj = read[TrialStageInfo](json)
         readObj shouldBe obj
       }
       it("should work when si has iteration with some sequence defined") {
-        val obj = TrialStageInfo(trialSetup, Nil, Some(Iteration(0, List(TrialAnswer.Minus, TrialAnswer.Plus), Nil, Nil, None, None, None, Nil)))
+        val obj = TrialStageInfo(trialSetup, Nil, Some(Iteration(0, List(TrialAnswer.Minus, TrialAnswer.Plus), Nil, Nil, None, None, Nil)))
         val json = write(obj)
         val readObj = read[TrialStageInfo](json)
         readObj shouldBe obj
       }
       it("should work when si has iteration with some initial variables defined") {
-        val obj = TrialStageInfo(trialSetup, Nil, Some(Iteration(0, Nil, List(VariableDefinition("a", 1, "asdf", "sdfg", "dfgh"), VariableDefinition("a", 1, "asdf", "sdfg", "dfgh")), Nil, None, None, None, Nil)))
+        val obj = TrialStageInfo(trialSetup, Nil, Some(Iteration(0, Nil, List(VariableDefinition("a", 1, "asdf", "sdfg", "dfgh"), VariableDefinition("a", 1, "asdf", "sdfg", "dfgh")), Nil, None, None, Nil)))
         val json = write(obj)
         val readObj = read[TrialStageInfo](json)
         readObj shouldBe obj
       }
       it("should work when si has iteration with some selected variables provided") {
-        val obj = TrialStageInfo(trialSetup, Nil, Some(Iteration(0, Nil, Nil, List(VariableValue(Variable(1, "asdf", None, None), TrialAnswer.Minus, "qwer"), VariableValue(Variable(1, "sdfg", Some(1), None), TrialAnswer.Minus, "erty"), VariableValue(Variable(1, "dfgh", None, Some(2)), TrialAnswer.Minus, "wert")), None, None, None, Nil)))
+        val obj = TrialStageInfo(trialSetup, Nil, Some(Iteration(0, Nil, Nil, List(VariableValue(Variable(1, "asdf", None, None), TrialAnswer.Minus, "qwer"), VariableValue(Variable(1, "sdfg", Some(1), None), TrialAnswer.Minus, "erty"), VariableValue(Variable(1, "dfgh", None, Some(2)), TrialAnswer.Minus, "wert")), None, None, Nil)))
         val json = write(obj)
         val readObj = read[TrialStageInfo](json)
         readObj shouldBe obj
@@ -206,7 +200,7 @@ class TrialStageServiceImplTest extends FunSpec with Matchers {
       it("should report a valid state") {
         stageService.isAnswerProvided shouldBe false
         stageService.isConfidenceProvided shouldBe false
-        stageService.isMostImportantVariablesProvided shouldBe false
+        stageService.isEssentialVariablesProvided shouldBe false
         stageService.isIterationStarted shouldBe false
         stageService.isIterationFinished shouldBe false
         stageService.isNextIterationAvailable shouldBe true
@@ -226,7 +220,7 @@ class TrialStageServiceImplTest extends FunSpec with Matchers {
       it("should report a valid state") {
         stageService.isAnswerProvided shouldBe false
         stageService.isConfidenceProvided shouldBe false
-        stageService.isMostImportantVariablesProvided shouldBe false
+        stageService.isEssentialVariablesProvided shouldBe false
         stageService.isIterationStarted shouldBe true
         stageService.isIterationFinished shouldBe false
         stageService.isNextIterationAvailable shouldBe true
@@ -246,7 +240,7 @@ class TrialStageServiceImplTest extends FunSpec with Matchers {
       it("should report a valid state") {
         stageService.isAnswerProvided shouldBe true
         stageService.isConfidenceProvided shouldBe false
-        stageService.isMostImportantVariablesProvided shouldBe false
+        stageService.isEssentialVariablesProvided shouldBe false
         stageService.isIterationStarted shouldBe true
         stageService.isIterationFinished shouldBe false
         stageService.isNextIterationAvailable shouldBe true
@@ -266,7 +260,7 @@ class TrialStageServiceImplTest extends FunSpec with Matchers {
       it("should report a valid state") {
         stageService.isAnswerProvided shouldBe true
         stageService.isConfidenceProvided shouldBe true
-        stageService.isMostImportantVariablesProvided shouldBe false
+        stageService.isEssentialVariablesProvided shouldBe false
         stageService.isIterationStarted shouldBe true
         stageService.isIterationFinished shouldBe false
         stageService.isNextIterationAvailable shouldBe true
@@ -286,7 +280,7 @@ class TrialStageServiceImplTest extends FunSpec with Matchers {
       it("should report a valid state") {
         stageService.isAnswerProvided shouldBe true
         stageService.isConfidenceProvided shouldBe true
-        stageService.isMostImportantVariablesProvided shouldBe true
+        stageService.isEssentialVariablesProvided shouldBe true
         stageService.isIterationStarted shouldBe false
         stageService.isIterationFinished shouldBe true
         stageService.isNextIterationAvailable shouldBe true
@@ -307,7 +301,7 @@ class TrialStageServiceImplTest extends FunSpec with Matchers {
       it("should report a valid state") {
         stageService.isAnswerProvided shouldBe true
         stageService.isConfidenceProvided shouldBe true
-        stageService.isMostImportantVariablesProvided shouldBe true
+        stageService.isEssentialVariablesProvided shouldBe true
         stageService.isIterationStarted shouldBe false
         stageService.isIterationFinished shouldBe true
         stageService.isNextIterationAvailable shouldBe false
@@ -346,14 +340,14 @@ class TrialStageServiceImplTest extends FunSpec with Matchers {
       val stageService = serviceWithProvidedConfidence()
       val selectedVars = stageService.getSelectedVariables()
       intercept[IllegalArgumentException](stageService.setEssentialVariables(Nil))
-      intercept[IllegalArgumentException](stageService.setEssentialVariables(selectedVars))
+      intercept[IllegalArgumentException](stageService.setEssentialVariables(selectedVars.map(_.variable)))
     }
 
     describe("when essential variables from outside the previously selected variables are provided") {
       val stageService = serviceWithProvidedConfidence()
       val varDefs = stageService.getPreparedVariables()
       val vars = for (VariableDefinition(_, id, title, _, _) ← varDefs) yield Variable(id, title)
-      val selectedVars = stageService.getSelectedVariables()
+      val selectedVars = stageService.getSelectedVariables().map(_.variable)
       val varsToTest = vars.toSet -- selectedVars.toSet
       intercept[IllegalArgumentException](stageService.setEssentialVariables(varsToTest.toList))
     }
@@ -361,7 +355,7 @@ class TrialStageServiceImplTest extends FunSpec with Matchers {
     describe("when duplicated essential variables are provided") {
       val stageService = serviceWithProvidedConfidence()
       val selectedVars = Iterator.continually(stageService.getSelectedVariables().head).take(stageService.trialSetup.essentialVarsCount)
-      intercept[IllegalArgumentException](stageService.setEssentialVariables(selectedVars.toList))
+      intercept[IllegalArgumentException](stageService.setEssentialVariables(selectedVars.map(_.variable).toList))
     }
   }
 

@@ -3,7 +3,7 @@
 -- Etap wyboru zmiennych
 
 -- liczba zmiennych które musi wybrać użytkownik, docelowo 7
-INSERT INTO experiment.text_resources (key, value) VALUES ('Setup.Variables.VariablesCount', '3');
+INSERT INTO experiment.text_resources (key, value) VALUES ('Setup.Variables.VariablesCount', '7');
 
 
 -- Etap iteracji
@@ -13,7 +13,7 @@ INSERT INTO experiment.text_resources (key, value) VALUES ('Setup.Trial.Sequence
 -- koszt odsłonięcia jednej wartości
 INSERT INTO experiment.text_resources (key, value) VALUES ('Setup.Trial.UnitPrice', '10');
 -- całkowita liczba punktów do zużycia
-INSERT INTO experiment.text_resources (key, value) VALUES ('Setup.Trial.TotalScore', '100');
+INSERT INTO experiment.text_resources (key, value) VALUES ('Setup.Trial.TotalScore', '70');
 -- minimalna liczba zmiennych, które można wybrać i których wybranie nic nie kosztuje
 INSERT INTO experiment.text_resources (key, value) VALUES ('Setup.Trial.MinSelectedVariables', '3');
 -- maksymalna liczba zmiennych które można wybrać

@@ -6,6 +6,7 @@ package net.enigma.model
 case class LotteryStageInfo(
   winChance: Int,
   lastItersCount: Int,
+  selectedIterIdx: Int,
   lotterySelected: Boolean,
   result: Option[Boolean]
 )
