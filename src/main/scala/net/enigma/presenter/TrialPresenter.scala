@@ -37,6 +37,9 @@ trait TrialPresenter extends FlowPresenter {
     if (selectionCount >= minSelectedVariablesCount) {
       decisionSelector.setEnabled(true)
       score.setValue((totalScore - (selectionCount - minSelectedVariablesCount) * unitPrice).toString)
+    } else {
+      decisionSelector.setEnabled(false)
+      score.setValue(totalScore.toString)
     }
   }
 
@@ -78,10 +81,10 @@ trait TrialPresenter extends FlowPresenter {
     App.service.setCurrentStage(id)
     if (stageService.isAwaitingNewVariables || stageService.isAwaitingAnswer || stageService.isAwaitingVariableSelection) {
       nextIteration()
-    } else if (stageService.isNextIterationAvailable) {
-      navigateTo(nextView)
     } else {
-      App.service.completeStage(id)
+      if (stageService.isIterationFinished && !stageService.isNextIterationAvailable) {
+        App.service.completeStage(id)
+      }
       navigateTo(nextView)
     }
   }
