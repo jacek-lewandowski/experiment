@@ -35,8 +35,8 @@ INSERT INTO experiment.text_resources (key, value) VALUES ('Labels.TrialQuestion
 INSERT INTO experiment.text_resources (key, value) VALUES ('Labels.EmailQuestion', 'Wprowadź swój adres email');
 INSERT INTO experiment.text_resources (key, value) VALUES ('Labels.MissingVariables', 'Wprowadź brakujące zmienne');
 
-INSERT INTO experiment.text_resources (key, value) VALUES ('Notifications.LoseTheLottery', 'Przegrana');
-INSERT INTO experiment.text_resources (key, value) VALUES ('Notifications.WonTheLottery', 'Wygrana');
+INSERT INTO experiment.text_resources (key, value) VALUES ('Notifications.LoseTheLottery', 'Została wylosowana kula czarna. Przegrana');
+INSERT INTO experiment.text_resources (key, value) VALUES ('Notifications.WonTheLottery', 'Została wylosowana kula biała. Wygrana');
 INSERT INTO experiment.text_resources (key, value) VALUES ('Notifications.ConfidenceValueInvalid', 'Wartość musi być z przedziału od 50 do 100');
 INSERT INTO experiment.text_resources (key, value) VALUES ('Notifications.RankValueOutOfRange', 'Wartość musi być z przedziału od 1 do 100');
 INSERT INTO experiment.text_resources (key, value) VALUES ('Notifications.MustSelectAtLeastNVariables', 'Należy wybrać przynajmniej %d czynników');
@@ -51,8 +51,8 @@ INSERT INTO experiment.text_resources (key, value) VALUES ('Notifications.MustCh
 -- powiadomienie w czasie iteracji, jak ktors chce iść dalej nie wybierając uprzednio odpowiedzi
 INSERT INTO experiment.text_resources (key, value) VALUES ('Notifications.NeedToSelectAnswer', 'Należy wybrać odpowiedź');
 
-INSERT INTO experiment.text_resources (key, value) VALUES ('Notifications.CorrectAnswerProvided', 'Wygrałeś/aś zakład - Twoja odpowiedź w iteracji %d była poprawna');
-INSERT INTO experiment.text_resources (key, value) VALUES ('Notifications.NoCorrectAnswerProvided', 'Przegrałeś/aś zakład - Twoja odpowiedź w iteracji %d była błędna');
+INSERT INTO experiment.text_resources (key, value) VALUES ('Notifications.CorrectAnswerProvided', 'Wygrałeś/aś zakład - Twoja odpowiedź w pytaniu %d była poprawna');
+INSERT INTO experiment.text_resources (key, value) VALUES ('Notifications.NoCorrectAnswerProvided', 'Przegrałeś/aś zakład - Twoja odpowiedź w pytaniu %d była błędna');
 INSERT INTO experiment.text_resources (key, value) VALUES ('Notifications.ValidationError', 'Uzupełnij poprawnie wszystkie pola');
 INSERT INTO experiment.text_resources (key, value) VALUES ('Notifications.InvalidEmailAddress', 'Podany adres email jest nieprawidłowy');
 INSERT INTO experiment.text_resources (key, value) VALUES ('Notifications.InvalidMissingVariables', 'Nieprawidło wprowadzona informacja o brakujących zmiennych');
@@ -63,6 +63,7 @@ wartościowych jest hossa czy bessa?</quote> w oparciu o podane informacje.
 <p/>
 Zgodnie z zapowiedzią, pięciu uczestników otrzyma nagrody pieniężne wysokości 500 zł. Nagrody otrzymają ci, którzy uzyskają najwyższą trafność odpowiedzi oraz zachowają największą liczbę z przypisanych każdej osobie 70 punktów.
 Punkty można zachować lub wydać, zależy to od tego ile informacji wykorzystasz żeby odpowiedzieć na pytanie: czy na rynku papierów wartościowych jest hossa czy bessa?
+<p/>
 Za chwilę pojawi się 16 informacji z rynku kapitałowego. Pierwsze 3 nic nie kosztuje, ale każda następna kosztuje 10 punktów, które są odliczane od 70 punktów.
 Informacji jest 16. Musisz wykorzystać 3 (darmowe) i możesz wykorzystać co najwyżej 10 spośród nich (każda powyżej trzech kosztuje 10 punktów).
 <p/>
@@ -80,9 +81,9 @@ Celem badania jest ustalenie jakimi wskaźnikami posługują się prywatni inwes
 <p/>
 W przypadku jakichkolwiek pytań i wątpliwości prosimy o kontakt:
 <p/>
-Agnieszka Lewandowska amyrczek-lewandowska@swps.edu.pl
+Agnieszka Lewandowska <a href="mailto:amyrczek-lewandowska@swps.edu.pl">amyrczek-lewandowska@swps.edu.pl</a>
 <p/>
-Sandra Siemieniec ssiemieniec@st.swps.edu.pl
+Sandra Siemieniec <a href="mailto:ssiemieniec@st.swps.edu.pl">ssiemieniec@st.swps.edu.pl</a>
 <p/>
 Jeśli wyrażasz zgodę na udział w badaniu, kliknij przycisk "Dalej".
 ');
@@ -95,7 +96,7 @@ Nie wiesz jednak które to będzie pytanie. Przez komputer wylosowane będzie je
 <p/>
 Jeżeli wybierzesz loterię możesz wygrać 50 złotych, jeżeli w urny będzie wylosowana przez komputer kula biała. W urnie jest 100 kul, a białych jest %s.
 ');
-INSERT INTO experiment.text_resources (key, value) VALUES ('Instructions.LotteryQuestion', 'Kliknij w jedno z dwóch okienek, zgodnie z wyborem, którego dokonałeś.');
+INSERT INTO experiment.text_resources (key, value) VALUES ('Instructions.LotteryQuestion', 'Kliknij w jedno z dwóch okienek:');
 
 INSERT INTO experiment.text_resources (key, value) VALUES ('Instructions.Thanks',
 '
@@ -106,7 +107,7 @@ INSERT INTO experiment.text_resources (key, value) VALUES ('Instructions.Thanks'
 INSERT INTO experiment.text_resources (key, value) VALUES ('Instructions.VariablesSelection',
 '
 Na ekranie znajduje się 16 wskaźników z rynku kapitałowego. Wybierz 7 z nich, najważniejszych i wystarczających Twoim zdaniem
-do udzielenia odpowiedzi na pytanie: czy na rynku jest hossa czy bessa.
+do udzielenia odpowiedzi na pytanie: <strong>czy na rynku papierów wartościowych jest hossa czy bessa?</strong>
 ');
 
 INSERT INTO experiment.text_resources (key, value) VALUES ('Instructions.VariablesOrdering',
@@ -125,16 +126,16 @@ Poniżej znajduje się lista wybranych przez Ciebie wskaźników. Prosimy przypi
 INSERT INTO experiment.text_resources (key, value) VALUES ('Instructions.Trial', '
 Wybierz co najmniej 3 i co najwyżej 10 wskaźników. Informacja odsłoni się gdy klikniesz na wybranym polu. 
 <p/>
-Przeczytaj informacje i odpowiedz na pytanie: czy na rynku papierów wartościowych jest hossa czy bessa?
+Przeczytaj informacje i odpowiedz na pytanie: Czy na rynku papierów wartościowych jest hossa czy bessa?
 ');
 
 INSERT INTO experiment.text_resources (key, value) VALUES ('Instructions.ConfidenceQuestion',
 '
 Na ile jesteś przekonany, że odpowiedziałeś prawidłowo na pytanie o trendy rynkowe?
 <p/>
-Zaznacz swoje przekonanie na skali 50-100%. Ponieważ odpowiedzi są tylko dwie, 50% oznacza, że zgadywałeś, a 100% że jesteś całkowicie pewien swojej odpowiedzi.
+Zaznacz swoje przekonanie na skali 50%-100%. Ponieważ odpowiedzi są tylko dwie, 50% oznacza, że zgadywałeś, a 100% że jesteś całkowicie pewien swojej odpowiedzi.
 <p/>
-Jak bardzo jesteś pewien, że odpowiedziałeś prawidłowo?
+Jak bardzo jesteś pewien, że odpowiedziałeś prawidłowo? Przeciągnij suwak myszą w wybrane miejsce.
 
 ');
 
