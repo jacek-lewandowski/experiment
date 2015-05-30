@@ -7,7 +7,9 @@ import net.enigma.views.components._
  * @author Jacek Lewandowski
  */
 trait VariablesOrderingView extends AbstractView {
-  val reorderer = new VariablesReorderer().withSizeFull
+  val reorderer = new VariablesReorderer()
+      .withWidth("70%")
+      .withFullHeight
 
   addInfo(instructions)
 
