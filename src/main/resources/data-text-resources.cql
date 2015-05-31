@@ -61,7 +61,7 @@ INSERT INTO experiment.text_resources (key, value) VALUES ('Instructions.TrialIn
 W kolejnym etapie Twoim zadaniem będzie udzielenie odpowiedzi na pytanie: <quote>Czy na rynku papierów
 wartościowych jest hossa czy bessa?</quote> w oparciu o podane informacje. Poprosimy Cię o udzielenie odpowiedzi na to pytanie dziesięć razy.
 <p/>
-Zgodnie z zapowiedzią, pięciu uczestników otrzyma nagrody pieniężne wysokości 500 zł. Nagrody otrzymają ci, którzy uzyskają najwyższą trafność odpowiedzi oraz zachowają największą liczbę z przypisanych każdej osobie 70 punktów.
+Zgodnie z zapowiedzią, pięciu uczestników otrzyma <strong>nagrody pieniężne wysokości 500 zł</strong>. Nagrody otrzymają ci, którzy uzyskają najwyższą trafność odpowiedzi oraz zachowają największą liczbę z przypisanych każdej osobie 70 punktów.
 Punkty można zachować lub wydać, zależy to od tego ile informacji wykorzystasz, żeby odpowiedzieć na pytanie: "Czy na rynku papierów wartościowych jest hossa czy bessa?"
 <p/>
 Za chwilę pojawi się 16 informacji z rynku kapitałowego. Pierwsze 3 nic nie kosztuje, ale każda następna kosztuje 10 punktów, które są odliczane od 70 punktów.
