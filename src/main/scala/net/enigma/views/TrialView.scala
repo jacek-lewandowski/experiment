@@ -23,7 +23,6 @@ trait TrialView extends AbstractView {
   val spacer = new HorizontalLayout()
   val questionLabel = new Label(question)
 
-  addInfo(instructions)
   top.addComponents(score, spacer, decisionSelector)
   top.setComponentAlignment(score, Alignment.MIDDLE_RIGHT)
   top.setExpandRatio(spacer, 1)

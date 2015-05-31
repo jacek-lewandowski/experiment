@@ -70,6 +70,8 @@ trait TrialPresenter extends FlowPresenter {
       stageService.getPreparedVariables().map(v ⇒ Variable(v.id, v.title))
     }
 
+    addInfo(instructions.format((stageService.getStageInfo.curIter.get.idx + 1).toString))
+
     grid.setVariables(variables, stageService.getSelectedVariables())
     decisionSelector.resetSelection()
     decisionSelector.setEnabled(false)
