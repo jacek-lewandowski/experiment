@@ -12,7 +12,7 @@ trait ConfidenceQuestionView extends AbstractView {
       .withFullWidth
       .withImmediate
 
-  answerSlider.setValue(75d)
+  answerSlider.setValue(50d)
   answerSlider.setResolution(0)
 
   addInfo(instructions)
