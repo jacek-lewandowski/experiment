@@ -10,7 +10,7 @@ jetty()
 
 libraryDependencies += "javax.servlet" % "javax.servlet-api" % "3.0.1" % "provided"
 
-val VaadinVersion = "7.4.3"
+val VaadinVersion = "7.4.7"
 val VaadinDeps = Seq(
   "com.vaadin" % "vaadin-server" % VaadinVersion % "compile",
   "com.vaadin" % "vaadin-client-compiled" % VaadinVersion % "compile",
