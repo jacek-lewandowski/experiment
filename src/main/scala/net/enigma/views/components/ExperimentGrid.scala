@@ -84,13 +84,13 @@ class ExperimentGrid(valueResolver: Variable ⇒ VariableValue)
 
     setData(variable)
 
-
     val checkbox = new CheckBox(TextResources.Labels.Select)
         .withWidth("100%")
         .withAdditionalStyleName("large")
 
     val label = new Label()
         .withWidth("100%")
+        .withAdditionalStyleName("small")
 
     val layout = new VerticalLayout(checkbox, label).withSizeFull.withSpacing.withMargins
     layout.setExpandRatio(checkbox, 1)
