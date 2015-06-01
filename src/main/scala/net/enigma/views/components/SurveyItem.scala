@@ -105,8 +105,8 @@ object SurveyItem {
       val textField = new TextField(question.caption, "")
 
       textField.withBlurListener(_ ⇒ Try(textField.validate()))
-      textField.withFocusListener(_ ⇒ textField.selectAll())
       textField.setRequired(question.required)
+      textField.setNullRepresentation("")
 
       Try(applyValidators(question.validatorName, question.validatorParams, textField)) match {
         case Failure(t) ⇒ logger.error("Invalid validator", t)

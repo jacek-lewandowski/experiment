@@ -40,6 +40,7 @@ class VariablesScorer extends Panel with ValueChangedListenable[Int] {
   }
 
   private def valueChanged(): Unit = {
+    println("!!!!!!!!!! vlaue changed ")
     Try(notifyListeners(getVariables(validate = false).flatMap(_.score).sum))
   }
 
@@ -57,11 +58,13 @@ class VariablesScorer extends Panel with ValueChangedListenable[Int] {
         .withConversionError(TextResources.Notifications.RankValueOutOfRange)
         .withSizeUndefined
 
-    textField
-        .withFocusListener(_ ⇒ textField.selectAll())
-        .withBlurListener { _ ⇒
-      Try(textField.validate())
+    textField.setNullRepresentation("0")
+    textField.setNullSettingAllowed(true)
+    textField.setRequired(true)
+
+    textField.withBlurListener { _ ⇒
       valueChanged()
+      Try(textField.validate())
     }
 
     private val spacer = new HorizontalLayout().withFullWidth
@@ -76,7 +79,7 @@ class VariablesScorer extends Panel with ValueChangedListenable[Int] {
 
     def value(validate: Boolean): Int = {
       if (validate) textField.validate()
-      textField.convertedValue[Integer]
+      Try(textField.convertedValue[Integer]).map(_.toInt).getOrElse(0)
     }
   }
 
