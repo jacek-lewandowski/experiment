@@ -254,6 +254,13 @@
                         <contextPath>/</contextPath>
                     </webAppConfig>
                 </configuration>
+                <dependencies>
+                    <dependency>
+                        <groupId>org.eclipse.jetty</groupId>
+                        <artifactId>jetty-servlets</artifactId>
+                        <version>9.2.10.v20150310</version>
+                    </dependency>
+                </dependencies>
             </plugin>
         </plugins>
     </build>
