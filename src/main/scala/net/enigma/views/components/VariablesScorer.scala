@@ -40,7 +40,6 @@ class VariablesScorer extends Panel with ValueChangedListenable[Int] {
   }
 
   private def valueChanged(): Unit = {
-    println("!!!!!!!!!! vlaue changed ")
     Try(notifyListeners(getVariables(validate = false).flatMap(_.score).sum))
   }
 
