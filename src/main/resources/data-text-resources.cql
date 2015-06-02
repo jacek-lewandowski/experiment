@@ -125,7 +125,7 @@ Poniżej znajduje się lista wybranych przez Ciebie wskaźników. Prosimy przypi
 ');
 
 INSERT INTO experiment.text_resources (key, value) VALUES ('Instructions.Trial', '
-Pytanie %s. Wybierz co najmniej 3 i co najwyżej 10 wskaźników. Informacja odsłoni się gdy klikniesz na wybranym polu.
+<strong>Pytanie %s</strong>. Wybierz co najmniej 3 i co najwyżej 10 wskaźników. Informacja odsłoni się gdy klikniesz na wybranym polu.
 <p/>
 Przeczytaj informacje i odpowiedz na pytanie: Czy na rynku papierów wartościowych jest hossa czy bessa?
 ');
