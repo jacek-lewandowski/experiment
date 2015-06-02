@@ -10,7 +10,6 @@ import com.vaadin.ui.UI
 import org.slf4j.LoggerFactory
 
 import net.enigma.TextResources._
-import net.enigma.model.User
 import net.enigma.presenter._
 import net.enigma.service._
 import net.enigma.service.impl._
@@ -22,7 +21,7 @@ import net.enigma.views._
 object App {
   private val logger = LoggerFactory.getLogger(classOf[App])
 
-  val testMode = true
+  val testMode = false
 
   val providerSuffix = "Provider"
   val userKey = "user"
@@ -36,12 +35,12 @@ object App {
 
   def ui = UI.getCurrent
 
-  def currentUser: Option[User] =
+  def currentUser: Option[String] =
     for (ui ← Option(ui);
          session ← Option(ui.getSession);
-         user ← Option(ui.getSession.getAttribute(userKey).asInstanceOf[User])) yield user
+         user ← Option(ui.getSession.getAttribute(userKey).asInstanceOf[String])) yield user
 
-  def currentUser_=(user: Option[User]) =
+  def currentUser_=(user: Option[String]) =
     for (ui ← Option(ui); session ← Option(ui.getSession)) user match {
       case Some(u) ⇒
         ui.getSession.setAttribute(userKey, u)
@@ -355,7 +354,9 @@ object App {
       logger.info(s"Getting view name for $viewAndParameters")
       subProviders.keys
           .find(key ⇒ viewAndParameters == key || viewAndParameters.startsWith(s"$key/"))
-          .map(foundView ⇒ {logger.info(s"Going to view $foundView with params $viewAndParameters"); foundView})
+          .map(foundView ⇒ {
+        logger.info(s"Going to view $foundView with params $viewAndParameters"); foundView
+      })
           .getOrElse(findAllowedProvider())
     }
 
@@ -399,7 +400,7 @@ object App {
         Login.name
       } else {
         val availableProviders = subProviders - Login.name
-        val selectedProviders = for (provider ← availableProviders.values if provider.allowed) 
+        val selectedProviders = for (provider ← availableProviders.values if provider.allowed)
           yield provider.name
 
         logger.info(s"Found $selectedProviders providers")

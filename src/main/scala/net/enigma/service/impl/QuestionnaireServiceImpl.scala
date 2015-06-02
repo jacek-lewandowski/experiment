@@ -24,7 +24,7 @@ trait QuestionnaireServiceImpl extends QuestionnaireService {
   }
 
   def saveQuestionnaireAnswer(idx: Int, json: String): Unit = {
-    val userCode = App.currentUser.get.code
+    val userCode = App.currentUser.get
     StageDataDAO.saveStageData(StageData(userCode, Questionnnaire.stageID, Questionnnaire.answerID, idx, json))
   }
 

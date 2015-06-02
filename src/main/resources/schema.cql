@@ -19,19 +19,6 @@ CREATE TABLE IF NOT EXISTS experiment.text_resources (
 	PRIMARY KEY 		(key)
 );
 
-CREATE TABLE IF NOT EXISTS experiment.answers (
-	category			TEXT,
-	id					INT,
-	user_code			TEXT,
-	caption				TEXT,
-	required			BOOLEAN,
-	validator_name		TEXT,
-	validator_params	MAP<TEXT, TEXT>,
-	answer				TEXT,
-	
-	PRIMARY KEY 		((category, user_code), id)
-);
-
 CREATE TABLE IF NOT EXISTS experiment.variables (
     category			TEXT,
 	id					INT,
@@ -44,23 +31,12 @@ CREATE TABLE IF NOT EXISTS experiment.variables (
 	PRIMARY KEY 		(category, id)
 );
 
-CREATE TABLE IF NOT EXISTS experiment.user_variables (
-    category		TEXT,
-    user_code			TEXT,
-    stage_id			TEXT,
-	id					INT,
-	name				TEXT,
-	ordinal_number		INT,
-	score				INT,
-
-	PRIMARY KEY 		((category, user_code, stage_id), id)
-);
-
 CREATE TABLE IF NOT EXISTS experiment.users (
 	code				TEXT,
 	email_address		TEXT,
 	completed_stages	SET<TEXT>,
 	current_stage       TEXT,
+	category			TEXT,
 
 	PRIMARY KEY			(code)
 );

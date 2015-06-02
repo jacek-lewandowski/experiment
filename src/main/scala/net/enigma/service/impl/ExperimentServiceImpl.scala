@@ -13,23 +13,23 @@ trait ExperimentServiceImpl extends ExperimentService {
   private val logger = LoggerFactory.getLogger(classOf[ExperimentServiceImpl])
 
   override def getTrialStageService: TrialStageService = {
-    new TrialStageServiceImpl(App.currentUser.get.code, getTrialSetup)
+    new TrialStageServiceImpl(App.currentUser.get, getTrialSetup)
   }
 
   override def getVariablesStageService: VariablesStageService = {
-    new VariablesStageServiceImpl(App.currentUser.get.code, getVariablesSetup)
+    new VariablesStageServiceImpl(App.currentUser.get, getVariablesSetup)
   }
 
   override def getLotteryStageService: LotteryStageService = {
-    new LotteryStageServiceImpl(App.currentUser.get.code, TextResources.Setup.Lottery.LastIterationsCount.intValue)
+    new LotteryStageServiceImpl(App.currentUser.get, TextResources.Setup.Lottery.LastIterationsCount.intValue)
   }
 
   override def getJustificationsStageService: JustificationsStageService = {
-    new JustificationsStageServiceImpl(App.currentUser.get.code)
+    new JustificationsStageServiceImpl(App.currentUser.get)
   }
 
   override def getMissingVariablesStageService: MissingVariablesStageService = {
-    new MissingVariablesStageServiceImpl(App.currentUser.get.code)
+    new MissingVariablesStageServiceImpl(App.currentUser.get)
   }
 
   override def getTrialSetup: TrialSetup = {

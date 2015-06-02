@@ -1,5 +1,7 @@
 package net.enigma.service
 
+import net.enigma.model.User
+
 /**
  * @author Jacek Lewandowski
  */
@@ -14,4 +16,5 @@ trait UserService {
 
   def getCurrentStage(): Option[String]
 
+  def getUser(code: String): Option[User]
 }

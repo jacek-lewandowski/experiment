@@ -25,7 +25,7 @@ trait PersonalDataPresenter extends FlowPresenter {
       question.validatorName,
       question.validatorParams,
       answer,
-      App.currentUser.get.code
+      App.currentUser.get
     )
 
     App.service.savePersonalDataAnswers(answers)

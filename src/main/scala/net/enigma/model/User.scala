@@ -3,31 +3,18 @@ package net.enigma.model
 import scala.language.implicitConversions
 
 import net.enigma.model.User.UserState
-import net.enigma.model.User.UserState.{AbleToProceed, UNKNOWN}
+import net.enigma.model.User.UserState.AbleToProceed
 
 /**
  * @author Jacek Lewandowski
  */
 case class User(
   code: String,
-  stateString: String = UNKNOWN.productPrefix,
-  stagesStatesStrings: Map[String, String] = Map.empty
-) {
-
-  lazy val state: UserState = UserState(stateString).get
-
-  lazy val stagesStates = stagesStatesStrings.flatMap { case (key, value) ⇒ UserState(value).map((key, _)) }
-
-  def isAbleToProceed: Boolean = this.state match {
-    case _: AbleToProceed ⇒ true
-    case _ ⇒ false
-  }
-
-  def copy(code: String = code, state: UserState = state, stagesStates: Map[String, UserState]): User =
-    User(code, state.name, stagesStatesStrings = stagesStates.mapValues(_.name))
-
-
-}
+  category: String,
+  email: Option[String] = None,
+  currentStage: Option[String] = None,
+  completedStages: Set[String] = Set.empty
+)
 
 object User {
 

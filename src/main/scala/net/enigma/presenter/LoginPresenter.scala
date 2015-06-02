@@ -33,7 +33,7 @@ trait LoginPresenter extends FlowPresenter {
   private def login(userName: String): Boolean = {
     App.service.authenticate(userName)
 
-    if (App.currentUser.exists(_.isAbleToProceed)) {
+    if (App.currentUser.isDefined) {
       Notification.show(s"${TextResources.Notifications.LoginSuccessful: String}: $userName")
       true
     } else {

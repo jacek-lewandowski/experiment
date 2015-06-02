@@ -26,7 +26,7 @@ trait PersonalDataServiceImpl extends PersonalDataService {
   }
 
   def savePersonalDataAnswer(idx: Int, json: String): Unit = {
-    val userCode = App.currentUser.get.code
+    val userCode = App.currentUser.get
     StageDataDAO.saveStageData(StageData(userCode, PersonalData.stageID, PersonalData.answerID, idx, json))
   }
 
