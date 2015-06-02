@@ -78,7 +78,7 @@ INSERT INTO experiment.text_resources (key, value) VALUES ('Instructions.Initial
 Zapraszamy do udziału w badaniu finansowanym z grantu nr 2014/13/B/HS4/01533, przyznanego przez Narodowe Centrum Nauki. Badanie jest
 w pełni anonimowe i służy wyłącznie do celów naukowych. Udział w badaniu jest dobrowolny i w każdej chwili możesz się z niego wycofać. 
 <p/>
-Celem badania jest ustalenie jakimi wskaźnikami posługują się prywatni inwestorzy przy ocenie trendów rynkowych. Badanie zajmuje około 30 minut. Niektórzy badani otrzymają nagrody finansowe – szczegóły w dalszej części badania.
+Celem badania jest ustalenie jakimi wskaźnikami posługują się inwestorzy przy ocenie trendów rynkowych. Badanie zajmuje około 30 minut. Niektórzy badani otrzymają nagrody finansowe – szczegóły w dalszej części badania.
 <p/>
 W przypadku jakichkolwiek pytań i wątpliwości prosimy o kontakt:
 <p/>
