@@ -30,7 +30,8 @@ val SparkCassandraConnectorDeps = Seq(
 
 val LoggingDeps = Seq(
   "org.slf4j" % "slf4j-api" % "1.7.12" % "compile" force(),
-  "org.slf4j" % "slf4j-simple" % "1.7.12" % "compile" force()
+  "org.slf4j" % "slf4j-simple" % "1.7.12" % "compile" force(),
+  "ch.qos.logback" % "logback-classic" % "1.1.3"
 )
 
 val ScalaDeps = Seq(
@@ -53,6 +54,6 @@ cleanKeepFiles ++= Seq("resolution-cache", "streams", "spark-archives", "classes
 updateOptions := updateOptions.value.withCachedResolution(cachedResoluton = true)
 
 javaOptions in container ++= Seq(
-  "-agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=5005"
+  "-agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=5005 -Dlogback.configuration=logback.xml"
 )
 

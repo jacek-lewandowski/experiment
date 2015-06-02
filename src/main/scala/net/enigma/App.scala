@@ -11,6 +11,7 @@ import com.vaadin.navigator.{View, ViewProvider}
 import com.vaadin.server.VaadinSession
 import com.vaadin.ui.UI
 import org.slf4j.LoggerFactory
+import org.slf4j.impl.StaticLoggerBinder
 
 import net.enigma.TextResources._
 import net.enigma.presenter._
