@@ -57,7 +57,7 @@ trait AbstractView extends Layout with View {
   def navigateTo(view: String) = {
     logger.info(s"Navigating to $view")
     ui.navigator.navigateTo(view)
-    Page.getCurrent.setUriFragment(view)
+    Page.getCurrent.setUriFragment(view, false)
   }
 
   def title: String

@@ -21,13 +21,13 @@ object UserDAO extends Entity {
   def getUser(code: String): Option[User] = {
     DBManager.connector.withSessionDo { session ⇒
       val rs = session.execute(
-        s"SELECT code, category, email, completed_stages, current_stage, category FROM $keyspace.$table WHERE code = ?", code)
+        s"SELECT code, category, email_address, completed_stages, current_stage, category FROM $keyspace.$table WHERE code = ?", code)
       Option(rs.one()) map {
         case row ⇒
           User(
             code = row.getString("code"),
             category = row.getString("category"),
-            email = Option(row.getString("email")),
+            email = Option(row.getString("email_address")),
             currentStage = Option(row.getString("current_stage")),
             completedStages = row.getSet("completed_stages", classOf[String]).toSet
           )

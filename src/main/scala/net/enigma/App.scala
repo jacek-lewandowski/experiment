@@ -76,7 +76,6 @@ object App {
               case None ⇒
             }
             ui.getSession.setAttribute(userKey, null)
-            session.close()
         }
       } finally {
         lock.unlock()
