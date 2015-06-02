@@ -1,11 +1,14 @@
 package net.enigma
 
 import java.security.SecureRandom
+import java.util.concurrent.TimeUnit
+import java.util.concurrent.locks.ReentrantLock
 
 import scala.collection.mutable
 import scala.util.Random
 
 import com.vaadin.navigator.{View, ViewProvider}
+import com.vaadin.server.VaadinSession
 import com.vaadin.ui.UI
 import org.slf4j.LoggerFactory
 
@@ -26,6 +29,10 @@ object App {
   val providerSuffix = "Provider"
   val userKey = "user"
 
+  private val sessionMap = mutable.WeakHashMap[String, VaadinSession]()
+
+  private val lock = new ReentrantLock()
+
   private val secureRandom = new SecureRandom()
   private val threadLocalRandom = new ThreadLocal[Random]() {
     override def initialValue(): Random = new Random(secureRandom.synchronized(secureRandom.nextLong()))
@@ -35,18 +42,46 @@ object App {
 
   def ui = UI.getCurrent
 
-  def currentUser: Option[String] =
+  def currentUser: Option[String] = {
     for (ui ← Option(ui);
          session ← Option(ui.getSession);
          user ← Option(ui.getSession.getAttribute(userKey).asInstanceOf[String])) yield user
+  }
 
-  def currentUser_=(user: Option[String]) =
-    for (ui ← Option(ui); session ← Option(ui.getSession)) user match {
-      case Some(u) ⇒
-        ui.getSession.setAttribute(userKey, u)
-      case None ⇒
-        ui.getSession.setAttribute(userKey, null)
+  def currentUser_=(user: Option[String]) = {
+    def closeOtherSession(userCode: String): Unit = {
+      sessionMap.get(userCode) match {
+        case Some(otherSession) ⇒
+          otherSession.lock()
+          try {
+            otherSession.close()
+          } finally {
+            otherSession.unlock()
+          }
+        case None ⇒
+      }
     }
+
+    if (lock.tryLock(30, TimeUnit.SECONDS))
+      try {
+        for (ui ← Option(ui); session ← Option(ui.getSession)) user match {
+          case Some(u) ⇒
+            closeOtherSession(u)
+            sessionMap.put(u, session)
+            ui.getSession.setAttribute(userKey, u)
+          case None ⇒
+            currentUser match {
+              case Some(curUser) ⇒
+                sessionMap.remove(curUser)
+              case None ⇒
+            }
+            ui.getSession.setAttribute(userKey, null)
+            session.close()
+        }
+      } finally {
+        lock.unlock()
+      }
+  }
 
   val service = new AppService
       with LoginServiceImpl
@@ -355,7 +390,8 @@ object App {
       subProviders.keys
           .find(key ⇒ viewAndParameters == key || viewAndParameters.startsWith(s"$key/"))
           .map(foundView ⇒ {
-        logger.info(s"Going to view $foundView with params $viewAndParameters"); foundView
+        logger.info(s"Going to view $foundView with params $viewAndParameters");
+        foundView
       })
           .getOrElse(findAllowedProvider())
     }
