@@ -80,6 +80,10 @@ trait LotteryPresenter extends FlowPresenter {
       } else {
         showBetResult()
       }
+    } else if (stageService.getLotteryWinChance == 100) {
+      stageService.bet()
+      App.service.completeStage(id)
+      navigateTo(nextView)
     }
   }
 
