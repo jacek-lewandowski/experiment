@@ -135,6 +135,13 @@ object Utils {
     }
   }
 
+  implicit class RichButton[T <: Button](val field: T) extends AnyVal {
+    def withClickListener(f: Button.ClickEvent => Any): T = {
+      field.addClickListener(f)
+      field
+    }
+  }
+
   implicit def toPropertyValueChangeListener(f: Property.ValueChangeEvent ⇒ Any): Property.ValueChangeListener = {
     new ValueChangeListener {
       override def valueChange(event: ValueChangeEvent): Unit = f(event)

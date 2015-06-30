@@ -84,4 +84,22 @@ object UserDAO extends Entity {
     }
   }
 
+  def getAllUsers(): Seq[User] = {
+    DBManager.connector.withSessionDo { session =>
+      DBManager.connector.withSessionDo { session ⇒
+        val rs = session.execute(
+          s"SELECT code, category, email_address, completed_stages, current_stage, category FROM $keyspace.$table")
+        rs.all() map {
+          case row ⇒
+            User(
+              code = row.getString("code"),
+              category = row.getString("category"),
+              email = Option(row.getString("email_address")),
+              currentStage = Option(row.getString("current_stage")),
+              completedStages = row.getSet("completed_stages", classOf[String]).toSet
+            )
+        }
+      }
+    }
+  }
 }

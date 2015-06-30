@@ -25,6 +25,8 @@ import net.enigma.views._
 object App {
   private val logger = LoggerFactory.getLogger(classOf[App])
 
+  val LINK = "http://192.3.134.232:8080/#!login/"
+  val ADMIN_USER = "t2734hmtdo2347hdmtso2hs34tog1xo34xfhm3f2z0384gh0234mg0003p3m9xp4hgm93p48nhgz394g"
   val testMode = false
 
   val providerSuffix = "Provider"
@@ -100,6 +102,19 @@ object App {
       def apply(): View
 
       def allowed: Boolean
+    }
+
+    object Admin extends Provider("admin") {
+      override def apply() =
+        new SimpleView(this.name, TextResources.Titles.Admin)
+          with AdminView with AdminPresenter {
+
+          override def nextView: String = Login.name
+
+          override lazy val allowedToEnter = App.testMode || allowed
+        }
+
+      override def allowed: Boolean = App.testMode
     }
 
     object Login extends Provider("login") {

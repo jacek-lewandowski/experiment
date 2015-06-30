@@ -41,6 +41,13 @@ CREATE TABLE IF NOT EXISTS experiment.users (
 	PRIMARY KEY			(code)
 );
 
+CREATE TABLE IF NOT EXISTS experiment.groups (
+	code				TEXT,
+	category			TEXT,
+
+	PRIMARY KEY			(code)
+);
+
 CREATE TABLE IF NOT EXISTS experiment.stage_data (
 	user_code			TEXT,
 	stage				TEXT,

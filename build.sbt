@@ -24,8 +24,8 @@ val VaadinDeps = Seq(
 ).map(_ excludeAll ExclusionRule(organization = "org.slf4j"))
 
 val SparkCassandraConnectorDeps = Seq(
-  "com.datastax.spark" %% "spark-cassandra-connector" % "1.2.1" % "compile" excludeAll ExclusionRule(organization = "org.slf4j"),
-  "org.apache.spark" %% "spark-core" % "1.2.1" % "compile" intransitive() excludeAll ExclusionRule(organization = "org.slf4j")
+  "com.datastax.spark" %% "spark-cassandra-connector" % "1.2.3" % "compile" excludeAll ExclusionRule(organization = "org.slf4j"),
+  "org.apache.spark" %% "spark-core" % "1.2.2" % "compile" intransitive() excludeAll ExclusionRule(organization = "org.slf4j")
 )
 
 val LoggingDeps = Seq(

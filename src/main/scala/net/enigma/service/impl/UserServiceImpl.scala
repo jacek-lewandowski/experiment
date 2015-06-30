@@ -1,9 +1,12 @@
 package net.enigma.service.impl
 
+import scala.util.Random
+
+import org.apache.commons.lang3.StringUtils
 import org.slf4j.LoggerFactory
 
 import net.enigma.App
-import net.enigma.db.UserDAO
+import net.enigma.db.{GroupDAO, UserDAO}
 import net.enigma.model.User
 import net.enigma.service.UserService
 
@@ -50,5 +53,28 @@ trait UserServiceImpl extends UserService {
 
   override def getUser(code: String): Option[User] = {
     UserDAO.getUser(code)
+  }
+
+  override def getAllUsers(): Seq[User] = {
+    UserDAO.getAllUsers()
+  }
+
+  def newCode(length: Int): String = {
+    val data = new Array[Byte](length)
+    App.random.nextBytes(data)
+    val code = BigInt(data).abs.toString(36)
+    code.take(length)
+  }
+
+  override def generateNewUser(groupName: String): String = {
+    val code = newCode(25)
+    UserDAO.addUser(code, groupName)
+    code
+  }
+
+  override def generateNewGroup(groupName: String): String = {
+    val code = newCode(25)
+    GroupDAO.addGroup(code, groupName)
+    code
   }
 }

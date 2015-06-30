@@ -102,6 +102,8 @@ object TextResources {
 
     object MissingVariables extends Resource
 
+    object Admin extends Resource
+
   }
 
   object Labels extends ResourceGroup {
@@ -139,6 +141,26 @@ object TextResources {
     object EmailQuestion extends Resource
 
     object MissingVariables extends Resource
+
+    object AdminSummaryTable extends Resource
+
+    object AdminSummaryTableGroupCol extends Resource
+
+    object AdminSummaryTableNotStartedCol extends Resource
+
+    object AdminSummaryTableNotFinishedCol extends Resource
+
+    object AdminSummaryTableFinishedCol extends Resource
+
+    object AdminGenerateGroupButton extends Resource
+
+    object AdminGenerateUserButton extends Resource
+
+    object AdminGroupName extends Resource
+
+    object AdminGeneratedCodes extends Resource
+
+    object AdminGeneratePanel extends Resource
 
   }
 

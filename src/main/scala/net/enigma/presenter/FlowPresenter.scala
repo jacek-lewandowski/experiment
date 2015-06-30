@@ -1,6 +1,7 @@
 package net.enigma.presenter
 
 import com.vaadin.navigator.ViewChangeListener.ViewChangeEvent
+import org.slf4j.LoggerFactory
 
 import net.enigma.App
 import net.enigma.App.Views.Login

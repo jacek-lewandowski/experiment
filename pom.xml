@@ -106,7 +106,7 @@
         <dependency>
             <groupId>com.datastax.spark</groupId>
             <artifactId>spark-cassandra-connector_${scala.tools.version}</artifactId>
-            <version>1.2.0-rc3</version>
+            <version>1.2.3</version>
             <exclusions>
                 <exclusion>
                     <groupId>org.scala-lang</groupId>

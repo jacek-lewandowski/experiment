@@ -3,7 +3,7 @@
     <appender name="FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
         <file>${USER_HOME}/experiment.log</file>
         <rollingPolicy class="ch.qos.logback.core.rolling.FixedWindowRollingPolicy">
-            <fileNamePattern>${USER_HOME}/experiment.log.%i.zip</fileNamePattern>
+            <fileNamePattern>${HOME}/experiment.log.%i.zip</fileNamePattern>
             <minIndex>1</minIndex>
             <maxIndex>20</maxIndex>
         </rollingPolicy>

@@ -62,7 +62,9 @@ trait AbstractView extends Layout with View {
 
   def title: String
 
-  def allowedToEnter: Boolean
+  def allowedToEnter: Boolean = true
+
+  def allowedToEnter(event: ViewChangeEvent): Boolean = allowedToEnter
 
   def entered(event: ViewChangeEvent): Unit
 
@@ -74,7 +76,7 @@ trait AbstractView extends Layout with View {
 
   override def enter(event: ViewChangeEvent): Unit = {
     setCaption(TextResources.Titles.Main)
-    if (allowedToEnter) {
+    if (allowedToEnter(event)) {
       logger.info(s"Entering ${this.getClass.getName}")
       entered(event)
     } else {

@@ -16,6 +16,7 @@ INSERT INTO experiment.text_resources (key, value) VALUES ('Titles.CannotContinu
 INSERT INTO experiment.text_resources (key, value) VALUES ('Titles.EmailAddress', 'Adres email');
 INSERT INTO experiment.text_resources (key, value) VALUES ('Titles.Justifications', 'Uzasadnienia');
 INSERT INTO experiment.text_resources (key, value) VALUES ('Titles.MissingVariables', 'Brakujące zmienne');
+INSERT INTO experiment.text_resources (key, value) VALUES ('Titles.Admin', 'Panel administracyjny');
 
 INSERT INTO experiment.text_resources (key, value) VALUES ('Labels.Lottery', 'Wybieram loterię');
 INSERT INTO experiment.text_resources (key, value) VALUES ('Labels.NotLottery', 'Wybieram zakład');
@@ -34,6 +35,17 @@ INSERT INTO experiment.text_resources (key, value) VALUES ('Labels.ConfidenceQue
 INSERT INTO experiment.text_resources (key, value) VALUES ('Labels.TrialQuestion', 'Czy na rynku papierów wartościowych jest hossa czy bessa?');
 INSERT INTO experiment.text_resources (key, value) VALUES ('Labels.EmailQuestion', 'Wprowadź swój adres email');
 INSERT INTO experiment.text_resources (key, value) VALUES ('Labels.MissingVariables', 'Prosimy o podanie informacji, które Ty uznałbyś za diagnostyczne, gdybyś miał odpowiedzieć na pytanie "Czy na rynku papierów wartościowych jest hossa czy bessa?", niezależnie od tego, czy informacje te pojawiły się w badaniu czy nie.');
+
+INSERT INTO experiment.text_resources (key, value) VALUES ('Labels.AdminSummaryTable', 'Podsumowanie');
+INSERT INTO experiment.text_resources (key, value) VALUES ('Labels.AdminSummaryTableGroupCol', 'Grupa');
+INSERT INTO experiment.text_resources (key, value) VALUES ('Labels.AdminSummaryTableNotStartedCol', 'Puste');
+INSERT INTO experiment.text_resources (key, value) VALUES ('Labels.AdminSummaryTableNotFinishedCol', 'Rozpoczęte');
+INSERT INTO experiment.text_resources (key, value) VALUES ('Labels.AdminSummaryTableFinishedCol', 'Zakończone');
+INSERT INTO experiment.text_resources (key, value) VALUES ('Labels.AdminGenerateGroupButton', 'Generuj grupę');
+INSERT INTO experiment.text_resources (key, value) VALUES ('Labels.AdminGenerateUserButton', 'Generuj użytkownika');
+INSERT INTO experiment.text_resources (key, value) VALUES ('Labels.AdminGroupName', 'Grupa');
+INSERT INTO experiment.text_resources (key, value) VALUES ('Labels.AdminGeneratedCodes', 'Wygenerowane linki');
+INSERT INTO experiment.text_resources (key, value) VALUES ('Labels.AdminGeneratePanel', 'Generowanie linków');
 
 INSERT INTO experiment.text_resources (key, value) VALUES ('Notifications.LoseTheLottery', 'Została wylosowana kula czarna. Przegrana');
 INSERT INTO experiment.text_resources (key, value) VALUES ('Notifications.WonTheLottery', 'Została wylosowana kula biała. Wygrana');
@@ -90,7 +102,7 @@ Jeśli wyrażasz zgodę na udział w badaniu, kliknij przycisk "Dalej".
 ');
 
 INSERT INTO experiment.text_resources (key, value) VALUES ('Instructions.Lottery', '
-Proponujemy Ci wybór między zakładem, że trafnie odpowiedziałeś, że jest hossa lub bessa a loterią. 
+Proponujemy Ci wybór między zakładem, że trafnie odpowiedziałeś, że jest hossa lub bessa a loterią. Jeśli wygrasz i chcesz otrzymać nagrodę, musisz wpisać swój adres email na końcu badania.
 <p/>
 Jeżeli wybierzesz zakład, wygrasz 50 złotych jeśli trafnie określiłeś trend rynkowy w jednym z dwóch ostatnich pytań - 9 lub 10.
 Nie wiesz jednak które to będzie pytanie. Przez komputer wylosowane będzie tylko jedno z nich, czyli są jednakowe szanse na to, że będzie to pytanie 9 lub 10.
@@ -158,7 +170,9 @@ Instrukcja do kwestionariusza
 INSERT INTO experiment.text_resources (key, value) VALUES ('Instructions.PersonalData', '');
 
 INSERT INTO experiment.text_resources (key, value) VALUES ('Instructions.EmailAddress', '
-Jeżeli chcesz wziąć udział w konkursie, wpisz swój email.
+Jeżeli chcesz wziąć udział w konkursie, wpisz swój adres email.
+<p/>
+Jeżeli wygrałeś zakład lub loterię wpisz swój adres email. Skontaktujemy się z Tobą.
 ');
 
 INSERT INTO experiment.text_resources (key, value) VALUES ('Instructions.Justifications', '

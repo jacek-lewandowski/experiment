@@ -17,4 +17,10 @@ trait UserService {
   def getCurrentStage(): Option[String]
 
   def getUser(code: String): Option[User]
+
+  def getAllUsers(): Seq[User]
+
+  def generateNewUser(groupName: String): String
+
+  def generateNewGroup(groupName: String): String
 }
