@@ -51,13 +51,13 @@ class VariablesScorer extends Panel with ValueChangedListenable[Int] {
 
     private val textField = new TextField()
         .withConverter[Integer]
-        .withAdditionalValidator(new IntegerRangeValidator(TextResources.Notifications.RankValueOutOfRange, 1, 100))
+        .withAdditionalValidator(new IntegerRangeValidator(TextResources.Notifications.RankValueOutOfRange, 0, 100))
         .withConvertedValue(0)
         .withMaxLength(2)
         .withConversionError(TextResources.Notifications.RankValueOutOfRange)
         .withSizeUndefined
 
-    textField.setNullRepresentation("0")
+    textField.setNullRepresentation("")
     textField.setNullSettingAllowed(true)
     textField.setRequired(true)
 
