@@ -71,29 +71,24 @@ INSERT INTO experiment.text_resources (key, value) VALUES ('Notifications.Invali
 INSERT INTO experiment.text_resources (key, value) VALUES ('Notifications.InvalidMissingVariables', 'Nieprawidło wprowadzona informacja o brakujących zmiennych');
 
 INSERT INTO experiment.text_resources (key, value) VALUES ('Instructions.TrialInstruction', '
-W kolejnym etapie Twoim zadaniem będzie udzielenie odpowiedzi na pytanie: <quote>Czy na rynku papierów
-wartościowych jest hossa czy bessa?</quote> w oparciu o podane informacje. Poprosimy Cię o udzielenie odpowiedzi na to pytanie dziesięć razy.
+Za wykonanie kolejnego zadania, <strong>pięciu uczestników otrzyma nagrody pieniężne wysokości 500 zł. Nagrody otrzymają ci, którzy odpowiedzą trafnie na pytanie: Czy na rynku papierów wartościowych jest hossa czy bessa?  I wykorzystają w tym celu jak najmniej informacji.</strong>
 <p/>
-Zgodnie z zapowiedzią, pięciu uczestników otrzyma <strong>nagrody pieniężne wysokości 500 zł</strong>. Nagrody otrzymają ci, którzy uzyskają najwyższą trafność odpowiedzi oraz zachowają największą liczbę z przypisanych każdej osobie 70 punktów.
-Punkty można zachować lub wydać, zależy to od tego ile informacji wykorzystasz, żeby odpowiedzieć na pytanie: "Czy na rynku papierów wartościowych jest hossa czy bessa?"
+Za chwilę na ekranie pojawi się 16 informacji dotyczących sytuacji gospodarczej i rynku kapitałowego. Trzy z nich można uzyskać „za darmo”, ale każda następna kosztuje 10 punktów, które są odliczane od 70 punktów przyznanych Ci na początku.
+Musisz więc wykorzystać co najmniej 3 „darmowe” informacje i co najwyżej 10 z 16 dostępnych na ekranie.
 <p/>
-Za chwilę pojawi się 16 informacji z rynku kapitałowego. Pierwsze 3 nic nie kosztuje, ale każda następna kosztuje 10 punktów, które są odliczane od 70 punktów.
-<p/>
-Informacji jest 16. Musisz wykorzystać 3 (darmowe) i możesz wykorzystać co najwyżej 10 spośród nich (każda powyżej trzech kosztuje 10 punktów).
-<p/>
-Licznik wskazujący aktualną liczbę punktów znajduje się w górnej części ekranu.
+<strong>Nagrody pieniężne wysokości 500 zł, otrzymają Ci, którzy będą mieli najwięcej trafnych odpowiedzi na 10 pytań: Czy na rynku papierów wartościowych jest hossa czy bessa? i wykorzystają jak najmniej punktów (informacji) do tej odpowiedzi.</strong>
+Licznik wskazujący aktualną liczbę punktów znajduje się w górnej części ekranu. Do każdego pytania jest nowy licznik, który wskazuje 70 punktów.
 <p/>
 Jeśli chcesz wziąć udział w konkursie, musisz na końcu podać swój e-mail.
 <p/>
 ');
 INSERT INTO experiment.text_resources (key, value) VALUES ('Instructions.QuestionnaireInstruction', 'Instrukcja do kwestionariusza');
 INSERT INTO experiment.text_resources (key, value) VALUES ('Instructions.InitialInstruction', '
-Zapraszamy do udziału w badaniu finansowanym z grantu nr 2014/13/B/HS4/01533, przyznanego przez Narodowe Centrum Nauki. Badanie jest
-w pełni anonimowe i służy wyłącznie do celów naukowych. Udział w badaniu jest dobrowolny i w każdej chwili możesz się z niego wycofać. 
+Zapraszamy Państwa do udziału w badaniu, które  jest częścią szerszego projektu, finansowanego z grantu Narodowego Centrum Nauki. W oparciu o wyniki tego badania, mamy nadzieję dowiedzieć się których informacji używają inwestorzy, kiedy zastanawiają się, czy na rynku papierów wartościowych jest hossa, czy bessa. Żeby to ustalić prosimy Państwa najpierw o wskazanie i porangowanie tych wskaźników ekonomicznych, które Waszym zdaniem najlepiej pozwalają odpowiedzieć na pytanie o to, czy jest hossa czy bessa. A później prosimy 10 razy o odpowiedz na pytanie, czy dany układ wskaźników wskazuje na hossę, czy na bessę.
 <p/>
-Celem badania jest ustalenie jakimi wskaźnikami posługują się inwestorzy przy ocenie trendów rynkowych. Badanie zajmuje około 30 minut. Niektórzy badani otrzymają nagrody finansowe – szczegóły w dalszej części badania.
+<strong>Ponieważ badanie zajmuje około 30 minut, to 5 osób, które najlepiej odpowie na 10 pytań uzyska nagrody finansowe wysokości 500 zł.</strong> Niezależnie od tego, na końcu oferujemy wszystkim uczestnikom udział w loterii w której można wygrać 50 zł.
 <p/>
-W przypadku jakichkolwiek pytań i wątpliwości prosimy o kontakt:
+<strong>Badanie prowadzone jest wyłącznie w celach naukowych, jest dobrowolne i anonimowe.</strong> W każdej chwili uczestnik może wycofać się z badania. Wyniki prezentowane będą tylko i wyłącznie w postaci zbiorczych danych, które będzie można uzyskać po zakończeniu analiz kontaktując się z nami mailowo: 
 <p/>
 Agnieszka Lewandowska <a href="mailto:amyrczek-lewandowska@swps.edu.pl">amyrczek-lewandowska@swps.edu.pl</a>
 <p/>
@@ -103,12 +98,16 @@ Jeśli wyrażasz zgodę na udział w badaniu, kliknij przycisk "Dalej".
 ');
 
 INSERT INTO experiment.text_resources (key, value) VALUES ('Instructions.Lottery', '
-Proponujemy Ci wybór między zakładem, że trafnie odpowiedziałeś, że jest hossa lub bessa a loterią. Jeśli wygrasz i chcesz otrzymać nagrodę, musisz wpisać swój adres email na końcu badania.
+<strong>Uwaga! W tym zadaniu można wygrać 50 zł (niezależnie od nagród finansowych, o których była mowa wcześniej).</strong> 
 <p/>
-Jeżeli wybierzesz zakład, wygrasz 50 złotych jeśli trafnie określiłeś trend rynkowy w jednym z dwóch ostatnich pytań - 9 lub 10.
-Nie wiesz jednak które to będzie pytanie. Przez komputer wylosowane będzie tylko jedno z nich, czyli są jednakowe szanse na to, że będzie to pytanie 9 lub 10.
+Proponujemy Ci wybór między: (1) zakładem, że trafnie odpowiedziałeś w jednym z dwóch ostatnich pytań 9 i 10, że jest hossa lub bessa a (2) loterią.
+<p/>
+Jeżeli wybierzesz zakład, wygrasz 50 złotych jeśli trafnie określiłeś trend rynkowy w jednym z dwóch ostatnich pytań - 9 lub 10. Nie wiesz jednak które to będzie pytanie. Przez komputer wylosowane będzie tylko jedno z nich, czyli są jednakowe szanse na to, że będzie to pytanie 9 lub 10.
 <p/>
 Jeżeli wybierzesz loterię możesz wygrać 50 złotych, jeśli z urny będzie wylosowana przez komputer kula biała. W urnie jest 100 kul, a białych jest %s.
+<p/>
+Jeśli wygrasz i chcesz otrzymać nagrodę, musisz wpisać swój adres email na końcu badania.
+<p/>
 ');
 INSERT INTO experiment.text_resources (key, value) VALUES ('Instructions.LotteryQuestion', 'Kliknij w jedno z dwóch okienek:');
 
@@ -120,8 +119,7 @@ INSERT INTO experiment.text_resources (key, value) VALUES ('Instructions.Thanks'
 
 INSERT INTO experiment.text_resources (key, value) VALUES ('Instructions.VariablesSelection',
 '
-Na ekranie znajduje się 16 wskaźników z rynku kapitałowego. Wybierz 7 z nich, najważniejszych i wystarczających Twoim zdaniem
-do udzielenia odpowiedzi na pytanie: <strong>Czy na rynku papierów wartościowych jest hossa czy bessa?</strong>
+Na ekranie znajduje się 16 wskaźników sytuacji gospodarczej oraz rynku kapitałowego. Prosimy o wybranie spośród nich 7 najważniejszych do stwierdzenia: <strong>Czy na rynku papierów wartościowych jest hossa czy bessa?</strong>
 ');
 
 INSERT INTO experiment.text_resources (key, value) VALUES ('Instructions.VariablesOrdering',
@@ -133,12 +131,13 @@ Prosimy o uszeregowanie ich w kolejności od najważniejszego (na górze strony)
 
 INSERT INTO experiment.text_resources (key, value) VALUES ('Instructions.VariablesScoring',
 '
-Poniżej znajduje się lista wybranych przez Ciebie wskaźników. Prosimy przypisz im wartości, rozdzielając
-100 punktów między wszystkie z nich w ten sposób, aby liczba przypisanych punktów odzwierciedlała ważność wskaźnika.
+Poniżej znajduje się lista 7 wybranych przez Ciebie wskaźników.  Chcielibyśmy jednak wiedzieć dokładniej na ile różnią się one ważnością między sobą.  Prosimy o rozdzielenie 100 punktów między wskaźniki. Najważniejszy powinien otrzymać najwięcej punktów, a najmniej ważny - najmniej. Możesz wpisać każdą liczbę od 0 do 100. Suma tych liczb musi być równa 100. Na przykład, 80, 20, 0, 0, 0, 0, 0 = 100 lub 50, 20, 20, 10, 0, 0, 0 =100 lub 30, 25, 15, 10, 10, 5, 5 =100.
 ');
 
 INSERT INTO experiment.text_resources (key, value) VALUES ('Instructions.Trial', '
-<strong>Pytanie %s</strong>. Wybierz co najmniej 3 i co najwyżej 10 wskaźników. Informacja odsłoni się gdy klikniesz na wybranym polu.
+<strong>Pytanie %s</strong>. Przeczytaj informacje i odpowiedz na pytanie: Czy na rynku papierów wartościowych jest hossa czy bessa?
+Wybierz co najmniej 3 darmowe informacje lub więcej, ale każda dodatkowa kosztuje 10 punktów.  (masz 70 punktów). Informacja odsłoni się gdy klikniesz na wybranym polu.
+<strong>Nagrody pieniężne wysokości 500 zł otrzymają ci, którzy będą mieli najwięcej trafnych odpowiedzi na 10 pytań: Czy na rynku papierów wartościowych jest hossa czy bessa? i wykorzystają jak najmniej punktów (informacji) do udzielenia tej odpowiedzi.</strong>
 <p/>
 Przeczytaj informacje i odpowiedz na pytanie: Czy na rynku papierów wartościowych jest hossa czy bessa?
 ');
@@ -155,7 +154,7 @@ Jak bardzo jesteś pewien, że odpowiedziałeś prawidłowo? Przeciągnij suwak 
 
 INSERT INTO experiment.text_resources (key, value) VALUES ('Instructions.ExplanationQuestion',
 '
-W kilku słowach uzasadnij dlaczego uznałeś te wskaźniki za diagnostyczne. Wpisz komentarz.
+W kilku słowach uzasadnij dlaczego uznałeś te wskaźniki za diagnostyczne.
 ');
 
 INSERT INTO experiment.text_resources (key, value) VALUES ('Instructions.MostImportantVariables',
@@ -178,5 +177,5 @@ Jeżeli wygrałeś zakład lub loterię wpisz swój adres email. Skontaktujemy s
 
 INSERT INTO experiment.text_resources (key, value) VALUES ('Instructions.Justifications', '
 Poniżej znajduje się lista wskaźników, które wybrałeś w badaniu aby odpowiedzieć na pytanie o trendy
-rynkowe. Dlaczego uznałeś je za diagnostyczne? Wpisz komentarz.
+rynkowe. Dlaczego uznałeś je za diagnostyczne? Wpisanie komentarza nie jest konieczne.
 ');

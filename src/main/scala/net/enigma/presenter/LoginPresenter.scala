@@ -20,9 +20,17 @@ trait LoginPresenter extends FlowPresenter {
     logger.info(s"Parameters string is: ${event.getParameters}")
     App.service.logout()
     if (StringUtils.isNotBlank(event.getParameters)) {
-      if (login(event.getParameters.trim)) {
-        navigateTo(App.Views.findAllowedProvider())
+      if (event.getParameters.trim == App.ADMIN_USER) {
+        App.admin = true
+        navigateTo(App.Views.Admin.name)
+      } else {
+        App.admin = false
+        codeField.setValue(event.getParameters.trim)
+        codeField.setVisible(false)
       }
+    } else {
+      App.admin = false
+      codeField.setValue("")
     }
   }
 
@@ -31,16 +39,21 @@ trait LoginPresenter extends FlowPresenter {
   }
 
   private def login(userName: String): Boolean = {
-    println("Authenticate with " + userName)
-    App.service.authenticate(userName)
-
-    if (App.currentUser.isDefined) {
-      Notification.show(s"${TextResources.Notifications.LoginSuccessful: String}: $userName")
-      true
+    if (captcha.validate()) {
+      App.captchaProvided = true
+      captcha.setVisible(false)
+      App.service.authenticate(userName)
+      if (App.currentUser.isDefined) {
+        Notification.show(s"${TextResources.Notifications.LoginSuccessful: String}: $userName")
+        true
+      } else {
+        Notification.show(TextResources.Notifications.LoginFailed, Type.ERROR_MESSAGE)
+        codeField.setValue("")
+        codeField.focus()
+        codeField.setVisible(true)
+        false
+      }
     } else {
-      Notification.show(TextResources.Notifications.LoginFailed, Type.ERROR_MESSAGE)
-      codeField.setValue("")
-      codeField.focus()
       false
     }
   }

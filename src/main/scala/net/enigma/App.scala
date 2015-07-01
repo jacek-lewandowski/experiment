@@ -1,7 +1,7 @@
 package net.enigma
 
 import java.io.FileOutputStream
-import java.nio.file.{Path, Files}
+import java.nio.file.{Files, Path}
 import java.security.SecureRandom
 import java.text.SimpleDateFormat
 import java.util.Date
@@ -38,6 +38,8 @@ object App {
 
   val providerSuffix = "Provider"
   val userKey = "user"
+  val adminKey = "admin"
+  val captchaProvidedKey = "captchaProvided"
 
   private val sessionMap = mutable.WeakHashMap[String, VaadinSession]()
 
@@ -92,12 +94,40 @@ object App {
       }
   }
 
+  def captchaProvided: Boolean = {
+    val r = for (ui <- Option(ui);
+                 session <- Option(ui.getSession);
+                 captchaProvided <- Option(ui.getSession.getAttribute(captchaProvidedKey).asInstanceOf[Boolean]))
+      yield captchaProvided
+    r.getOrElse(false)
+  }
+
+  def captchaProvided_=(v: Boolean) = {
+    for (ui <- Option(ui); session <- Option(ui.getSession))
+      session.setAttribute(captchaProvidedKey, v)
+  }
+
+  def admin: Boolean = {
+    val r = for (ui <- Option(ui);
+                 session <- Option(ui.getSession);
+                 captchaProvided <- Option(ui.getSession.getAttribute(adminKey).asInstanceOf[Boolean]))
+      yield captchaProvided
+    r.getOrElse(false)
+  }
+
+  def admin_=(v: Boolean) = {
+    for (ui <- Option(ui); session <- Option(ui.getSession))
+      session.setAttribute(adminKey, v)
+  }
+
   val service = new AppService
     with LoginServiceImpl
     with PersonalDataServiceImpl
     with QuestionnaireServiceImpl
     with ExperimentServiceImpl
     with UserServiceImpl {}
+
+  def loggedIn: Boolean = App.currentUser.isDefined && captchaProvided
 
   object Views extends ViewProvider {
 
@@ -118,11 +148,10 @@ object App {
 
           override def nextView: String = Login.name
 
-          override def allowedToEnter(event: ViewChangeEvent): Boolean = App.testMode ||
-            (allowed && Option(event.getParameters).getOrElse("").trim == ADMIN_USER)
+          override def allowedToEnter(event: ViewChangeEvent): Boolean = App.testMode || allowed
         }
 
-      override def allowed: Boolean = true
+      override def allowed: Boolean = admin
     }
 
     object Login extends Provider("login") {
@@ -150,7 +179,7 @@ object App {
           override def allowedToEnter = App.testMode || allowed
         }
 
-      override def allowed = App.currentUser.isDefined && App.service.checkForCompletedStages(
+      override def allowed = loggedIn && App.service.checkForCompletedStages(
         requiredKeys = Set(), forbiddenKeys = Set(VariablesSelection.name))
     }
 
@@ -168,7 +197,7 @@ object App {
           override def allowedToEnter = App.testMode || allowed
         }
 
-      override def allowed = App.currentUser.isDefined && App.service.checkForCompletedStages(
+      override def allowed = loggedIn && App.service.checkForCompletedStages(
         requiredKeys = Set(InitialInstruction.name), forbiddenKeys = Set(VariablesSelection.name))
     }
 
@@ -186,7 +215,7 @@ object App {
           override def allowedToEnter = App.testMode || allowed
         }
 
-      override def allowed = App.currentUser.isDefined && App.service.checkForCompletedStages(
+      override def allowed = loggedIn && App.service.checkForCompletedStages(
         requiredKeys = Set(VariablesSelection.name), forbiddenKeys = Set(VariablesOrdering.name))
     }
 
@@ -204,7 +233,7 @@ object App {
           override def allowedToEnter = App.testMode || allowed
         }
 
-      override def allowed = App.currentUser.isDefined && App.service.checkForCompletedStages(
+      override def allowed = loggedIn && App.service.checkForCompletedStages(
         requiredKeys = Set(VariablesOrdering.name), forbiddenKeys = Set(VariablesScoring.name))
     }
 
@@ -220,7 +249,7 @@ object App {
           override def allowedToEnter = App.testMode || allowed
         }
 
-      override def allowed = App.currentUser.isDefined && App.service.checkForCompletedStages(
+      override def allowed = loggedIn && App.service.checkForCompletedStages(
         requiredKeys = Set(VariablesScoring.name), forbiddenKeys = Set(Trial.name))
     }
 
@@ -238,7 +267,7 @@ object App {
           override def allowedToEnter = App.testMode || allowed
         }
 
-      override def allowed = App.currentUser.isDefined && App.service.checkForCompletedStages(
+      override def allowed = loggedIn && App.service.checkForCompletedStages(
         requiredKeys = Set(TrialInstruction.name), forbiddenKeys = Set(Trial.name))
     }
 
@@ -256,7 +285,7 @@ object App {
           override def allowedToEnter = App.testMode || allowed
         }
 
-      override def allowed = App.currentUser.isDefined && App.service.checkForCompletedStages(
+      override def allowed = loggedIn && App.service.checkForCompletedStages(
         requiredKeys = Set(TrialInstruction.name), forbiddenKeys = Set(Trial.name))
     }
 
@@ -274,7 +303,7 @@ object App {
           override def allowedToEnter = App.testMode || allowed
         }
 
-      override def allowed = App.currentUser.isDefined && App.service.checkForCompletedStages(
+      override def allowed = loggedIn && App.service.checkForCompletedStages(
         requiredKeys = Set(TrialInstruction.name), forbiddenKeys = Set(Trial.name))
     }
 
@@ -292,7 +321,7 @@ object App {
           override def allowedToEnter = App.testMode || allowed
         }
 
-      override def allowed = App.currentUser.isDefined && App.service.checkForCompletedStages(
+      override def allowed = loggedIn && App.service.checkForCompletedStages(
         requiredKeys = Set(Trial.name), forbiddenKeys = Set(Justifications.name))
     }
 
@@ -310,7 +339,7 @@ object App {
           override def allowedToEnter = App.testMode || allowed
         }
 
-      override def allowed = App.currentUser.isDefined && App.service.checkForCompletedStages(
+      override def allowed = loggedIn && App.service.checkForCompletedStages(
         requiredKeys = Set(Justifications.name), forbiddenKeys = Set(Lottery.name))
     }
 
@@ -326,7 +355,7 @@ object App {
           override def allowedToEnter = App.testMode || allowed
         }
 
-      override def allowed = App.currentUser.isDefined && App.service.checkForCompletedStages(
+      override def allowed = loggedIn && App.service.checkForCompletedStages(
         requiredKeys = Set(Lottery.name), forbiddenKeys = Set(MissingVariables.name))
     }
 
@@ -340,7 +369,7 @@ object App {
     //          override def nextView: String = Questionnaire.name
     //
     //          override lazy val allowedToEnter = App.testMode ||
-    //              App.currentUser.isDefined && App.service.checkForCompletedStages(
+    //              loggedIn && App.service.checkForCompletedStages(
     //                requiredKeys = Set(Lottery.name), forbiddenKeys = Set())
     //        }
     //    }
@@ -355,7 +384,7 @@ object App {
     //          override def instructions: String = TextResources.Instructions.Questionnaire
     //
     //          override lazy val allowedToEnter = App.testMode ||
-    //              App.currentUser.isDefined && App.service.checkForCompletedStages(
+    //              loggedIn && App.service.checkForCompletedStages(
     //                requiredKeys = Set(QuestionnaireInstruction.name), forbiddenKeys = Set(Questionnaire.name))
     //        }
     //    }
@@ -370,7 +399,7 @@ object App {
           override def allowedToEnter = App.testMode || allowed
         }
 
-      override def allowed = App.currentUser.isDefined && App.service.checkForCompletedStages(
+      override def allowed = loggedIn && App.service.checkForCompletedStages(
         requiredKeys = Set(Lottery.name), forbiddenKeys = Set(PersonalData.name))
     }
 
@@ -388,7 +417,7 @@ object App {
           override def userService: UserService = App.service
         }
 
-      override def allowed = App.currentUser.isDefined && App.service.checkForCompletedStages(
+      override def allowed = loggedIn && App.service.checkForCompletedStages(
         requiredKeys = Set(PersonalData.name), forbiddenKeys = Set(EmailAddress.name))
     }
 
@@ -404,7 +433,7 @@ object App {
           override def allowedToEnter = App.testMode || allowed
         }
 
-      override def allowed = App.currentUser.isDefined && App.service.checkForCompletedStages(
+      override def allowed = loggedIn && App.service.checkForCompletedStages(
         requiredKeys = Set(EmailAddress.name), forbiddenKeys = Set())
     }
 

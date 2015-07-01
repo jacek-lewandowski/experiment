@@ -63,6 +63,7 @@ trait LoginServiceImpl extends LoginService {
     val user = User(code = newUserCode, category = group.category)
     UserDAO.addUser(user.code, user.category)
     App.currentUser = Some(user.code)
+    App.captchaProvided = false
     setUserCookie(user.code, group.code)
   }
 
@@ -88,7 +89,6 @@ trait LoginServiceImpl extends LoginService {
     val cookies = VaadinService.getCurrentRequest.getCookies
     cookies.find(_.getName == "group-code").map(_.getValue)
   }
-
 
   override def logout(): Unit = {
     App.currentUser = None

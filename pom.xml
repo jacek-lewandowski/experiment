@@ -96,6 +96,11 @@
             <artifactId>flexibleoptiongroup</artifactId>
             <version>2.3.0</version>
         </dependency>
+        <dependency>
+            <groupId>com.wcs.wcslib</groupId>
+            <artifactId>wcslib-vaadin-widget-recaptcha</artifactId>
+            <version>1.2.0</version>
+        </dependency>
 
         <dependency>
             <groupId>ch.qos.logback</groupId>

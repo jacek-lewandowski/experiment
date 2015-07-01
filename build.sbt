@@ -20,7 +20,9 @@ val VaadinDeps = Seq(
   "com.vaadin" % "vaadin-themes" % VaadinVersion % "compile",
 
   "org.vaadin.addons" % "rinne" % "0.2.0" % "compile",
-  "org.vaadin.addons" % "flexibleoptiongroup" % "2.3.0" % "compile"
+  "org.vaadin.addons" % "flexibleoptiongroup" % "2.3.0" % "compile",
+  "com.wcs.wcslib" % "wcslib-vaadin-widget-recaptcha" % "1.2.0" % "compile"
+
 ).map(_ excludeAll ExclusionRule(organization = "org.slf4j"))
 
 val SparkCassandraConnectorDeps = Seq(

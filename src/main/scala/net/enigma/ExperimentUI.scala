@@ -1,12 +1,13 @@
 package net.enigma
 
-import com.vaadin.annotations.Theme
+import com.vaadin.annotations.{JavaScript, Theme}
 import com.vaadin.navigator.Navigator
 import com.vaadin.server.VaadinRequest
-import com.vaadin.ui._
+import com.vaadin.ui.UI
 import org.slf4j.LoggerFactory
 
 @Theme("experiment")
+@JavaScript(value = Array("http://www.google.com/recaptcha/api/js/recaptcha_ajax.js"))
 class ExperimentUI extends UI {
 
   val logger = LoggerFactory.getLogger(classOf[ExperimentUI])
