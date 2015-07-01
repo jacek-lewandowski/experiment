@@ -46,6 +46,7 @@ INSERT INTO experiment.text_resources (key, value) VALUES ('Labels.AdminGenerate
 INSERT INTO experiment.text_resources (key, value) VALUES ('Labels.AdminGroupName', 'Grupa');
 INSERT INTO experiment.text_resources (key, value) VALUES ('Labels.AdminGeneratedCodes', 'Wygenerowane linki');
 INSERT INTO experiment.text_resources (key, value) VALUES ('Labels.AdminGeneratePanel', 'Generowanie linków');
+INSERT INTO experiment.text_resources (key, value) VALUES ('Labels.AdminBackup', 'Pobierz dane');
 
 INSERT INTO experiment.text_resources (key, value) VALUES ('Notifications.LoseTheLottery', 'Została wylosowana kula czarna. Przegrana');
 INSERT INTO experiment.text_resources (key, value) VALUES ('Notifications.WonTheLottery', 'Została wylosowana kula biała. Wygrana');

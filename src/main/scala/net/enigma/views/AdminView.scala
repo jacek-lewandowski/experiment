@@ -31,7 +31,7 @@ trait AdminView extends AbstractView {
   val groupNameField = new TextField(TextResources.Labels.AdminGroupName)
   groupNameField.setNullRepresentation("")
 
-  val generateOptionsPanel = new Panel(new HorizontalLayout(
+  val generateOptionsPanel = new Panel(TextResources.Labels.AdminGeneratePanel, new HorizontalLayout(
     generateGroupButton,
     generateUserButton,
     groupNameField
@@ -40,13 +40,18 @@ trait AdminView extends AbstractView {
     .withComponentAlignment(generateUserButton, Alignment.BOTTOM_CENTER)
     .withComponentAlignment(groupNameField, Alignment.BOTTOM_CENTER))
 
+
+
   val generatedCodesTextArea = new TextArea(TextResources.Labels.AdminGeneratedCodes).withSizeFull
   generatedCodesTextArea.setNullRepresentation("")
 
+  val backupButton = new Button(TextResources.Labels.AdminBackup)
+  val generateBackupPanel = new Panel(new HorizontalLayout(backupButton))
+
   val summaryPanel = new Panel(TextResources.Labels.AdminSummaryTable, summaryTable.withSizeFull).withSizeFull
 
-  val generatePanel = new Panel(TextResources.Labels.AdminGeneratePanel,
-    new VerticalLayout(generateOptionsPanel, generatedCodesTextArea.withSizeFull)
+  val generatePanel = new Panel(
+    new VerticalLayout(generateBackupPanel, generateOptionsPanel, generatedCodesTextArea.withSizeFull)
       .withSpacing.withMargins.withSizeFull.withExpandRatio(generatedCodesTextArea, 1)).withSizeFull
 
   val mainLayout = new HorizontalLayout(summaryPanel, generatePanel).withSpacing.withMargins

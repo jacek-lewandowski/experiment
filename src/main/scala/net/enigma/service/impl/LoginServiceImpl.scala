@@ -17,14 +17,11 @@ trait LoginServiceImpl extends LoginService {
   private val logger = LoggerFactory.getLogger("net.enigma.service.impl.LoginService")
 
   override def authenticate(code: String): Unit = {
-    println(s"Authenticating $code")
     if (code.length < 4) {
-      println("Length < 4")
       App.currentUser = None
     } else {
       App.service.getUser(code) match {
         case Some(user) ⇒
-          println("User found")
           App.currentUser = Some(code)
         case None =>
           maybeCreateUser(code)
@@ -33,28 +30,22 @@ trait LoginServiceImpl extends LoginService {
   }
 
   def maybeCreateUser(code: String): Unit = {
-    println("maybeCreateUser($code)")
     App.service.getGroup(code) match {
       case Some(group) =>
-        println("Group exists")
         maybeCreateUser(group)
       case None if App.testMode =>
-        println("Test mode")
         val user = User(code = code, category = "test")
         UserDAO.addUser(user.code, user.category)
         App.currentUser = Some(user.code)
       case _ ⇒
-        println("None")
         App.currentUser = None
     }
   }
 
   def maybeCreateUser(group: Group): Unit = {
     if (getGroupCodeFromCookie().contains(group.code)) {
-      println("setUserFromCookie")
       setUserFromCookie(group)
     } else {
-      println("createNewUser")
       createNewUser(group)
     }
   }

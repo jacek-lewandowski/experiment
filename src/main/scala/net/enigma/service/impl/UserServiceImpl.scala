@@ -40,10 +40,12 @@ trait UserServiceImpl extends UserService {
   }
 
   override def getCurrentStage(): Option[String] = {
-    val currentUserCode = App.currentUser.get
-    val result = UserDAO.getCurrentStage(currentUserCode)
-    logger.info(s"Got current stage $result")
-    result
+    val r = for (currentUserCode <- App.currentUser) yield {
+      val result = UserDAO.getCurrentStage(currentUserCode)
+      logger.info(s"Got current stage $result")
+      result
+    }
+    r.getOrElse(None)
   }
 
   override def setEmailAddress(emailAddress: String): Unit = {

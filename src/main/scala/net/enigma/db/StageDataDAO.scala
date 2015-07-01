@@ -1,5 +1,6 @@
 package net.enigma.db
 
+import java.io.{OutputStream, PrintStream}
 import java.util.concurrent.TimeUnit
 
 import scala.collection.JavaConversions._
@@ -24,11 +25,11 @@ object StageDataDAO extends Entity {
   val stringConverter = TypeConverter.forType[String]
 
   private val cache = CacheBuilder.newBuilder()
-      .concurrencyLevel(16)
-      .expireAfterWrite(10, TimeUnit.MINUTES)
-      .initialCapacity(1000)
-      .maximumSize(10000)
-      .build[(String, String, String, Int), Option[StageData]](new CacheLoader[(String, String, String, Int), Option[StageData]]() {
+    .concurrencyLevel(16)
+    .expireAfterWrite(10, TimeUnit.MINUTES)
+    .initialCapacity(1000)
+    .maximumSize(10000)
+    .build[(String, String, String, Int), Option[StageData]](new CacheLoader[(String, String, String, Int), Option[StageData]]() {
     override def load(k: (String, String, String, Int)): Option[StageData] = {
       loadStageData(k._1, k._2, k._3, k._4)
     }
@@ -126,11 +127,35 @@ object StageDataDAO extends Entity {
            |VALUES (?, ?, ?, ?, ?)
          """.stripMargin)
         // @formatter:on
-          .bind(stageData.usercode, stageData.stage, stageData.key, stageData.idx: Integer, stageData.data)
+        .bind(stageData.usercode, stageData.stage, stageData.key, stageData.idx: Integer, stageData.data)
 
       session.execute(stmt)
     }
     cache.put((stageData.usercode, stageData.stage, stageData.key, stageData.idx), Some(stageData))
   }
+
+  def backup(out: OutputStream): Unit = {
+    import org.json4s.native.Serialization.{read, write}
+    import org.json4s.native.JsonMethods._
+    implicit val formats = Serialization.formats(NoTypeHints)
+
+    val printStream = new PrintStream(out, true, "utf-8")
+    DBManager.connector.withSessionDo { session =>
+      val rs = session.execute(
+        s"SELECT * FROM $keyspace.$table")
+      rs.iterator().map(mapToEntity).foreach { row ⇒
+        val common = Map(
+          "user_code" -> row.usercode,
+          "stage" -> row.stage,
+          "key" -> row.key,
+          "idx" -> row.idx
+        )
+        val data = parse(row.data, useBigDecimalForDouble = false)
+        val toWrite = common + ("data" -> data)
+        printStream.println(write(toWrite))
+      }
+    }
+  }
+
 
 }

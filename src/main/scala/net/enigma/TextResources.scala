@@ -162,6 +162,9 @@ object TextResources {
 
     object AdminGeneratePanel extends Resource
 
+    object AdminBackup extends Resource
+
+
   }
 
   object Instructions extends ResourceGroup {

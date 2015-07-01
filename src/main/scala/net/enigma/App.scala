@@ -1,8 +1,13 @@
 package net.enigma
 
+import java.io.FileOutputStream
+import java.nio.file.{Path, Files}
 import java.security.SecureRandom
+import java.text.SimpleDateFormat
+import java.util.Date
 import java.util.concurrent.TimeUnit
 import java.util.concurrent.locks.ReentrantLock
+import java.util.zip.{ZipEntry, ZipOutputStream}
 
 import scala.collection.mutable
 import scala.util.Random
@@ -11,9 +16,11 @@ import com.vaadin.navigator.ViewChangeListener.ViewChangeEvent
 import com.vaadin.navigator.{View, ViewProvider}
 import com.vaadin.server.VaadinSession
 import com.vaadin.ui.UI
+import org.apache.commons.io.IOUtils
 import org.slf4j.LoggerFactory
 
 import net.enigma.TextResources._
+import net.enigma.db.{GroupDAO, StageDataDAO, UserDAO}
 import net.enigma.presenter._
 import net.enigma.service._
 import net.enigma.service.impl._
@@ -406,10 +413,10 @@ object App {
       subProviders.keys
         .find(key ⇒ viewAndParameters == key || viewAndParameters.startsWith(s"$key/"))
         .map(foundView ⇒ {
-          logger.info(s"Going to view $foundView with params $viewAndParameters")
-          foundView
-        })
-      .getOrElse(findAllowedProvider())
+        logger.info(s"Going to view $foundView with params $viewAndParameters")
+        foundView
+      })
+        .getOrElse(findAllowedProvider())
     }
 
     override def getView(viewName: String): View = {
@@ -459,6 +466,31 @@ object App {
         selectedProviders.headOption.getOrElse(Login.name)
       }
     }
+  }
+
+  def backup(): Path = {
+    val sdf = new SimpleDateFormat("YYYYMMDDHHmmss")
+    val path = Files.createTempFile(sdf.format(new Date()), "backup")
+    val fout = new FileOutputStream(path.toFile)
+    try {
+      val zout = new ZipOutputStream(fout)
+      zout.putNextEntry(new ZipEntry("users.json"))
+      UserDAO.backup(zout)
+      zout.closeEntry()
+
+      zout.putNextEntry(new ZipEntry("groups.json"))
+      GroupDAO.backup(zout)
+      zout.closeEntry()
+
+      zout.putNextEntry(new ZipEntry("stages.json"))
+      StageDataDAO.backup(zout)
+      zout.closeEntry()
+
+      zout.close()
+    } finally {
+      IOUtils.closeQuietly(fout)
+    }
+    path
   }
 
 }

@@ -1,6 +1,10 @@
 package net.enigma.presenter
 
+import java.io.{FileInputStream, InputStream}
+
 import com.vaadin.navigator.ViewChangeListener.ViewChangeEvent
+import com.vaadin.server.{FileDownloader, StreamResource}
+import com.vaadin.server.StreamResource.StreamSource
 import org.apache.commons.lang3.StringUtils
 import org.slf4j.LoggerFactory
 
@@ -55,5 +59,15 @@ trait AdminPresenter extends FlowPresenter {
       populateTable()
     }
   })
+
+  val resource = new StreamResource(new StreamSource {
+    override def getStream: InputStream = {
+      val backupPath = App.backup()
+      new FileInputStream(backupPath.toFile)
+    }
+  }, "experiment-data.zip")
+
+  val fileDownloader = new FileDownloader(resource)
+  fileDownloader.extend(backupButton)
 
 }

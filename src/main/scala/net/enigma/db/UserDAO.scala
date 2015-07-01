@@ -1,8 +1,12 @@
 package net.enigma.db
 
+import java.io.{PrintStream, OutputStream}
+
 import scala.collection.JavaConversions._
 
 import com.google.common.collect.Sets
+import org.json4s.NoTypeHints
+import org.json4s.native.Serialization
 import org.slf4j.LoggerFactory
 
 import com.datastax.spark.connector.types.TypeConverter
@@ -21,7 +25,7 @@ object UserDAO extends Entity {
   def getUser(code: String): Option[User] = {
     DBManager.connector.withSessionDo { session ⇒
       val rs = session.execute(
-        s"SELECT code, category, email_address, completed_stages, current_stage, category FROM $keyspace.$table WHERE code = ?", code)
+        s"SELECT code, category, email_address, completed_stages, current_stage FROM $keyspace.$table WHERE code = ?", code)
       Option(rs.one()) map {
         case row ⇒
           User(
@@ -86,20 +90,40 @@ object UserDAO extends Entity {
 
   def getAllUsers(): Seq[User] = {
     DBManager.connector.withSessionDo { session =>
-      DBManager.connector.withSessionDo { session ⇒
-        val rs = session.execute(
-          s"SELECT code, category, email_address, completed_stages, current_stage, category FROM $keyspace.$table")
-        rs.all() map {
-          case row ⇒
-            User(
-              code = row.getString("code"),
-              category = row.getString("category"),
-              email = Option(row.getString("email_address")),
-              currentStage = Option(row.getString("current_stage")),
-              completedStages = row.getSet("completed_stages", classOf[String]).toSet
-            )
-        }
+      val rs = session.execute(
+        s"SELECT code, category, email_address, completed_stages, current_stage FROM $keyspace.$table")
+      rs.all() map {
+        case row ⇒
+          User(
+            code = row.getString("code"),
+            category = row.getString("category"),
+            email = Option(row.getString("email_address")),
+            currentStage = Option(row.getString("current_stage")),
+            completedStages = row.getSet("completed_stages", classOf[String]).toSet
+          )
       }
     }
   }
+
+  def backup(out: OutputStream): Unit = {
+    import org.json4s.native.Serialization.write
+    implicit val formats = Serialization.formats(NoTypeHints)
+
+    val printStream = new PrintStream(out, true, "utf-8")
+    DBManager.connector.withSessionDo { session =>
+      val rs = session.execute(
+        s"SELECT code, category, email_address, completed_stages, current_stage FROM $keyspace.$table")
+      rs.iterator().foreach { row ⇒
+        val data = Map(
+          "code" -> row.getString("code"),
+          "category" -> row.getString("category"),
+          "email" -> Option(row.getString("email_address")),
+          "currentStage" -> Option(row.getString("current_stage")),
+          "completedStages" -> row.getSet("completed_stages", classOf[String]).toSet
+        )
+        printStream.println(write(data))
+      }
+    }
+  }
+
 }
