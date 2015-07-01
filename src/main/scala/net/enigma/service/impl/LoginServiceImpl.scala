@@ -63,7 +63,6 @@ trait LoginServiceImpl extends LoginService {
     val user = User(code = newUserCode, category = group.category)
     UserDAO.addUser(user.code, user.category)
     App.currentUser = Some(user.code)
-    App.captchaProvided = false
     setUserCookie(user.code, group.code)
   }
 
