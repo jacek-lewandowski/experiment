@@ -1,6 +1,6 @@
 package net.enigma.service
 
-import net.enigma.model.User
+import net.enigma.model.{Group, User}
 
 /**
  * @author Jacek Lewandowski
@@ -23,4 +23,6 @@ trait UserService {
   def generateNewUser(groupName: String): String
 
   def generateNewGroup(groupName: String): String
+
+  def getGroup(code: String): Option[Group]
 }

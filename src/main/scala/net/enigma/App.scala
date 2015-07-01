@@ -7,11 +7,11 @@ import java.util.concurrent.locks.ReentrantLock
 import scala.collection.mutable
 import scala.util.Random
 
+import com.vaadin.navigator.ViewChangeListener.ViewChangeEvent
 import com.vaadin.navigator.{View, ViewProvider}
 import com.vaadin.server.VaadinSession
 import com.vaadin.ui.UI
 import org.slf4j.LoggerFactory
-import org.slf4j.impl.StaticLoggerBinder
 
 import net.enigma.TextResources._
 import net.enigma.presenter._
@@ -86,11 +86,11 @@ object App {
   }
 
   val service = new AppService
-      with LoginServiceImpl
-      with PersonalDataServiceImpl
-      with QuestionnaireServiceImpl
-      with ExperimentServiceImpl
-      with UserServiceImpl {}
+    with LoginServiceImpl
+    with PersonalDataServiceImpl
+    with QuestionnaireServiceImpl
+    with ExperimentServiceImpl
+    with UserServiceImpl {}
 
   object Views extends ViewProvider {
 
@@ -111,16 +111,17 @@ object App {
 
           override def nextView: String = Login.name
 
-          override lazy val allowedToEnter = App.testMode || allowed
+          override def allowedToEnter(event: ViewChangeEvent): Boolean = App.testMode ||
+            (allowed && Option(event.getParameters).getOrElse("").trim == ADMIN_USER)
         }
 
-      override def allowed: Boolean = App.testMode
+      override def allowed: Boolean = true
     }
 
     object Login extends Provider("login") {
       override def apply() =
         new SimpleView(this.name, TextResources.Titles.Login)
-            with LoginView with LoginPresenter {
+          with LoginView with LoginPresenter {
 
           override def nextView: String = InitialInstruction.name
 
@@ -133,7 +134,7 @@ object App {
     object InitialInstruction extends Provider("welcome") {
       override def apply() =
         new SimpleView(this.name, TextResources.Titles.Instruction)
-            with InstructionView with InstructionPresenter {
+          with InstructionView with InstructionPresenter {
 
           override lazy val instructions: String = TextResources.Instructions.InitialInstruction
 
@@ -149,7 +150,7 @@ object App {
     object VariablesSelection extends Provider("variables-selection") {
       override def apply() =
         new SimpleView(this.name, TextResources.Titles.VariablesSelection)
-            with VariablesSelectionView with VariablesSelectionPresenter {
+          with VariablesSelectionView with VariablesSelectionPresenter {
 
           override lazy val stageService: VariablesStageService = App.service.getVariablesStageService
 
@@ -167,7 +168,7 @@ object App {
     object VariablesOrdering extends Provider("variables-ordering") {
       override def apply() =
         new SimpleView(this.name, TextResources.Titles.VariablesOrdering)
-            with VariablesOrderingView with VariablesOrderingPresenter {
+          with VariablesOrderingView with VariablesOrderingPresenter {
 
           override lazy val stageService: VariablesStageService = App.service.getVariablesStageService
 
@@ -185,7 +186,7 @@ object App {
     object VariablesScoring extends Provider("variables-scoring") {
       override def apply() =
         new SimpleView(this.name, TextResources.Titles.VariablesScoring)
-            with VariablesScoringView with VariablesScoringPresenter {
+          with VariablesScoringView with VariablesScoringPresenter {
 
           override lazy val stageService: VariablesStageService = App.service.getVariablesStageService
 
@@ -203,7 +204,7 @@ object App {
     object TrialInstruction extends Provider("trial-instruction") {
       override def apply() =
         new SimpleView(this.name, TextResources.Titles.Instruction)
-            with InstructionView with InstructionPresenter {
+          with InstructionView with InstructionPresenter {
 
           override lazy val instructions: String = TextResources.Instructions.TrialInstruction
 
@@ -219,7 +220,7 @@ object App {
     object Trial extends Provider("trial") {
       override def apply() =
         new SimpleView(this.name, TextResources.Titles.Trial)
-            with TrialView with TrialPresenter {
+          with TrialView with TrialPresenter {
 
           override lazy val stageService: TrialStageService = App.service.getTrialStageService
 
@@ -237,7 +238,7 @@ object App {
     object ConfidenceQuestion extends Provider("confidence-question") {
       override def apply(): View =
         new SimpleView(this.name, TextResources.Titles.ConfidenceQuestion)
-            with ConfidenceQuestionView with ConfidenceQuestionPresenter {
+          with ConfidenceQuestionView with ConfidenceQuestionPresenter {
 
           override lazy val stageService: TrialStageService = App.service.getTrialStageService
 
@@ -255,7 +256,7 @@ object App {
     object MostImportantVariables extends Provider("most-important-variables") {
       override def apply(): View =
         new SimpleView(this.name, TextResources.Titles.MostImportantVariables)
-            with VariablesSelectionView with MostImportantVariablesPresenter {
+          with VariablesSelectionView with MostImportantVariablesPresenter {
 
           override lazy val stageService: TrialStageService = App.service.getTrialStageService
 
@@ -273,7 +274,7 @@ object App {
     object Justifications extends Provider("justifications") {
       override def apply(): View =
         new SimpleView(this.name, TextResources.Titles.Justifications)
-            with JustificationsView with JustificationsPresenter {
+          with JustificationsView with JustificationsPresenter {
 
           override lazy val stageService: JustificationsStageService = App.service.getJustificationsStageService
 
@@ -291,7 +292,7 @@ object App {
     object Lottery extends Provider("lottery") {
       override def apply() =
         new SimpleView(this.name, TextResources.Titles.Lottery)
-            with LotteryView with LotteryPresenter {
+          with LotteryView with LotteryPresenter {
 
           override lazy val stageService: LotteryStageService = App.service.getLotteryStageService
 
@@ -309,7 +310,7 @@ object App {
     object MissingVariables extends Provider("missing-variables") {
       override def apply() =
         new SimpleView(this.name, TextResources.Titles.MissingVariables)
-            with MissingVariablesQuestionView with MissingVariablesQuestionPresenter {
+          with MissingVariablesQuestionView with MissingVariablesQuestionPresenter {
 
           override def missingVariablesStageService: MissingVariablesStageService = App.service.getMissingVariablesStageService
 
@@ -355,7 +356,7 @@ object App {
     object PersonalData extends Provider("personal-data") {
       override def apply() =
         new SimpleView(this.name, TextResources.Titles.PersonalData)
-            with SurveyView with PersonalDataPresenter {
+          with SurveyView with PersonalDataPresenter {
 
           override def nextView: String = EmailAddress.name
 
@@ -369,7 +370,7 @@ object App {
     object EmailAddress extends Provider("email-address") {
       override def apply() =
         new SimpleView(this.name, TextResources.Titles.EmailAddress)
-            with OpenQuestionView with EmailPresenter {
+          with OpenQuestionView with EmailPresenter {
 
           override def nextView: String = Thanks.name
 
@@ -387,7 +388,7 @@ object App {
     object Thanks extends Provider("thanks") {
       override def apply() =
         new SimpleView(this.name, TextResources.Titles.Thanks)
-            with InstructionView with InstructionPresenter {
+          with InstructionView with InstructionPresenter {
 
           override lazy val instructions: String = TextResources.Instructions.Thanks
 
@@ -403,12 +404,12 @@ object App {
     override def getViewName(viewAndParameters: String): String = {
       logger.info(s"Getting view name for $viewAndParameters")
       subProviders.keys
-          .find(key ⇒ viewAndParameters == key || viewAndParameters.startsWith(s"$key/"))
-          .map(foundView ⇒ {
-        logger.info(s"Going to view $foundView with params $viewAndParameters");
-        foundView
-      })
-          .getOrElse(findAllowedProvider())
+        .find(key ⇒ viewAndParameters == key || viewAndParameters.startsWith(s"$key/"))
+        .map(foundView ⇒ {
+          logger.info(s"Going to view $foundView with params $viewAndParameters")
+          foundView
+        })
+      .getOrElse(findAllowedProvider())
     }
 
     override def getView(viewName: String): View = {

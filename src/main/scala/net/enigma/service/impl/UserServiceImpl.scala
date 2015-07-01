@@ -7,7 +7,7 @@ import org.slf4j.LoggerFactory
 
 import net.enigma.App
 import net.enigma.db.{GroupDAO, UserDAO}
-import net.enigma.model.User
+import net.enigma.model.{Group, User}
 import net.enigma.service.UserService
 
 /**
@@ -76,5 +76,9 @@ trait UserServiceImpl extends UserService {
     val code = newCode(25)
     GroupDAO.addGroup(code, groupName)
     code
+  }
+
+  override def getGroup(code: String): Option[Group] = {
+    GroupDAO.getGroup(code)
   }
 }

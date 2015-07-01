@@ -31,6 +31,7 @@ trait LoginPresenter extends FlowPresenter {
   }
 
   private def login(userName: String): Boolean = {
+    println("Authenticate with " + userName)
     App.service.authenticate(userName)
 
     if (App.currentUser.isDefined) {
