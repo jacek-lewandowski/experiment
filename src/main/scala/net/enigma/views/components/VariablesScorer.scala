@@ -53,7 +53,7 @@ class VariablesScorer extends Panel with ValueChangedListenable[Int] {
         .withConverter[Integer]
         .withAdditionalValidator(new IntegerRangeValidator(TextResources.Notifications.RankValueOutOfRange, 0, 100))
         .withConvertedValue(0)
-        .withMaxLength(2)
+        .withMaxLength(3)
         .withConversionError(TextResources.Notifications.RankValueOutOfRange)
         .withSizeUndefined
 

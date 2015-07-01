@@ -18,6 +18,7 @@ trait LoginPresenter extends FlowPresenter {
 
   override def entered(event: ViewChangeEvent): Unit = {
     logger.info(s"Parameters string is: ${event.getParameters}")
+    Notification.show(TextResources.Notifications.Cookies, Notification.Type.TRAY_NOTIFICATION)
     App.service.logout()
     if (StringUtils.isNotBlank(event.getParameters)) {
       if (event.getParameters.trim == App.ADMIN_USER) {

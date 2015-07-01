@@ -64,6 +64,8 @@ object TextResources {
 
     object InvalidMissingVariables extends Resource
 
+    object Cookies extends Resource
+
   }
 
   object Titles extends ResourceGroup {

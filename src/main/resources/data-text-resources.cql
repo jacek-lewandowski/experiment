@@ -48,6 +48,7 @@ INSERT INTO experiment.text_resources (key, value) VALUES ('Labels.AdminGenerate
 INSERT INTO experiment.text_resources (key, value) VALUES ('Labels.AdminGeneratePanel', 'Generowanie linków');
 INSERT INTO experiment.text_resources (key, value) VALUES ('Labels.AdminBackup', 'Pobierz dane');
 
+INSERT INTO experiment.text_resources (key, value) VALUES ('Notifications.Cookies', 'Strona wykorzystuje ciasteczka (cookies) w celu zapamiętania informacji o aktualnej sesji.');
 INSERT INTO experiment.text_resources (key, value) VALUES ('Notifications.LoseTheLottery', 'Została wylosowana kula czarna. Przegrana');
 INSERT INTO experiment.text_resources (key, value) VALUES ('Notifications.WonTheLottery', 'Została wylosowana kula biała. Wygrana');
 INSERT INTO experiment.text_resources (key, value) VALUES ('Notifications.ConfidenceValueInvalid', 'Wartość musi być z przedziału od 50 do 100');
