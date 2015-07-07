@@ -72,7 +72,7 @@ INSERT INTO experiment.text_resources (key, value) VALUES ('Notifications.Invali
 INSERT INTO experiment.text_resources (key, value) VALUES ('Notifications.InvalidMissingVariables', 'Nieprawidło wprowadzona informacja o brakujących zmiennych');
 
 INSERT INTO experiment.text_resources (key, value) VALUES ('Instructions.TrialInstruction', '
-Za wykonanie kolejnego zadania, <strong>pięciu uczestników otrzyma nagrody pieniężne wysokości 500 zł. Nagrody otrzymają ci, którzy odpowiedzą trafnie na pytanie: Czy na rynku papierów wartościowych jest hossa czy bessa?  I wykorzystają w tym celu jak najmniej informacji.</strong>
+Za wykonanie kolejnego zadania, <strong>trzech uczestników otrzyma nagrody pieniężne wysokości 500 zł. Nagrody otrzymają ci, którzy odpowiedzą trafnie na pytanie: Czy na rynku papierów wartościowych jest hossa czy bessa? I wykorzystają w tym celu jak najmniej informacji.</strong>
 <p/>
 Za chwilę na ekranie pojawi się 16 informacji dotyczących sytuacji gospodarczej i rynku kapitałowego. Trzy z nich można uzyskać „za darmo”, ale każda następna kosztuje 10 punktów, które są odliczane od 70 punktów przyznanych Ci na początku.
 Musisz więc wykorzystać co najmniej 3 „darmowe” informacje i co najwyżej 10 z 16 dostępnych na ekranie.
@@ -87,7 +87,7 @@ INSERT INTO experiment.text_resources (key, value) VALUES ('Instructions.Questio
 INSERT INTO experiment.text_resources (key, value) VALUES ('Instructions.InitialInstruction', '
 Zapraszamy Państwa do udziału w badaniu, które  jest częścią szerszego projektu, finansowanego z grantu Narodowego Centrum Nauki. W oparciu o wyniki tego badania, mamy nadzieję dowiedzieć się których informacji używają inwestorzy, kiedy zastanawiają się, czy na rynku papierów wartościowych jest hossa, czy bessa. Żeby to ustalić prosimy Państwa najpierw o wskazanie i porangowanie tych wskaźników ekonomicznych, które Waszym zdaniem najlepiej pozwalają odpowiedzieć na pytanie o to, czy jest hossa czy bessa. A później prosimy 10 razy o odpowiedz na pytanie, czy dany układ wskaźników wskazuje na hossę, czy na bessę.
 <p/>
-<strong>Ponieważ badanie zajmuje około 30 minut, to 5 osób, które najlepiej odpowie na 10 pytań uzyska nagrody finansowe wysokości 500 zł.</strong> Niezależnie od tego, na końcu oferujemy wszystkim uczestnikom udział w loterii w której można wygrać 50 zł.
+<strong>Ponieważ badanie zajmuje około 30 minut, to trzy osoby, które najlepiej odpowiedzą na 10 pytań uzyska nagrody finansowe wysokości 500 zł.</strong> Niezależnie od tego, na końcu oferujemy wszystkim uczestnikom udział w loterii w której można wygrać 50 zł.
 <p/>
 <strong>Badanie prowadzone jest wyłącznie w celach naukowych, jest dobrowolne i anonimowe.</strong> W każdej chwili uczestnik może wycofać się z badania. Wyniki prezentowane będą tylko i wyłącznie w postaci zbiorczych danych, które będzie można uzyskać po zakończeniu analiz kontaktując się z nami mailowo: 
 <p/>
@@ -136,8 +136,8 @@ Poniżej znajduje się lista 7 wybranych przez Ciebie wskaźników.  Chcielibyś
 ');
 
 INSERT INTO experiment.text_resources (key, value) VALUES ('Instructions.Trial', '
-<strong>Pytanie %s</strong>. Przeczytaj informacje i odpowiedz na pytanie: Czy na rynku papierów wartościowych jest hossa czy bessa?
-Wybierz co najmniej 3 darmowe informacje lub więcej, ale każda dodatkowa kosztuje 10 punktów.  (masz 70 punktów). Informacja odsłoni się gdy klikniesz na wybranym polu.
+Poniżej znajduje się 16 informacji, z których możesz wybierać te, których potrzebujesz żeby odpowiedzieć na pytanie: Czy na rynku papierów wartościowych jest hossa czy bessa? Niektóre z tych informacji dotyczą aktualnych zmian wskaźników (na przykład: DAX i NASDAQ, zmiany cen złota, zmiany cen mieszkań), inne (na przykład: C/Z, wstęga Bollingera) odnoszą się do podstawowych spółek WIG20.
+Wybierz co najmniej 3 darmowe informacje lub więcej, ale każda dodatkowa kosztuje 10 punktów (masz 70 punktów). Informacja odsłoni się gdy klikniesz na wybranym polu.
 <strong>Nagrody pieniężne wysokości 500 zł otrzymają ci, którzy będą mieli najwięcej trafnych odpowiedzi na 10 pytań: Czy na rynku papierów wartościowych jest hossa czy bessa? i wykorzystają jak najmniej punktów (informacji) do udzielenia tej odpowiedzi.</strong>
 <p/>
 Przeczytaj informacje i odpowiedz na pytanie: Czy na rynku papierów wartościowych jest hossa czy bessa?

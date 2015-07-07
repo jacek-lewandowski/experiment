@@ -7,7 +7,7 @@ INSERT INTO experiment.variables(id, category, name, plus, minus, plus_exclusion
 );
 
 INSERT INTO experiment.variables(id, category, name, plus, minus, plus_exclusions, minus_exclusions) VALUES (
-    3, 'real', 'WIG 20; WIG 80', 'WIG 20 lekko w dół; WIG 80 znacząco w górę', 'WIG 20 lekko w górę; WIG 80 znacząco w dół', {}, {}
+    3, 'real', 'WIG20; WIG80', 'WIG20 lekko w dół; WIG80 znacząco w górę', 'WIG20 lekko w górę; WIG80 znacząco w dół', {}, {}
 );
 
 INSERT INTO experiment.variables(id, category, name, plus, minus, plus_exclusions, minus_exclusions) VALUES (
