@@ -2,7 +2,7 @@ INSERT INTO experiment.text_resources (key, value) VALUES ('Titles.Thanks', 'Pod
 INSERT INTO experiment.text_resources (key, value) VALUES ('Titles.Questionnaire', 'Kwestionariusz');
 INSERT INTO experiment.text_resources (key, value) VALUES ('Titles.Instruction', 'Instrukcja');
 INSERT INTO experiment.text_resources (key, value) VALUES ('Titles.Trial', 'Badanie');
-INSERT INTO experiment.text_resources (key, value) VALUES ('Titles.Lottery', 'Loteria');
+INSERT INTO experiment.text_resources (key, value) VALUES ('Titles.Lottery', 'Gra');
 INSERT INTO experiment.text_resources (key, value) VALUES ('Titles.MostImportantVariables', 'Wybór najważniejszych czynników');
 INSERT INTO experiment.text_resources (key, value) VALUES ('Titles.ExplanationQuestion', 'Dlaczego wybrane zostały takie czynniki');
 INSERT INTO experiment.text_resources (key, value) VALUES ('Titles.ConfidenceQuestion', 'Jak bardzo jesteś pewien/pewna swojego wyboru');
@@ -18,7 +18,7 @@ INSERT INTO experiment.text_resources (key, value) VALUES ('Titles.Justification
 INSERT INTO experiment.text_resources (key, value) VALUES ('Titles.MissingVariables', 'Brakujące zmienne');
 INSERT INTO experiment.text_resources (key, value) VALUES ('Titles.Admin', 'Panel administracyjny');
 
-INSERT INTO experiment.text_resources (key, value) VALUES ('Labels.Lottery', 'Wybieram loterię');
+INSERT INTO experiment.text_resources (key, value) VALUES ('Labels.Lottery', 'Wybieram grę');
 INSERT INTO experiment.text_resources (key, value) VALUES ('Labels.NotLottery', 'Wybieram zakład');
 INSERT INTO experiment.text_resources (key, value) VALUES ('Labels.ConfirmConfidence', 'OK');
 INSERT INTO experiment.text_resources (key, value) VALUES ('Labels.Confidence', 'Pewność');
@@ -60,7 +60,7 @@ INSERT INTO experiment.text_resources (key, value) VALUES ('Notifications.LoginF
 INSERT INTO experiment.text_resources (key, value) VALUES ('Notifications.LoginSuccessful', 'Zalogowano');
 INSERT INTO experiment.text_resources (key, value) VALUES ('Notifications.MustSelectExactlyNEssentialVariables', 'Należy wybrać dokładnie %s zmienne');
 INSERT INTO experiment.text_resources (key, value) VALUES ('Notifications.MustSelectExactlyNVariables', 'Należy wybrać dokładnie %s zmiennych');
-INSERT INTO experiment.text_resources (key, value) VALUES ('Notifications.MustChooseLotteryOrBet', 'Należy wybrać loterię lub zakład');
+INSERT INTO experiment.text_resources (key, value) VALUES ('Notifications.MustChooseLotteryOrBet', 'Należy wybrać grę lub zakład');
 
 -- powiadomienie w czasie iteracji, jak ktors chce iść dalej nie wybierając uprzednio odpowiedzi
 INSERT INTO experiment.text_resources (key, value) VALUES ('Notifications.NeedToSelectAnswer', 'Należy wybrać odpowiedź');
@@ -87,7 +87,7 @@ INSERT INTO experiment.text_resources (key, value) VALUES ('Instructions.Questio
 INSERT INTO experiment.text_resources (key, value) VALUES ('Instructions.InitialInstruction', '
 Zapraszamy Państwa do udziału w badaniu, które  jest częścią szerszego projektu, finansowanego z grantu Narodowego Centrum Nauki. W oparciu o wyniki tego badania, mamy nadzieję dowiedzieć się których informacji używają inwestorzy, kiedy zastanawiają się, czy na rynku papierów wartościowych jest hossa, czy bessa. Żeby to ustalić prosimy Państwa najpierw o wskazanie i porangowanie tych wskaźników ekonomicznych, które Waszym zdaniem najlepiej pozwalają odpowiedzieć na pytanie o to, czy jest hossa czy bessa. A później prosimy 10 razy o odpowiedz na pytanie, czy dany układ wskaźników wskazuje na hossę, czy na bessę.
 <p/>
-<strong>Ponieważ badanie zajmuje około 30 minut, to trzy osoby, które najlepiej odpowiedzą na 10 pytań uzyskają nagrody finansowe wysokości 500 zł.</strong> Niezależnie od tego, na końcu oferujemy wszystkim uczestnikom udział w loterii w której można wygrać 50 zł.
+<strong>Ponieważ badanie zajmuje około 30 minut, to trzy osoby, które najlepiej odpowiedzą na 10 pytań uzyskają nagrody finansowe wysokości 500 zł.</strong> Niezależnie od tego, na końcu oferujemy wszystkim uczestnikom udział w grze, w której można wygrać 50 zł.
 <p/>
 <strong>Badanie prowadzone jest wyłącznie w celach naukowych, jest dobrowolne i anonimowe.</strong> W każdej chwili uczestnik może wycofać się z badania. Wyniki prezentowane będą tylko i wyłącznie w postaci zbiorczych danych, które będzie można uzyskać po zakończeniu analiz kontaktując się z nami mailowo: 
 <p/>
@@ -101,11 +101,11 @@ Jeśli wyrażasz zgodę na udział w badaniu, kliknij przycisk "Dalej".
 INSERT INTO experiment.text_resources (key, value) VALUES ('Instructions.Lottery', '
 <strong>Uwaga! W tym zadaniu można wygrać 50 zł (niezależnie od nagród finansowych, o których była mowa wcześniej).</strong> 
 <p/>
-Proponujemy Ci wybór między: (1) zakładem, że trafnie odpowiedziałeś w jednym z dwóch ostatnich pytań 9 i 10, że jest hossa lub bessa a (2) loterią.
+Proponujemy Ci wybór między: (1) zakładem, że trafnie odpowiedziałeś w jednym z dwóch ostatnich pytań 9 i 10, że jest hossa lub bessa a (2) grą.
 <p/>
 Jeżeli wybierzesz zakład, wygrasz 50 złotych jeśli trafnie określiłeś trend rynkowy w jednym z dwóch ostatnich pytań - 9 lub 10. Nie wiesz jednak które to będzie pytanie. Przez komputer wylosowane będzie tylko jedno z nich, czyli są jednakowe szanse na to, że będzie to pytanie 9 lub 10.
 <p/>
-Jeżeli wybierzesz loterię możesz wygrać 50 złotych, jeśli z urny będzie wylosowana przez komputer kula biała. W urnie jest 100 kul, a białych jest %s.
+Jeżeli wybierzesz grę możesz wygrać 50 złotych, jeśli z urny będzie wylosowana przez komputer kula biała. W urnie jest 100 kul, a białych jest %s.
 <p/>
 Jeśli wygrasz i chcesz otrzymać nagrodę, musisz wpisać swój adres email na końcu badania.
 <p/>
