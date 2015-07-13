@@ -13,8 +13,7 @@ trait InstructionView extends AbstractView {
     .withFullWidth
     .withContentMode(ContentMode.HTML)
   val contentPanel = new Panel(new VerticalLayout(instructionField).withSpacing.withMargins)
-    .withFullHeight
-    .withWidth("70%")
+    .withSizeFull
 
   addTitle()
   content.addComponent(contentPanel)

@@ -921,7 +921,7 @@
  */
 
 .v-vaadin-version:after {
-	content: "7.4.3";
+	content: "7.5.1";
 }
 
 .v-widget {
@@ -1819,24 +1819,24 @@ div.v-layout.v-horizontal.v-widget {
 }
 
 .experiment .v-margin-top {
-	padding-top: 37px;
+	padding-top: 5px;
 }
 
 .experiment .v-margin-right {
-	padding-right: 37px;
+	padding-right: 5px;
 }
 
 .experiment .v-margin-bottom {
-	padding-bottom: 37px;
+	padding-bottom: 5px;
 }
 
 .experiment .v-margin-left {
-	padding-left: 37px;
+	padding-left: 5px;
 }
 
 .experiment .v-spacing {
-	width: 12px;
-	height: 12px;
+	width: 5px;
+	height: 5px;
 }
 
 .experiment .v-verticallayout-well, .experiment .v-horizontallayout-well {
@@ -1900,7 +1900,7 @@ div.v-layout.v-horizontal.v-widget {
 }
 
 .experiment .v-horizontallayout-wrapping > .v-spacing + .v-slot, .experiment .v-horizontallayout-wrapping > .v-slot:first-child {
-	margin-bottom: 12px;
+	margin-bottom: 5px;
 }
 
 .experiment .v-horizontallayout-wrapping > .v-slot:first-child:last-child {
@@ -2479,6 +2479,23 @@ div.v-layout.v-horizontal.v-widget {
 	background: transparent;
 }
 
+.experiment .v-checkbox.v-readonly  > label, .experiment .v-checkbox.v-readonly  > .v-icon {
+	cursor: default;
+}
+
+.experiment .v-checkbox.v-readonly  > label > .v-icon {
+	cursor: default;
+}
+
+:root .experiment .v-checkbox.v-readonly > input:active ~ label:after {
+	background: transparent;
+}
+
+:root .experiment .v-checkbox.v-readonly > input ~ label:after {
+	opacity: 0.5;
+	filter: alpha(opacity=50) ;
+}
+
 .experiment .v-checkbox-small {
 	position: relative;
 	line-height: 16px;
@@ -2592,6 +2609,23 @@ div.v-layout.v-horizontal.v-widget {
 	background: transparent;
 }
 
+.experiment .v-checkbox-small.v-readonly  > label, .experiment .v-checkbox-small.v-readonly  > .v-icon {
+	cursor: default;
+}
+
+.experiment .v-checkbox-small.v-readonly  > label > .v-icon {
+	cursor: default;
+}
+
+:root .experiment .v-checkbox-small.v-readonly > input:active ~ label:after {
+	background: transparent;
+}
+
+:root .experiment .v-checkbox-small.v-readonly > input ~ label:after {
+	opacity: 0.5;
+	filter: alpha(opacity=50) ;
+}
+
 .experiment .v-checkbox-large {
 	position: relative;
 	line-height: 22px;
@@ -2703,6 +2737,23 @@ div.v-layout.v-horizontal.v-widget {
 
 :root .experiment .v-checkbox-large.v-disabled > input:active ~ label:after {
 	background: transparent;
+}
+
+.experiment .v-checkbox-large.v-readonly  > label, .experiment .v-checkbox-large.v-readonly  > .v-icon {
+	cursor: default;
+}
+
+.experiment .v-checkbox-large.v-readonly  > label > .v-icon {
+	cursor: default;
+}
+
+:root .experiment .v-checkbox-large.v-readonly > input:active ~ label:after {
+	background: transparent;
+}
+
+:root .experiment .v-checkbox-large.v-readonly > input ~ label:after {
+	opacity: 0.5;
+	filter: alpha(opacity=50) ;
 }
 
 .experiment .v-filterselect {
@@ -3792,7 +3843,7 @@ div.v-layout.v-horizontal.v-widget {
 }
 
 .experiment [class*="spacing"] > tbody > [class*="row"] > td {
-	padding-top: 12px;
+	padding-top: 5px;
 }
 
 .experiment [class*="spacing"] > tbody > [class*="firstrow"] > td {
@@ -3800,27 +3851,27 @@ div.v-layout.v-horizontal.v-widget {
 }
 
 .experiment [class*="margin-top"] > tbody > [class*="firstrow"] > td {
-	padding-top: 37px;
+	padding-top: 5px;
 }
 
 .experiment [class*="margin-bottom"] > tbody > [class*="lastrow"] > td {
-	padding-bottom: 37px;
+	padding-bottom: 5px;
 }
 
 .experiment [class*="margin-left"] > tbody > [class*="row"] > [class*="captioncell"] {
-	padding-left: 37px;
+	padding-left: 5px;
 }
 
 .experiment [class*="margin-left"] > tbody > [class*="row"] > [class*="contentcell"]  > .v-label-h2, .experiment [class*="margin-left"] > tbody > [class*="row"] > [class*="contentcell"]  > .v-label-h3, .experiment [class*="margin-left"] > tbody > [class*="row"] > [class*="contentcell"]  > .v-label-h4 {
-	left: 37px;
+	left: 5px;
 }
 
 .experiment [class*="margin-right"] > tbody > [class*="row"] > [class*="contentcell"] {
-	padding-right: 37px;
+	padding-right: 5px;
 }
 
 .experiment [class*="margin-right"] > tbody > [class*="row"] > [class*="contentcell"]  > .v-label-h2, .experiment [class*="margin-right"] > tbody > [class*="row"] > [class*="contentcell"]  > .v-label-h3, .experiment [class*="margin-right"] > tbody > [class*="row"] > [class*="contentcell"]  > .v-label-h4 {
-	right: 37px;
+	right: 5px;
 }
 
 .experiment .v-formlayout > table {
@@ -4110,6 +4161,24 @@ div.v-layout.v-horizontal.v-widget {
 	z-index: 1;
 }
 
+.experiment .v-grid-spacer {
+	position: absolute;
+	display: block;
+	background-color: #c8cbda;
+}
+
+.experiment .v-grid-spacer  > td {
+	width: 100%;
+	height: 100%;
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	box-sizing: border-box;
+}
+
+.v-ie8 .experiment .v-grid-spacer, .v-ie9 .experiment .v-grid-spacer {
+	margin-top: 0;
+}
+
 .experiment .v-grid {
 	outline: none;
 }
@@ -4128,6 +4197,96 @@ div.v-layout.v-horizontal.v-widget {
 
 .experiment .v-grid-tablewrapper {
 	border: 1px solid #a6a8b5;
+}
+
+.experiment .v-grid .header-drag-table {
+	border-spacing: 0;
+	position: relative;
+	table-layout: fixed;
+	width: inherit;
+}
+
+.experiment .v-grid .header-drag-table .v-grid-header {
+	position: absolute;
+}
+
+.experiment .v-grid .header-drag-table .v-grid-header  > .v-grid-cell {
+	border: 1px solid #a6a8b5;
+	margin-top: -10px;
+	opacity: 0.9;
+	filter: alpha(opacity=90);
+	z-index: 30000;
+}
+
+.experiment .v-grid .header-drag-table .v-grid-header  > .v-grid-drop-marker {
+	background-color: #102dbc;
+	position: absolute;
+	width: 3px;
+}
+
+.experiment .v-grid-sidebar.v-contextmenu {
+	-webkit-box-shadow: none;
+	box-shadow: none;
+	border-radius: 0;
+	position: absolute;
+	top: 0;
+	right: 0;
+	background-color: #c2c5d6;
+	border: 1px solid #a6a8b5;
+	padding: 0;
+	z-index: 5;
+}
+
+.experiment .v-grid-sidebar.v-contextmenu .v-grid-sidebar-button {
+	background: transparent;
+	border: none;
+	color: inherit;
+	cursor: pointer;
+	outline: none;
+	padding: 0 4px;
+	text-align: right;
+}
+
+.experiment .v-grid-sidebar.v-contextmenu .v-grid-sidebar-button::-moz-focus-inner {
+	border: 0;
+}
+
+.experiment .v-grid-sidebar.v-contextmenu .v-grid-sidebar-button:after {
+	content: "\f0c9";
+	display: block;
+	font-family: FontAwesome, sans-serif;
+	font-size: 14px;
+}
+
+.experiment .v-grid-sidebar.v-contextmenu.closed {
+	border-radius: 0;
+}
+
+.experiment .v-grid-sidebar.v-contextmenu.open .v-grid-sidebar-button {
+	width: 100%;
+}
+
+.experiment .v-grid-sidebar.v-contextmenu.open .v-grid-sidebar-button:after {
+	content: "\00d7";
+	font-size: 16px;
+	line-height: 1;
+}
+
+.v-ie .experiment .v-grid-sidebar.v-contextmenu.open .v-grid-sidebar-button {
+	vertical-align: middle;
+}
+
+.v-ie8 .experiment .v-grid-sidebar.v-contextmenu.open .v-grid-sidebar-button:after {
+	display: inline;
+}
+
+.experiment .v-grid-sidebar.v-contextmenu .v-grid-sidebar-content {
+	border-top: 1px solid #a6a8b5;
+	padding: 4px 0;
+}
+
+.experiment .v-grid-sidebar.v-contextmenu .v-grid-sidebar-content .gwt-MenuBar .gwt-MenuItem .column-hiding-toggle {
+	text-shadow: none;
 }
 
 .experiment .v-grid-cell {
@@ -4275,6 +4434,8 @@ div.v-layout.v-horizontal.v-widget {
 	left: 0;
 	right: 0;
 	border: 1px solid #a6a8b5;
+	box-sizing: border-box;
+	-moz-box-sizing: border-box;
 	margin-top: -1px;
 	-webkit-box-shadow: 0 0 9px rgba(0, 0, 0, 0.2);
 	box-shadow: 0 0 9px rgba(0, 0, 0, 0.2);
@@ -4308,6 +4469,14 @@ div.v-layout.v-horizontal.v-widget {
 	max-width: 100%;
 	min-height: 100%;
 	max-height: 100%;
+}
+
+.v-ie8 .experiment .v-grid-editor-cells  > div .v-datefield-button {
+	margin-left: -30px;
+}
+
+.v-ie8 .experiment .v-grid-editor-cells  > div .v-filterselect-button {
+	margin-left: -27px;
 }
 
 .experiment .v-grid-editor-cells  > div .v-select, .experiment .v-grid-editor-cells  > div .v-select-select {
@@ -4374,6 +4543,45 @@ div.v-layout.v-horizontal.v-widget {
 	margin-right: 4px;
 }
 
+.experiment .v-grid-spacer {
+	padding-left: 1px;
+}
+
+.experiment .v-grid-spacer > td {
+	display: block;
+	padding: 0;
+	background-color: #c8cbda;
+	border-top: 1px solid #bbbecc;
+	border-bottom: 1px solid #a6a8b5;
+}
+
+.experiment .v-grid-spacer.stripe > td {
+	background-color: #bec2d4;
+	border-top: 1px solid #b2b5c6;
+	border-bottom: 1px solid #a6a8b5;
+}
+
+.experiment .v-grid-spacer-deco-container {
+	border-top: 1px solid transparent;
+	position: relative;
+	top: 0;
+	z-index: 5;
+}
+
+.experiment .v-grid-spacer-deco {
+	top: 0;
+	left: 0;
+	width: 2px;
+	background-color: #102dbc;
+	position: absolute;
+	height: 100%;
+	pointer-events: none;
+}
+
+.ie8 .experiment .v-grid-spacer-deco:before, .ie9 .experiment .v-grid-spacer-deco:before, .ie10 .experiment .v-grid-spacer-deco:before {
+	content: url(data:image/svg+xml;charset=utf-8;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPjwvc3ZnPg==);
+}
+
 .experiment .v-grid-cell > .v-progressbar {
 	width: 100%;
 }
@@ -4391,6 +4599,18 @@ div.v-layout.v-horizontal.v-widget {
 	background-image: -webkit-linear-gradient(top, #c6c9d9 2%, #b5b8c9 98%);
 	background-image: linear-gradient(to bottom,#c6c9d9 2%, #b5b8c9 98%);
 	text-shadow: 0 1px 0 rgba(255, 255, 255, 0.05);
+}
+
+.experiment .v-grid-header .v-grid-cell.dragged {
+	opacity: 0.5;
+	filter: alpha(opacity=50) ;
+	-webkit-transition: opacity 0.3s ease-in-out;
+	-moz-transition: opacity 0.3s ease-in-out;
+	transition: opacity 0.3s ease-in-out;
+}
+
+.experiment .v-grid-header .v-grid-cell.dragged-column-header {
+	margin-top: -19px;
 }
 
 .experiment .v-grid-footer .v-grid-cell {
@@ -4433,7 +4653,7 @@ div.v-layout.v-horizontal.v-widget {
 
 .experiment .v-grid-editor-footer {
 	font-size: 14px;
-	padding: 0 6px;
+	padding: 0 3px;
 	background: #c2c5d6;
 	-webkit-animation: valo-grid-editor-footer-animate-in 200ms 120ms backwards;
 	-moz-animation: valo-grid-editor-footer-animate-in 200ms 120ms backwards;
@@ -4474,6 +4694,14 @@ div.v-layout.v-horizontal.v-widget {
 	box-shadow: inset 0 1px 0 #bbbed0;
 }
 
+.v-ie8 .experiment .v-grid-editor-cells > div .v-datefield-button {
+	margin-left: 0px;
+}
+
+.v-ie8 .experiment .v-grid-editor-cells > div .v-filterselect-button {
+	margin-left: 0px;
+}
+
 .experiment .v-grid-editor-cells > div .v-textfield-focus, .experiment .v-grid-editor-cells > div .v-datefield .v-textfield-focus, .experiment .v-grid-editor-cells > div .v-filterselect-input:focus {
 	position: relative;
 }
@@ -4512,7 +4740,7 @@ div.v-layout.v-horizontal.v-widget {
 	text-decoration: none;
 	border: none;
 	background: transparent;
-	padding: 6px 6px;
+	padding: 3px 3px;
 	margin: 0;
 	outline: none;
 }
@@ -4524,6 +4752,25 @@ div.v-layout.v-horizontal.v-widget {
 .experiment .v-grid-editor-save.v-disabled, .experiment .v-grid-editor-cancel.v-disabled {
 	opacity: 0.5;
 	filter: alpha(opacity=50) ;
+}
+
+.experiment .v-grid-spacer {
+	margin-top: -1px;
+}
+
+.experiment .v-grid-sidebar.v-contextmenu.open .v-grid-sidebar-button:after {
+	font-size: 20px;
+}
+
+.experiment .v-grid-sidebar.v-contextmenu.open .v-grid-sidebar-content {
+	margin: 0 0 2px;
+	padding: 4px 4px 2px;
+}
+
+.experiment .v-grid-sidebar.v-contextmenu.closed {
+	background-color: #c2c5d6;
+	background-image: -webkit-linear-gradient(top, #c6c9d9 2%, #b5b8c9 98%);
+	background-image: linear-gradient(to bottom,#c6c9d9 2%, #b5b8c9 98%);
 }
 
 .experiment .v-grid-scroller::-webkit-scrollbar {
@@ -6602,24 +6849,24 @@ div.v-layout.v-horizontal.v-widget {
 }
 
 .experiment .v-gridlayout-margin-top {
-	padding-top: 37px;
+	padding-top: 5px;
 }
 
 .experiment .v-gridlayout-margin-bottom {
-	padding-bottom: 37px;
+	padding-bottom: 5px;
 }
 
 .experiment .v-gridlayout-margin-left {
-	padding-left: 37px;
+	padding-left: 5px;
 }
 
 .experiment .v-gridlayout-margin-right {
-	padding-right: 37px;
+	padding-right: 5px;
 }
 
 .experiment .v-gridlayout-spacing-on {
-	padding-left: 12px;
-	padding-top: 12px;
+	padding-left: 5px;
+	padding-top: 5px;
 }
 
 .experiment .v-menubar {
@@ -7170,6 +7417,23 @@ div.v-layout.v-horizontal.v-widget {
 	background: transparent;
 }
 
+.experiment .v-radiobutton.v-readonly  > label, .experiment .v-radiobutton.v-readonly  > .v-icon {
+	cursor: default;
+}
+
+.experiment .v-radiobutton.v-readonly  > label > .v-icon {
+	cursor: default;
+}
+
+:root .experiment .v-radiobutton.v-readonly > input:active ~ label:after {
+	background: transparent;
+}
+
+:root .experiment .v-radiobutton.v-readonly > input ~ label:after {
+	opacity: 0.5;
+	filter: alpha(opacity=50) ;
+}
+
 :root .experiment .v-radiobutton > input:checked ~ label:after {
 	width: 7px;
 	height: 7px;
@@ -7316,6 +7580,23 @@ div.v-layout.v-horizontal.v-widget {
 	background: transparent;
 }
 
+.experiment .v-select-optiongroup-small .v-checkbox.v-readonly  > label, .experiment .v-select-optiongroup-small .v-checkbox.v-readonly  > .v-icon {
+	cursor: default;
+}
+
+.experiment .v-select-optiongroup-small .v-checkbox.v-readonly  > label > .v-icon {
+	cursor: default;
+}
+
+:root .experiment .v-select-optiongroup-small .v-checkbox.v-readonly > input:active ~ label:after {
+	background: transparent;
+}
+
+:root .experiment .v-select-optiongroup-small .v-checkbox.v-readonly > input ~ label:after {
+	opacity: 0.5;
+	filter: alpha(opacity=50) ;
+}
+
 .experiment .v-select-optiongroup-small .v-radiobutton {
 	position: relative;
 	line-height: 16px;
@@ -7426,6 +7707,23 @@ div.v-layout.v-horizontal.v-widget {
 
 :root .experiment .v-select-optiongroup-small .v-radiobutton.v-disabled > input:active ~ label:after {
 	background: transparent;
+}
+
+.experiment .v-select-optiongroup-small .v-radiobutton.v-readonly  > label, .experiment .v-select-optiongroup-small .v-radiobutton.v-readonly  > .v-icon {
+	cursor: default;
+}
+
+.experiment .v-select-optiongroup-small .v-radiobutton.v-readonly  > label > .v-icon {
+	cursor: default;
+}
+
+:root .experiment .v-select-optiongroup-small .v-radiobutton.v-readonly > input:active ~ label:after {
+	background: transparent;
+}
+
+:root .experiment .v-select-optiongroup-small .v-radiobutton.v-readonly > input ~ label:after {
+	opacity: 0.5;
+	filter: alpha(opacity=50) ;
 }
 
 :root .experiment .v-select-optiongroup-small .v-radiobutton > input:checked ~ label:after {
@@ -7574,6 +7872,23 @@ div.v-layout.v-horizontal.v-widget {
 	background: transparent;
 }
 
+.experiment .v-select-optiongroup-large .v-checkbox.v-readonly  > label, .experiment .v-select-optiongroup-large .v-checkbox.v-readonly  > .v-icon {
+	cursor: default;
+}
+
+.experiment .v-select-optiongroup-large .v-checkbox.v-readonly  > label > .v-icon {
+	cursor: default;
+}
+
+:root .experiment .v-select-optiongroup-large .v-checkbox.v-readonly > input:active ~ label:after {
+	background: transparent;
+}
+
+:root .experiment .v-select-optiongroup-large .v-checkbox.v-readonly > input ~ label:after {
+	opacity: 0.5;
+	filter: alpha(opacity=50) ;
+}
+
 .experiment .v-select-optiongroup-large .v-radiobutton {
 	position: relative;
 	line-height: 22px;
@@ -7684,6 +7999,23 @@ div.v-layout.v-horizontal.v-widget {
 
 :root .experiment .v-select-optiongroup-large .v-radiobutton.v-disabled > input:active ~ label:after {
 	background: transparent;
+}
+
+.experiment .v-select-optiongroup-large .v-radiobutton.v-readonly  > label, .experiment .v-select-optiongroup-large .v-radiobutton.v-readonly  > .v-icon {
+	cursor: default;
+}
+
+.experiment .v-select-optiongroup-large .v-radiobutton.v-readonly  > label > .v-icon {
+	cursor: default;
+}
+
+:root .experiment .v-select-optiongroup-large .v-radiobutton.v-readonly > input:active ~ label:after {
+	background: transparent;
+}
+
+:root .experiment .v-select-optiongroup-large .v-radiobutton.v-readonly > input ~ label:after {
+	opacity: 0.5;
+	filter: alpha(opacity=50) ;
 }
 
 :root .experiment .v-select-optiongroup-large .v-radiobutton > input:checked ~ label:after {
@@ -7824,9 +8156,9 @@ div.v-layout.v-horizontal.v-widget {
 	background-image: radial-gradient(  circle at 50% 50%, #222, #0e0e0e);
 	opacity: 0.72;
 	filter: alpha(opacity=72) ;
-	-webkit-animation: valo-animate-in-fade 400ms 100ms;
-	-moz-animation: valo-animate-in-fade 400ms 100ms;
-	animation: valo-animate-in-fade 400ms 100ms;
+	-webkit-animation: valo-animate-in-fade 400ms 100ms backwards;
+	-moz-animation: valo-animate-in-fade 400ms 100ms backwards;
+	animation: valo-animate-in-fade 400ms 100ms backwards;
 }
 
 .v-op12 .experiment .v-window-modalitycurtain {
@@ -8077,7 +8409,7 @@ div.v-layout.v-horizontal.v-widget {
 }
 
 .experiment .v-window-top-toolbar .v-spacing, .experiment .v-window-bottom-toolbar .v-spacing {
-	width: 6px;
+	width: 3px;
 }
 
 .experiment .v-window-top-toolbar.v-layout {
@@ -8337,6 +8669,7 @@ div.v-layout.v-horizontal.v-widget {
 	position: relative;
 	background: #c2c5d6;
 	color: #323440;
+	overflow: hidden;
 }
 
 .experiment .v-table-header table, .experiment .v-table-footer table, .experiment .v-table-table {
@@ -8474,10 +8807,16 @@ div.v-layout.v-horizontal.v-widget {
 
 .experiment .v-table-row {
 	background-color: #c8cbda;
+	cursor: pointer;
 }
 
 .experiment .v-table-row-odd {
 	background-color: #bec2d4;
+	cursor: pointer;
+}
+
+.experiment .v-table-body-noselection .v-table-row, .experiment .v-table-body-noselection .v-table-row-odd {
+	cursor: default;
 }
 
 .experiment .v-table [class*="-row"].v-selected {
@@ -8555,7 +8894,7 @@ div.v-layout.v-horizontal.v-widget {
 .experiment .v-table-focus-slot-right {
 	border-right: 3px solid #102dbc;
 	right: -2px;
-	margin-left: -11px;
+	margin-left: -11px !important;
 }
 
 .experiment .v-table-focus-slot-left {
@@ -8581,25 +8920,27 @@ div.v-layout.v-horizontal.v-widget {
 	background-color: #c2c5d6;
 	background-image: -webkit-linear-gradient(top, #c6c9d9 2%, #b5b8c9 98%);
 	background-image: linear-gradient(to bottom,#c6c9d9 2%, #b5b8c9 98%);
-	-webkit-box-shadow: inset 0 1px 0 #e1e2e4, inset 0 -1px 0 #afb2c3, 0 2px 3px rgba(0, 0, 0, 0.05);
-	box-shadow: inset 0 1px 0 #e1e2e4, inset 0 -1px 0 #afb2c3, 0 2px 3px rgba(0, 0, 0, 0.05);
+	-webkit-box-shadow: inset 0 1px 0 #e1e2e4, inset 0 -1px 0 #afb2c3;
+	box-shadow: inset 0 1px 0 #e1e2e4, inset 0 -1px 0 #afb2c3;
 	text-shadow: 0 1px 0 rgba(255, 255, 255, 0.05);
 	position: absolute;
 	z-index: 2;
-	top: -9px;
-	right: -9px;
+	top: 0;
+	right: 0;
+	width: 19px;
 	height: 19px;
 	line-height: 19px;
-	width: 19px;
 	padding: 0;
-	border-radius: 50%;
+	border-top-width: 0;
+	border-right-width: 0;
+	border-radius: 0 0 0 4px;
 	cursor: pointer;
 	text-align: center;
 	opacity: 0;
 	filter: alpha(opacity=0) ;
-	-webkit-transition: opacity 200ms 1s;
-	-moz-transition: opacity 200ms 1s;
-	transition: opacity 200ms 1s;
+	-webkit-transition: opacity 200ms 2s;
+	-moz-transition: opacity 200ms 2s;
+	transition: opacity 200ms 2s;
 }
 
 .experiment .v-table-column-selector:after {
@@ -8627,11 +8968,11 @@ div.v-layout.v-horizontal.v-widget {
 .experiment .v-table-column-selector:after {
 	content: "";
 	position: absolute;
-	top: -1px;
-	right: -1px;
-	bottom: -1px;
-	left: -1px;
-	border-radius: inherit;
+	border: none;
+	top: 0;
+	right: 0;
+	bottom: 0;
+	left: 0;
 }
 
 .experiment .v-table-column-selector:active:after {
@@ -8643,25 +8984,12 @@ div.v-layout.v-horizontal.v-widget {
 	content: "\f013";
 }
 
-.experiment .v-scrollable > .v-table .v-table-column-selector {
-	right: 0;
-	top: 0;
-	border-top: none;
-	border-right: none;
-	border-radius: 0 0 0 50%;
-}
-
-.experiment .v-scrollable > .v-table .v-table-column-selector:after {
-	top: 0;
-	right: 0;
-}
-
 .experiment .v-table-header-wrap:hover .v-table-column-selector {
 	opacity: 1;
 	filter: none ;
-	-webkit-transition-delay: 100ms;
-	-moz-transition-delay: 100ms;
-	transition-delay: 100ms;
+	-webkit-transition-delay: 200ms;
+	-moz-transition-delay: 200ms;
+	transition-delay: 200ms;
 }
 
 .experiment .v-on:before, .experiment .v-off:before {
@@ -8715,6 +9043,10 @@ div.v-layout.v-horizontal.v-widget {
 	line-height: 37px;
 	margin: -19px 0 0 !important;
 	text-align: center;
+}
+
+.experiment .v-table-drag {
+	overflow: visible;
 }
 
 .experiment .v-table-drag .v-table-body {
@@ -9729,9 +10061,9 @@ div.v-layout.v-horizontal.v-widget {
 }
 
 .experiment .v-tabsheet-tabsheetpanel > .v-scrollable > .v-widget {
-	-webkit-animation: valo-animate-in-fade 300ms;
-	-moz-animation: valo-animate-in-fade 300ms;
-	animation: valo-animate-in-fade 300ms;
+	-webkit-animation: valo-animate-in-fade 300ms backwards;
+	-moz-animation: valo-animate-in-fade 300ms backwards;
+	animation: valo-animate-in-fade 300ms backwards;
 }
 
 .experiment .v-tabsheet-deco {
@@ -9793,7 +10125,7 @@ div.v-layout.v-horizontal.v-widget {
 
 .experiment .v-tabsheet-framed  > .v-tabsheet-tabcontainer .v-caption {
 	margin-left: 4px;
-	padding: 0 12px;
+	padding: 0 5px;
 	background-color: #c2c5d6;
 	border: 1px solid transparent;
 	line-height: 36px;
@@ -9814,7 +10146,7 @@ div.v-layout.v-horizontal.v-widget {
 }
 
 .experiment .v-tabsheet-framed  > .v-tabsheet-tabcontainer .v-caption-closable {
-	padding-right: 30px;
+	padding-right: 23px;
 }
 
 .experiment .v-tabsheet-framed  > .v-tabsheet-tabcontainer .v-tabsheet-caption-close {
@@ -9885,7 +10217,7 @@ div.v-layout.v-horizontal.v-widget {
 }
 
 .experiment .v-tabsheet-icons-on-top  > .v-tabsheet-tabcontainer .v-caption-closable {
-	padding-right: 12px;
+	padding-right: 5px;
 }
 
 .experiment .v-tabsheet-icons-on-top  > .v-tabsheet-tabcontainer .v-tabsheet-caption-close {
@@ -10011,7 +10343,7 @@ div.v-layout.v-horizontal.v-widget {
 }
 
 .experiment .v-colorpicker {
-	width: auto !important;
+	width: auto;
 }
 
 .experiment .v-colorpicker-button-color {
@@ -10909,6 +11241,10 @@ div.v-layout.v-horizontal.v-widget {
 	margin-top: 16px;
 }
 
+.experiment .v-verticallayout > .v-slot:first-child .v-formlayout-contentcell h1, .experiment .v-verticallayout > .v-slot:first-child .v-formlayout-contentcell .v-label-h1, .experiment .v-verticallayout > .v-slot:first-child .v-formlayout-contentcell h2, .experiment .v-verticallayout > .v-slot:first-child .v-formlayout-contentcell .v-label-h2, .experiment .v-verticallayout > .v-slot:first-child .v-formlayout-contentcell h3, .experiment .v-verticallayout > .v-slot:first-child .v-formlayout-contentcell .v-label-h3, .experiment .v-verticallayout > .v-slot:first-child .v-formlayout-contentcell h4, .experiment .v-verticallayout > .v-slot:first-child .v-formlayout-contentcell .v-label-h4, .experiment .v-verticallayout > div > .v-slot:first-child .v-formlayout-contentcell h1, .experiment .v-verticallayout > div > .v-slot:first-child .v-formlayout-contentcell .v-label-h1, .experiment .v-verticallayout > div > .v-slot:first-child .v-formlayout-contentcell h2, .experiment .v-verticallayout > div > .v-slot:first-child .v-formlayout-contentcell .v-label-h2, .experiment .v-verticallayout > div > .v-slot:first-child .v-formlayout-contentcell h3, .experiment .v-verticallayout > div > .v-slot:first-child .v-formlayout-contentcell .v-label-h3, .experiment .v-verticallayout > div > .v-slot:first-child .v-formlayout-contentcell h4, .experiment .v-verticallayout > div > .v-slot:first-child .v-formlayout-contentcell .v-label-h4 {
+	margin-top: -0.5em;
+}
+
 .experiment h1.no-margin, .experiment .v-label-h1.no-margin, .experiment h2.no-margin, .experiment .v-label-h2.no-margin, .experiment h3.no-margin, .experiment .v-label-h3.no-margin, .experiment h4.no-margin, .experiment .v-label-h4.no-margin {
 	margin: 0 !important;
 }
@@ -11195,7 +11531,7 @@ div.v-layout.v-horizontal.v-widget {
 }
 
 .experiment .v-popupview-loading {
-	margin: 12px 12px;
+	margin: 5px 5px;
 	height: 24px !important;
 	width: 24px !important;
 	-webkit-box-sizing: border-box;
@@ -11418,19 +11754,19 @@ div.v-layout.v-horizontal.v-widget {
 }
 
 .experiment .v-Notification.v-position-top {
-	top: 12px;
+	top: 5px;
 }
 
 .experiment .v-Notification.v-position-right {
-	right: 12px;
+	right: 5px;
 }
 
 .experiment .v-Notification.v-position-bottom {
-	bottom: 12px;
+	bottom: 5px;
 }
 
 .experiment .v-Notification.v-position-left {
-	left: 12px;
+	left: 5px;
 }
 
 .experiment .v-Notification.v-position-assistive {
@@ -11482,7 +11818,17 @@ div.v-layout.v-horizontal.v-widget {
 	padding: 19px 22px;
 }
 
-.experiment .v-Notification h1 {
+.experiment .v-Notification .v-Notification-caption {
+	color: #102dbc;
+	font-size: 19px;
+	line-height: 1;
+}
+
+.experiment .v-Notification .v-Notification-description {
+	line-height: 1.4;
+}
+
+.experiment .v-Notification-caption {
 	margin: 0;
 	display: inline-block;
 	text-align: left;
@@ -11492,7 +11838,7 @@ div.v-layout.v-horizontal.v-widget {
 	letter-spacing: 0;
 }
 
-.experiment .v-Notification p {
+.experiment .v-Notification-description, .experiment .v-Notification-details {
 	margin: 0;
 	display: inline-block;
 	vertical-align: middle;
@@ -11502,22 +11848,12 @@ div.v-layout.v-horizontal.v-widget {
 	overflow: auto;
 }
 
-.experiment .v-Notification h1 ~ p {
+.experiment .v-Notification-caption ~ .v-Notification-description, .experiment .v-Notification-caption ~ .v-Notification-details {
 	margin-left: 24px;
 }
 
-.experiment .v-Notification .v-icon + h1 {
+.experiment .v-icon + .v-Notification-caption {
 	margin-left: 16px;
-}
-
-.experiment .v-Notification h1 {
-	color: #102dbc;
-	font-size: 19px;
-	line-height: 1;
-}
-
-.experiment .v-Notification p {
-	line-height: 1.4;
 }
 
 .experiment .v-Notification-system {
@@ -11535,7 +11871,7 @@ div.v-layout.v-horizontal.v-widget {
 	line-height: 22px;
 }
 
-.experiment .v-Notification-system p {
+.experiment .v-Notification-system .v-Notification-description, .experiment .v-Notification-system .v-Notification-details {
 	max-width: 50em;
 }
 
@@ -11571,12 +11907,12 @@ div.v-layout.v-horizontal.v-widget {
 	animation: valo-animate-out-slide-down 200ms;
 }
 
-.experiment .v-Notification-system h1 {
+.experiment .v-Notification-system .v-Notification-caption {
 	color: #fff;
 	vertical-align: middle;
 }
 
-.experiment .v-Notification-system p {
+.experiment .v-Notification-system .v-Notification-description, .experiment .v-Notification-system .v-Notification-details {
 	color: #e6e6e6;
 }
 
@@ -11588,7 +11924,7 @@ div.v-layout.v-horizontal.v-widget {
 	text-align: left;
 }
 
-.experiment .v-Notification.tray h1 + p {
+.experiment .v-Notification.tray .v-Notification-caption + .v-Notification-description {
 	display: block;
 	margin: 0.5em 0 0;
 }
@@ -11597,11 +11933,11 @@ div.v-layout.v-horizontal.v-widget {
 	background: #FFF3D2;
 }
 
-.experiment .v-Notification.warning h1 {
+.experiment .v-Notification.warning .v-Notification-caption {
 	color: #AC7C00;
 }
 
-.experiment .v-Notification.warning p {
+.experiment .v-Notification.warning .v-Notification-description {
 	color: #9D874D;
 }
 
@@ -11612,11 +11948,11 @@ div.v-layout.v-horizontal.v-widget {
 	box-shadow: 0px 5px 15px 0px rgba(0, 0, 0, 0.25);
 }
 
-.experiment .v-Notification.error h1 {
+.experiment .v-Notification.error .v-Notification-caption {
 	color: white;
 }
 
-.experiment .v-Notification.error p {
+.experiment .v-Notification.error .v-Notification-description {
 	color: #f4e0df;
 }
 
@@ -11627,12 +11963,12 @@ div.v-layout.v-horizontal.v-widget {
 	line-height: 22px;
 }
 
-.experiment .v-Notification.dark h1 {
+.experiment .v-Notification.dark .v-Notification-caption {
 	color: #fff;
 	vertical-align: middle;
 }
 
-.experiment .v-Notification.dark p {
+.experiment .v-Notification.dark .v-Notification-description, .experiment .v-Notification.dark .v-Notification-details {
 	color: #e6e6e6;
 }
 
@@ -11647,7 +11983,7 @@ div.v-layout.v-horizontal.v-widget {
 	padding: 12px 15px;
 }
 
-.experiment .v-Notification.bar p {
+.experiment .v-Notification.bar .v-Notification-description, .experiment .v-Notification.bar .v-Notification-details {
 	max-width: 50em;
 }
 
@@ -11687,11 +12023,11 @@ div.v-layout.v-horizontal.v-widget {
 	padding: 11px 13px;
 }
 
-.experiment .v-Notification.small h1 {
+.experiment .v-Notification.small .v-Notification-caption {
 	font-size: 16px;
 }
 
-.experiment .v-Notification.small p {
+.experiment .v-Notification.small .v-Notification-description {
 	font-size: 14px;
 }
 
@@ -11761,12 +12097,12 @@ div.v-layout.v-horizontal.v-widget {
 	border: 2px solid #2c9720;
 }
 
-.experiment .v-Notification.success h1, .experiment .v-Notification.failure h1 {
+.experiment .v-Notification.success .v-Notification-caption, .experiment .v-Notification.failure .v-Notification-caption {
 	color: #2c9720;
 	font-weight: 400;
 }
 
-.experiment .v-Notification.success h1:before, .experiment .v-Notification.failure h1:before {
+.experiment .v-Notification.success .v-Notification-caption:before, .experiment .v-Notification.failure .v-Notification-caption:before {
 	font-family: FontAwesome;
 	content: "\f00c";
 	margin-right: 0.5em;
@@ -11780,11 +12116,11 @@ div.v-layout.v-horizontal.v-widget {
 	border-color: #ed473b;
 }
 
-.experiment .v-Notification.failure h1 {
+.experiment .v-Notification.failure .v-Notification-caption {
 	color: #ed473b;
 }
 
-.experiment .v-Notification.failure h1:before {
+.experiment .v-Notification.failure .v-Notification-caption:before {
 	content: "\f05e";
 }
 
@@ -12397,6 +12733,9 @@ div.v-layout.v-horizontal.v-widget {
 	-webkit-box-shadow: inset 0 1px 0 #8f91a3, inset 0 -1px 0 #60678e, 0 0 0 1px #575e82;
 	box-shadow: inset 0 1px 0 #8f91a3, inset 0 -1px 0 #60678e, 0 0 0 1px #575e82;
 	text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.05);
+	line-height: 1.3em;
+	font-size: 1rem;
+	padding: 0 0.5em;
 }
 
 .v-ie8 .experiment .v-panel-caption-not-selected-variable {
@@ -12410,6 +12749,24 @@ div.v-layout.v-horizontal.v-widget {
 	border: 1px solid #8b8fa5;
 	-webkit-box-shadow: 0 2px 3px rgba(0, 0, 0, 0.05);
 	box-shadow: 0 2px 3px rgba(0, 0, 0, 0.05);
+	line-height: 1.3em;
+	font-size: 1rem;
+}
+
+.experiment .v-panel-not-selected-variable .v-margin-left {
+	padding-left: 5px;
+}
+
+.experiment .v-panel-not-selected-variable .v-margin-right {
+	padding-right: 5px;
+}
+
+.experiment .v-panel-not-selected-variable .v-margin-top {
+	padding-top: 5px;
+}
+
+.experiment .v-panel-not-selected-variable .v-margin-bottom {
+	padding-bottom: 5px;
 }
 
 .experiment .v-panel-caption-selected-variable {
@@ -12429,6 +12786,9 @@ div.v-layout.v-horizontal.v-widget {
 	-webkit-box-shadow: inset 0 1px 0 #7998af, inset 0 -1px 0 #4c829a, 0 0 0 1px #44778c;
 	box-shadow: inset 0 1px 0 #7998af, inset 0 -1px 0 #4c829a, 0 0 0 1px #44778c;
 	text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.05);
+	line-height: 1.3em;
+	font-size: 1rem;
+	padding: 0 0.5em;
 }
 
 .v-ie8 .experiment .v-panel-caption-selected-variable {
@@ -12442,6 +12802,24 @@ div.v-layout.v-horizontal.v-widget {
 	border: 1px solid #a5a8b6;
 	-webkit-box-shadow: 0 2px 3px rgba(0, 0, 0, 0.05);
 	box-shadow: 0 2px 3px rgba(0, 0, 0, 0.05);
+	line-height: 1.3em;
+	font-size: 1rem;
+}
+
+.experiment .v-panel-selected-variable .v-margin-left {
+	padding-left: 5px;
+}
+
+.experiment .v-panel-selected-variable .v-margin-right {
+	padding-right: 5px;
+}
+
+.experiment .v-panel-selected-variable .v-margin-top {
+	padding-top: 5px;
+}
+
+.experiment .v-panel-selected-variable .v-margin-bottom {
+	padding-bottom: 5px;
 }
 
 .experiment .v-button {
@@ -12483,4 +12861,49 @@ div.v-layout.v-horizontal.v-widget {
 
 .experiment .v-button:active:after {
 	background-color: rgba(17, 70, 149, 0.2);
+}
+
+.experiment .v-label {
+	font-size: 1rem;
+	line-height: 1.5em;
+}
+
+.experiment .v-textfield {
+	font-size: 1rem;
+	line-height: 1.5em;
+	height: auto;
+}
+
+.experiment .v-panel-content-instruction {
+	line-height: 1.3em;
+	font-size: 1.6rem;
+}
+
+.experiment .v-panel-content-instruction .v-margin-left {
+	padding-left: 5px;
+}
+
+.experiment .v-panel-content-instruction .v-margin-right {
+	padding-right: 5px;
+}
+
+.experiment .v-panel-content-instruction .v-margin-top {
+	padding-top: 5px;
+}
+
+.experiment .v-panel-content-instruction .v-margin-bottom {
+	padding-bottom: 5px;
+}
+
+.experiment .v-panel-content-instruction .v-label {
+	line-height: 1.3em;
+	font-size: 0.8rem;
+	text-align: justify;
+}
+
+.experiment .v-button {
+	line-height: 1em;
+	font-size: 1rem;
+	padding: 0.7rem 0.7rem;
+	height: auto;
 }

@@ -3,6 +3,8 @@ package net.enigma.views.components
 import scala.collection.JavaConversions._
 
 import com.vaadin.data.Property.{ValueChangeEvent, ValueChangeListener}
+import com.vaadin.event.MouseEvents.ClickEvent
+import com.vaadin.shared.MouseEventDetails.MouseButton
 import com.vaadin.ui.{VerticalLayout, CheckBox, GridLayout, Panel}
 
 import net.enigma.Utils._
@@ -61,9 +63,11 @@ class VariablesGrid extends GridLayout with ValueChangedListenable[Int] {
     setData(variable)
     addStyleName("not-selected-variable")
 
+    this.withClickListener(e => if (e.getButton == MouseButton.LEFT) checkbox.setValue(!checkbox.getValue))
+
     val checkbox = new CheckBox(TextResources.Labels.Select)
       .withWidth("100%")
-      .withAdditionalStyleName("large")
+
     val layout = new VerticalLayout(checkbox).withSizeFull.withSpacing.withMargins
     layout.setExpandRatio(checkbox, 1)
 

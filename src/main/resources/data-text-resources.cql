@@ -85,7 +85,7 @@ Jeśli chcesz wziąć udział w konkursie, musisz na końcu podać swój e-mail.
 ');
 INSERT INTO experiment.text_resources (key, value) VALUES ('Instructions.QuestionnaireInstruction', 'Instrukcja do kwestionariusza');
 INSERT INTO experiment.text_resources (key, value) VALUES ('Instructions.InitialInstruction', '
-Zapraszamy Państwa do udziału w badaniu, które  jest częścią szerszego projektu, finansowanego z grantu Narodowego Centrum Nauki. W oparciu o wyniki tego badania, mamy nadzieję dowiedzieć się których informacji używają inwestorzy, kiedy zastanawiają się, czy na rynku papierów wartościowych jest hossa, czy bessa. Żeby to ustalić prosimy Państwa najpierw o wskazanie i porangowanie tych wskaźników ekonomicznych, które Waszym zdaniem najlepiej pozwalają odpowiedzieć na pytanie o to, czy jest hossa czy bessa. A później prosimy 10 razy o odpowiedz na pytanie, czy dany układ wskaźników wskazuje na hossę, czy na bessę.
+Zapraszamy Państwa do udziału w badaniu, które  jest częścią szerszego projektu, finansowanego z grantu nr 2014/13/B/HS4/01533, przyznanego przez Narodowego Centrum Nauki. W oparciu o wyniki tego badania, mamy nadzieję dowiedzieć się których informacji używają inwestorzy, kiedy zastanawiają się, czy na rynku papierów wartościowych jest hossa, czy bessa. Żeby to ustalić prosimy Państwa najpierw o wskazanie i porangowanie tych wskaźników ekonomicznych, które Waszym zdaniem najlepiej pozwalają odpowiedzieć na pytanie o to, czy jest hossa czy bessa. A później prosimy 10 razy o odpowiedz na pytanie, czy dany układ wskaźników wskazuje na hossę, czy na bessę.
 <p/>
 <strong>Ponieważ badanie zajmuje około 30 minut, to trzy osoby, które najlepiej odpowiedzą na 10 pytań uzyskają nagrody finansowe wysokości 500 zł.</strong> Niezależnie od tego, na końcu oferujemy wszystkim uczestnikom udział w grze, w której można wygrać 50 zł.
 <p/>
@@ -136,13 +136,11 @@ Poniżej znajduje się lista 7 wybranych przez Ciebie wskaźników.  Chcielibyś
 ');
 
 INSERT INTO experiment.text_resources (key, value) VALUES ('Instructions.Trial', '
-<strong>Pytanie nr %s.</strong>
-Poniżej znajduje się 16 informacji, z których możesz wybierać te, których potrzebujesz żeby odpowiedzieć na pytanie: Czy na rynku papierów wartościowych jest hossa czy bessa? Niektóre z tych informacji dotyczą aktualnych zmian wskaźników (na przykład: DAX i NASDAQ, zmiany cen złota, zmiany cen mieszkań), inne (na przykład: C/Z, wstęga Bollingera) odnoszą się do podstawowych spółek WIG20.
-<p/>
-Wybierz co najmniej 3 darmowe informacje lub więcej, ale każda dodatkowa kosztuje 10 punktów (masz 70 punktów). Informacja odsłoni się gdy klikniesz na wybranym polu.
+<strong>Pytanie nr %s/10.</strong>
+Poniżej znajdują się informacje, których możesz potrzebować żeby odpowiedzieć na pytanie: Czy na rynku papierów wartościowych jest hossa czy bessa? Niektóre z tych informacji dotyczą aktualnych zmian wskaźników (na przykład: DAX i NASDAQ, zmiany cen złota, zmiany cen mieszkań), inne (na przykład: C/Z, wstęga Bollingera) odnoszą się do podstawowych spółek WIG20.
+Wybierz co najmniej 3 darmowe informacje lub więcej (każda dodatkowa kosztuje 10 punktów odliczanych od 70 punktów, ktore masz na początku). Informacja odsłoni się gdy klikniesz na wybranym polu.
 <strong>Nagrody pieniężne wysokości 500 zł otrzymają ci, którzy będą mieli najwięcej trafnych odpowiedzi na 10 pytań: Czy na rynku papierów wartościowych jest hossa czy bessa? i wykorzystają jak najmniej punktów (informacji) do udzielenia tej odpowiedzi.</strong>
-<p/>
-Przeczytaj informacje i odpowiedz na pytanie: Czy na rynku papierów wartościowych jest hossa czy bessa?
+Przeczytaj informacje i odpowiedz na pytanie:
 ');
 
 INSERT INTO experiment.text_resources (key, value) VALUES ('Instructions.ConfidenceQuestion',
@@ -175,7 +173,7 @@ INSERT INTO experiment.text_resources (key, value) VALUES ('Instructions.Persona
 INSERT INTO experiment.text_resources (key, value) VALUES ('Instructions.EmailAddress', '
 Jeżeli chcesz wziąć udział w konkursie, wpisz swój adres email.
 <p/>
-Jeżeli wygrałeś zakład lub loterię wpisz swój adres email. Skontaktujemy się z Tobą.
+Jeżeli wygrałeś zakład lub grę, podaj swój email, żebyśmy mogli się z Tobą skontaktować.
 ');
 
 INSERT INTO experiment.text_resources (key, value) VALUES ('Instructions.Justifications', '

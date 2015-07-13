@@ -1,6 +1,14 @@
 $v-background-color: hsl(230, 20%, 80%);
 $v-font-family: "Helvetica Neue", "Helvetica", "Arial", sans-serif;
 
+$v-layout-margin-top: 5px;
+$v-layout-margin-right: 5px;
+$v-layout-margin-bottom: 5px;
+$v-layout-margin-left: 5px;
+
+$v-layout-spacing-vertical: 5px;
+$v-layout-spacing-horizontal: 5px;
+
 @import "../valo/valo";
 
 .experiment {
@@ -8,21 +16,105 @@ $v-font-family: "Helvetica Neue", "Helvetica", "Arial", sans-serif;
 
   .v-panel-caption-not-selected-variable {
     @include valo-panel-caption-style($background-color: hsl(230, 20%, 50%));
+    line-height: 1.3em;
+    font-size: 1rem;
+    padding: 0 0.5em;
   }
 
   .v-panel-not-selected-variable {
     @include valo-panel-style($background-color: hsl(230, 20%, 70%));
+    line-height: 1.3em;
+    font-size: 1rem;
+    .v-margin-left {
+      padding-left: 5px;
+    }
+
+    .v-margin-right {
+      padding-right: 5px;
+    }
+
+    .v-margin-top {
+      padding-top: 5px;
+    }
+
+    .v-margin-bottom {
+      padding-bottom: 5px;
+    }
   }
 
   .v-panel-caption-selected-variable {
     @include valo-panel-caption-style($background-color: hsl(198, 35%, 48%));
+    line-height: 1.3em;
+    font-size: 1rem;
+    padding: 0 0.5em;
   }
 
   .v-panel-selected-variable {
     @include valo-panel-style($background-color: hsl(196, 8%, 93%));
+    line-height: 1.3em;
+    font-size: 1rem;
+    .v-margin-left {
+      padding-left: 5px;
+    }
+
+    .v-margin-right {
+      padding-right: 5px;
+    }
+
+    .v-margin-top {
+      padding-top: 5px;
+    }
+
+    .v-margin-bottom {
+      padding-bottom: 5px;
+    }
   }
 
   .v-button {
     @include valo-button-style($background-color: hsl(216, 55%, 65%));
+  }
+
+  .v-label {
+    font-size: 1rem;
+    line-height: 1.5em;
+  }
+
+  .v-textfield {
+    font-size: 1rem;
+    line-height: 1.5em;
+    height: auto;
+  }
+
+  .v-panel-content-instruction {
+    line-height: 1.3em;
+    font-size: 1.6rem;
+    .v-margin-left {
+      padding-left: 5px;
+    }
+
+    .v-margin-right {
+      padding-right: 5px;
+    }
+
+    .v-margin-top {
+      padding-top: 5px;
+    }
+
+    .v-margin-bottom {
+      padding-bottom: 5px;
+    }
+
+    .v-label {
+      line-height: 1.3em;
+      font-size: 0.8rem;
+      text-align: justify;
+    }
+  }
+
+  .v-button {
+    line-height: 1em;
+    font-size: 1rem;
+    padding: 0.7rem 0.7rem;
+    height: auto;
   }
 }

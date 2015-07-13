@@ -57,6 +57,10 @@ class VariablesScorer extends Panel with ValueChangedListenable[Int] {
         .withConversionError(TextResources.Notifications.RankValueOutOfRange)
         .withSizeUndefined
 
+      textField.withAttribute("type", "number")
+        .withAttribute("min", "0")
+        .withAttribute("max", "100")
+
     textField.setNullRepresentation("")
     textField.setNullSettingAllowed(true)
     textField.setRequired(true)

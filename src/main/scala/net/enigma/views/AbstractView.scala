@@ -45,6 +45,7 @@ trait AbstractView extends Layout with View {
         .withContentMode(ContentMode.HTML)
     val contentPanel = new Panel(new VerticalLayout(instructionField).withSpacing.withMargins)
         .withSizeFull
+        .withAdditionalStyleName("instruction")
 
     _top.addComponent(contentPanel, 0)
     _top.setComponentAlignment(contentPanel, Alignment.TOP_CENTER)

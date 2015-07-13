@@ -1,8 +1,11 @@
 package net.enigma.views.components
 
+import java.util.UUID
+
 import scala.util.{Failure, Try}
 
 import com.vaadin.data.validator.{IntegerRangeValidator, RegexpValidator, StringLengthValidator}
+import com.vaadin.server.Page
 import com.vaadin.ui._
 import org.slf4j.LoggerFactory
 
@@ -170,6 +173,10 @@ object SurveyItem {
         component.setConverter(classOf[Integer])
         component.addValidator(new IntegerRangeValidator(msg, min, max))
         component.setConvertedValue(0)
+        component
+          .withAttribute("type", "number")
+          .withAttribute("min", min.toString)
+          .withAttribute("max", max.toString)
 
       case RegExp((exp, msg)) ⇒
         component.addValidator(new RegexpValidator(exp, msg))

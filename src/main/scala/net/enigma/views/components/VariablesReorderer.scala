@@ -34,7 +34,7 @@ class VariablesReorderer extends Panel {
   }
 
   private def newComponent(variable: Variable): Panel = {
-    val component = new Panel(variable.title)
+    val component = new Panel(variable.title).withAdditionalStyleName("selected-variable")
     component.setData(variable)
     component
   }

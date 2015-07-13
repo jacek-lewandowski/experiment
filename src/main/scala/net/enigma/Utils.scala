@@ -1,11 +1,16 @@
 package net.enigma
 
+import java.util.UUID
+
 import scala.language.implicitConversions
 import scala.reflect.ClassTag
+import scala.util.Try
 
 import com.vaadin.data.Property.{ValueChangeEvent, ValueChangeListener}
 import com.vaadin.data.{Property, Validator}
 import com.vaadin.event.FieldEvents.{BlurEvent, BlurListener, FocusEvent, FocusListener}
+import com.vaadin.event.MouseEvents
+import com.vaadin.server.Page
 import com.vaadin.shared.ui.MarginInfo
 import com.vaadin.shared.ui.label.ContentMode
 import com.vaadin.ui.Button.{ClickEvent, ClickListener}
@@ -64,6 +69,12 @@ object Utils {
 
     def withImmediate: T = {
       component.setImmediate(true)
+      component
+    }
+
+    def withAttribute(name: String, value: String): T = {
+      if (component.getId == null) component.setId(UUID.randomUUID().toString)
+      Try(Page.getCurrent.getJavaScript.execute(s"document.getElementById('${component.getId}').$name='$value'"))
       component
     }
   }
@@ -166,6 +177,15 @@ object Utils {
         override def blur(blurEvent: BlurEvent): Unit = blurListener(blurEvent)
       })
       field
+    }
+  }
+
+  implicit class RichPanel(val panel: Panel) extends AnyVal {
+    def withClickListener(clickListener: MouseEvents.ClickEvent ⇒ Unit): Panel = {
+      panel.addClickListener(new MouseEvents.ClickListener {
+        override def click(clickEvent: MouseEvents.ClickEvent): Unit = clickListener(clickEvent)
+      })
+      panel
     }
   }
 

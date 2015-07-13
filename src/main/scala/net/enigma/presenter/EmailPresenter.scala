@@ -25,6 +25,7 @@ trait EmailPresenter extends FlowPresenter {
         .withBlurListener(_ ⇒ Try(answerField.validate()))
         .withFocusListener(_ ⇒ answerField.selectAll())
         .withAdditionalValidator(new EmailValidator(TextResources.Notifications.InvalidEmailAddress))
+        .withAttribute("type", "email")
         .setValue("")
   }
 

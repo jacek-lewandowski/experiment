@@ -3,6 +3,7 @@ package net.enigma.views.components
 import scala.collection.JavaConversions._
 
 import com.vaadin.data.Property.{ValueChangeEvent, ValueChangeListener}
+import com.vaadin.shared.MouseEventDetails.MouseButton
 import com.vaadin.ui._
 import org.slf4j.LoggerFactory
 
@@ -84,13 +85,15 @@ class ExperimentGrid(valueResolver: Variable ⇒ VariableValue)
 
     setData(variable)
 
+    this.withClickListener(e =>
+      if (e.getButton == MouseButton.LEFT && !checkbox.isReadOnly && checkbox.isEnabled  && checkbox.isVisible)
+        checkbox.setValue(!checkbox.getValue))
+
     val checkbox = new CheckBox(TextResources.Labels.Select)
         .withWidth("100%")
-        .withAdditionalStyleName("large")
 
     val label = new Label()
         .withWidth("100%")
-        .withAdditionalStyleName("small")
 
     val layout = new VerticalLayout(checkbox, label).withSizeFull.withSpacing.withMargins
     layout.setExpandRatio(checkbox, 1)
