@@ -63,16 +63,21 @@ object DataReader {
     trial: TrialData)
 
   val allVars = 'A' to 'P'
-  val columns = Vector(
+  def columns(allEmails: Map[String, Seq[(String, String)]]) = Vector(
     CSVColumn("user.code", _.user.userCode),
     CSVColumn("user.category", _.user.category),
     CSVColumn("user.email", _.user.emailAddress.getOrElse("")),
     CSVColumn("user.email.provided", _.user.emailAddress.fold("0")(_ => "1")),
+    CSVColumn("user.email.duplicate", x => x.user.emailAddress.flatMap(email => allEmails.get(email)).fold("0")(y => if (y.size > 1) "1" else "0")),
     CSVColumn("user.gender", _.personal.gender),
     CSVColumn("user.age", _.personal.age.toString),
     CSVColumn("user.investingExperience", _.personal.investingExperience.toString),
     CSVColumn("user.investingTime", _.personal.investingTime),
     CSVColumn("user.education", _.personal.education),
+    CSVColumn("lottery.lottery", _.lottery.lottery.toString),
+    CSVColumn("lottery.result", _.lottery.result.toString),
+    CSVColumn("lottery.winChance", _.lottery.winChance.toString),
+    CSVColumn("lottery.timestamp", _.lottery.timestamp.toString),
     CSVColumn("variables.startTime", _.variables.timestamp.toString),
     CSVColumn("variables.orderingSeq", _.variables.orderingSequence),
     CSVColumn("variables.scoringSeq", _.variables.scoringSequence),
@@ -80,7 +85,7 @@ object DataReader {
   ) ++ allVars.map(v => CSVColumn(s"variables.weight.$v", _.variables.weights.getOrElse(v.toString, "").toString)) ++
   Vector(
     CSVColumn("trial.startTime", _.trial.timestamp.toString)
-  ) ++ (0 until 9).flatMap{idx =>
+  ) ++ (0 until 10).flatMap{idx =>
     val prefix = s"trial.iterations.$idx"
 
     def distToOrdered(idx: Int)(row: Result) =
@@ -108,7 +113,7 @@ object DataReader {
       CSVColumn(s"$prefix.answer", _.trial.iterations(idx).selectedAnswer),
       CSVColumn(s"$prefix.confidence", _.trial.iterations(idx).confidence.toString),
       CSVColumn(s"$prefix.sequence", _.trial.iterations(idx).sequence),
-      CSVColumn(s"$prefix.realSequenceLength", _.trial.iterations(idx).sequence.length.toString),
+      CSVColumn(s"$prefix.realSequenceLength", _.trial.iterations(idx).selectedVars.length.toString),
       CSVColumn(s"$prefix.realSequence", _.trial.iterations(idx).selectedVarsValuesSeq)) ++
       allVars.map(v => CSVColumn(s"$prefix.vars.$v.selIdx", selectedIdx(idx, v.toString))) ++
       allVars.map(v => CSVColumn(s"$prefix.vars.$v.essential", isEssential(idx, v.toString)))
@@ -226,9 +231,11 @@ object DataReader {
         trial <- getTrial(row)) yield (personalData, variables, lottery, trial)).map(d => (row._1.toString, d)))
 
     val results = usersData.flatMap(u => stagesData.get(u.userCode).map(d => Result(u, d._1, d._2, d._3, d._4)))
+    val allEmails = for (result <- results; email <- result.user.emailAddress) yield (email, result.user.userCode)
 
-    saveResults(results, columns, Paths.get("data/results.csv"))
-    println(s"Saved ${results.size} results")
+    val cols = columns(allEmails.groupBy(_._1))
+    saveResults(results, cols, Paths.get("data/results.csv"))
+    println(s"Saved ${results.size} results / ${cols.size}")
   }
 
   case class CSVColumn(name: String, valueExtractor: Result => String)
