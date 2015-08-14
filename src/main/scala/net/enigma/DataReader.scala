@@ -2,12 +2,12 @@ package net.enigma
 
 import java.io.{OutputStream, PrintStream}
 import java.nio.charset.Charset
-import java.nio.file.{Files, Path, Paths, StandardOpenOption}
+import java.nio.file.{Paths, Files, Path, StandardOpenOption}
+
+import scala.collection.JavaConversions._
 
 import org.apache.commons.lang3.StringUtils
 import org.json4s.native.JsonParser._
-
-import scala.collection.JavaConversions._
 
 class DataReader {
 
@@ -63,6 +63,7 @@ object DataReader {
     trial: TrialData)
 
   val allVars = 'A' to 'P'
+
   def columns(allEmails: Map[String, Seq[(String, String)]]) = Vector(
     CSVColumn("user.code", _.user.userCode),
     CSVColumn("user.category", _.user.category),
@@ -71,53 +72,87 @@ object DataReader {
     CSVColumn("user.email.duplicate", x => x.user.emailAddress.flatMap(email => allEmails.get(email)).fold("0")(y => if (y.size > 1) "1" else "0")),
     CSVColumn("user.gender", _.personal.gender),
     CSVColumn("user.age", _.personal.age.toString),
-    CSVColumn("user.investingExperience", _.personal.investingExperience.toString),
+    CSVColumn("user.experience", _.personal.investingExperience.toString),
     CSVColumn("user.investingTime", _.personal.investingTime),
     CSVColumn("user.education", _.personal.education),
-    CSVColumn("lottery.lottery", _.lottery.lottery.toString),
-    CSVColumn("lottery.result", _.lottery.result.toString),
-    CSVColumn("lottery.winChance", _.lottery.winChance.toString),
+    CSVColumn("Czy_loteria", r => if (r.lottery.lottery) "loteria" else "zakład", title = "Czy wybrana zostałą loteria czy zakład", quoted = false),
+    CSVColumn("Wynik", _.lottery.result.toString, title = "Wynik loterii lub zakładu", quoted = false),
+    CSVColumn("Szansa_wygr", _.lottery.winChance.toString, title = "Szansa wygranej w loterii / średnia pewność z 2 ostatnich prób", quoted = false),
     CSVColumn("lottery.timestamp", _.lottery.timestamp.toString),
-    CSVColumn("variables.startTime", _.variables.timestamp.toString),
-    CSVColumn("variables.orderingSeq", _.variables.orderingSequence),
-    CSVColumn("variables.scoringSeq", _.variables.scoringSequence),
-    CSVColumn("variables.orderingToScoringDist", _.variables.distance.toString)
-  ) ++ allVars.map(v => CSVColumn(s"variables.weight.$v", _.variables.weights.getOrElse(v.toString, "").toString)) ++
-  Vector(
-    CSVColumn("trial.startTime", _.trial.timestamp.toString)
-  ) ++ (0 until 10).flatMap{idx =>
-    val prefix = s"trial.iterations.$idx"
-
-    def distToOrdered(idx: Int)(row: Result) =
-      StringUtils.getLevenshteinDistance(row.variables.orderingSequence, row.trial.iterations(idx).selectedVarsSeq).toString
-    def distToScored(idx: Int)(row: Result) =
-      StringUtils.getLevenshteinDistance(row.variables.scoringSequence, row.trial.iterations(idx).selectedVarsSeq).toString
-    def distToInitial(idx: Int)(row: Result) =
-      StringUtils.getLevenshteinDistance(row.trial.iterations(idx).initVarsSeq, row.trial.iterations(idx).selectedVarsSeq).toString
-    def selectedIdx(idx:Int, v:String)(row: Result) = {
-      val it = row.trial.iterations(idx)
-      it.selectedVars.find(_._1 == v).map(elem => it.selectedVars.indexOf(elem)).getOrElse("").toString
-    }
-    def isEssential(idx:Int, v:String)(row: Result) = {
-      val it = row.trial.iterations(idx)
-      if (it.essentialVarsSet.contains(v)) "1" else ""
-    }
-
+    CSVColumn("v.startTime", _.variables.timestamp.toString),
+    CSVColumn("v.ordSeq", _.variables.orderingSequence),
+    CSVColumn("v.scorSeq", _.variables.scoringSequence),
+    CSVColumn("v.ordToScorDist", _.variables.distance.toString)
+  ) ++
+    allVars.map(v => CSVColumn(s"Waga${decodeVar(v)}", _.variables.weights.getOrElse(v.toString, "").toString, title = s"Waga wskaźnika ${decodeVar(v)}", quoted = false)) ++
     Vector(
-      CSVColumn(s"$prefix.idx", _.trial.iterations(idx).idx.toString),
-      CSVColumn(s"$prefix.initVarsSeq", _.trial.iterations(idx).initVarsSeq),
-      CSVColumn(s"$prefix.selectedVarsSeq", _.trial.iterations(idx).selectedVarsSeq),
-      CSVColumn(s"$prefix.distToOrdered", distToOrdered(idx)),
-      CSVColumn(s"$prefix.distToScored", distToScored(idx)),
-      CSVColumn(s"$prefix.distToInitial", distToInitial(idx)),
-      CSVColumn(s"$prefix.answer", _.trial.iterations(idx).selectedAnswer),
-      CSVColumn(s"$prefix.confidence", _.trial.iterations(idx).confidence.toString),
-      CSVColumn(s"$prefix.sequence", _.trial.iterations(idx).sequence),
-      CSVColumn(s"$prefix.realSequenceLength", _.trial.iterations(idx).selectedVars.length.toString),
-      CSVColumn(s"$prefix.realSequence", _.trial.iterations(idx).selectedVarsValuesSeq)) ++
-      allVars.map(v => CSVColumn(s"$prefix.vars.$v.selIdx", selectedIdx(idx, v.toString))) ++
-      allVars.map(v => CSVColumn(s"$prefix.vars.$v.essential", isEssential(idx, v.toString)))
-  }
+      CSVColumn("t.startTime", _.trial.timestamp.toString)
+    ) ++ allVars.map(v => CSVColumn(s"Liczba_wyb_${decodeVar(v)}", selectionCount(v), title = s"Liczba wyborów wskaźnika ${decodeVar(v)} we wszystkich iteracjach", quoted = false)) ++
+    Seq(CSVColumn("Liczba_wsk", _.trial.iterations.map(_.selectedVarsSeq.length).sum.toString, title = "Całkowita liczba wybranych wskaźników", quoted = false)) ++
+    //    (0 until 10).flatMap { idx =>
+    //      val prefix = s"t.it.$idx"
+    //
+    //      def distToOrdered(idx: Int)(row: Result) =
+    //        StringUtils.getLevenshteinDistance(row.variables.orderingSequence, row.trial.iterations(idx).selectedVarsSeq).toString
+    //      def distToScored(idx: Int)(row: Result) =
+    //        StringUtils.getLevenshteinDistance(row.variables.scoringSequence, row.trial.iterations(idx).selectedVarsSeq).toString
+    //      def distToInitial(idx: Int)(row: Result) =
+    //        StringUtils.getLevenshteinDistance(row.trial.iterations(idx).initVarsSeq, row.trial.iterations(idx).selectedVarsSeq).toString
+    //      def selectedIdx(idx: Int, v: String)(row: Result) = {
+    //        val it = row.trial.iterations(idx)
+    //        it.selectedVars.find(_._1 == v).map(elem => it.selectedVars.indexOf(elem)).getOrElse("").toString
+    //      }
+    //
+    //      Vector(
+    //        CSVColumn(s"$prefix.initSeq", _.trial.iterations(idx).initVarsSeq),
+    //        CSVColumn(s"$prefix.selSeq", _.trial.iterations(idx).selectedVarsSeq),
+    //        CSVColumn(s"$prefix.distToOrd", distToOrdered(idx)),
+    //        CSVColumn(s"$prefix.distToScor", distToScored(idx)),
+    //        CSVColumn(s"$prefix.distToInit", distToInitial(idx)),
+    //        CSVColumn(s"$prefix.seq", _.trial.iterations(idx).sequence),
+    //        CSVColumn(s"$prefix.realSeq", _.trial.iterations(idx).selectedVarsValuesSeq))
+    //    } ++
+    (1 to 7).map(pos => CSVColumn(s"Ranga$pos",
+      row => decodeVar(row.variables.orderingSequence.charAt(pos - 1)),
+      title = s"Rangowanie, nr wskaźnika wybranego z rangą $pos",
+      quoted = false)) ++
+    (for (iteration <- 1 to 10; selection <- 1 to 10) yield {
+      CSVColumn(s"Odkr${selection}_p${iteration}",
+        _.trial.iterations(iteration - 1).selectedVarsSeq.toCharArray.lift(selection - 1).map(decodeVar).getOrElse(""),
+        title = s"Próba $iteration, nr wskaźnika w odkryciu $selection",
+        quoted = false)
+    }) ++
+    allVars.map(v => CSVColumn(s"Wskaźnik${decodeVar(v)}",
+      idxOfVar(v),
+      title = s"Rangowanie, ranga z jaką był wybrany wskaźnik ${decodeVar(v)}",
+      quoted = false)) ++
+    (for (iteration <- 1 to 10; v <- allVars) yield {
+      CSVColumn(s"Wskaźnik${decodeVar(v)}_p$iteration", idxOfVar(iteration - 1, v.toString),
+        title = s"Próba $iteration, odkrycie w którym był wybrany wskaźnik ${decodeVar(v)}",
+        quoted = false)
+    }) ++
+    (for (iteration <- 1 to 10; v <- allVars) yield {
+      CSVColumn(s"MP${decodeVar(v)}_p$iteration", isEssential(iteration - 1, v.toString),
+        title = s"Próba $iteration, czy wskaźnik ${decodeVar(v)} był wskazany jako najważniejszy",
+        quoted = false)
+    }) ++
+    (for (v <- allVars) yield {
+      CSVColumn(s"MP${decodeVar(v)}", row => (0 until 10).count(it => row.trial.iterations(it).essentialVarsSet.contains(v.toString)).toString,
+        title = s"Ile razy wskaźnik ${decodeVar(v)} był wskazany jako najważniejszy",
+        quoted = false)
+    }) ++
+    (1 to 10).map { iteration =>
+      CSVColumn(s"Pozycja_p$iteration", row => (row.trial.iterations(iteration - 1).idx + 1).toString, title = s"Próba $iteration, nr porządkowy", quoted = false)
+    } ++
+    (1 to 10).map { iteration =>
+      CSVColumn(s"Odpowiedź_p$iteration", row => convertAnswer(row.trial.iterations(iteration - 1).selectedAnswer), title = s"Próba $iteration, odpowiedź")
+    } ++
+    (1 to 10).map { iteration =>
+      CSVColumn(s"Pewność_p$iteration", _.trial.iterations(iteration - 1).confidence.toString, title = s"Próba $iteration, pewność", quoted = false)
+    } ++
+    (1 to 10).map { iteration =>
+      CSVColumn(s"Liczba_wsk_p$iteration", _.trial.iterations(iteration - 1).selectedVars.length.toString, title = s"Próba, $iteration, liczba wskaźników", quoted = false)
+    }
 
   val UTF8 = Charset.forName("utf-8")
 
@@ -135,6 +170,28 @@ object DataReader {
     "mmigacz")
 
   def encodeVar(v: Any): String = ('A' + v.toString.toInt - 1).toChar.toString
+
+  def decodeVar(v: Char): String = ((v.toInt - 'A'.toInt) + 1).toString
+
+  def isEssential(iteration: Int, v: String)(row: Result) = {
+    val it = row.trial.iterations(iteration)
+    if (it.essentialVarsSet.contains(v)) "1" else "0"
+  }
+
+  def idxOfVar(v: Char)(row: Result) = {
+    val idx = row.variables.orderingSequence.indexOf(v)
+    if (idx >= 0) (idx + 1).toString else ""
+  }
+
+  def idxOfVar(iteration: Int, v: String)(row: Result) = {
+    val it = row.trial.iterations(iteration)
+    it.selectedVars.find(_._1 == v).map(elem => it.selectedVars.indexOf(elem) + 1).getOrElse("").toString
+  }
+
+  def selectionCount(v: Char)(row: Result) =
+    row.trial.iterations.count(_.selectedVarsSeq.contains(v)).toString
+
+  def convertAnswer(s: String) = if (s.toLowerCase == "plus") "hossa" else "bessa"
 
   def getPersonalData(row: (Any, Map[Any, Map[(Any, Option[Int]), Map[String, _]]])): Option[PersonalData] = {
     row._2.get("personalData").map { personalDataStage =>
@@ -190,7 +247,7 @@ object DataReader {
         .sortBy(_._1._2.get)
         .map(_._2.asInstanceOf[Map[String, Any]].apply("data").asInstanceOf[Map[String, Any]])
 
-      val iterationsData = iterations.zipWithIndex.map{case (iteration, idx) =>
+      val iterationsData = iterations.zipWithIndex.map { case (iteration, idx) =>
         val selectedAnswer = iteration("selectedAnswer").toString
         val confidence = iteration("confidence").toString.toInt
         val sequence = iteration("sequence").asInstanceOf[List[Any]].map(x => if (x == "Plus") "P" else "M").mkString
@@ -232,26 +289,40 @@ object DataReader {
 
     val results = usersData.flatMap(u => stagesData.get(u.userCode).map(d => Result(u, d._1, d._2, d._3, d._4)))
     val allEmails = for (result <- results; email <- result.user.emailAddress) yield (email, result.user.userCode)
+    val duplicatedEmails = allEmails.groupBy(_._1).filter(_._2.size > 1).keySet
+    println(duplicatedEmails)
 
     val cols = columns(allEmails.groupBy(_._1))
-    saveResults(results, cols, Paths.get("data/results.csv"))
-    println(s"Saved ${results.size} results / ${cols.size}")
+    saveResults(results.filterNot(r => r.user.emailAddress.fold(false)(duplicatedEmails.contains)), cols, Paths.get("data/results.csv"))
+    saveColumns(cols, Paths.get("data/columns.csv"))
+    println(s"Saved ${results.filterNot(r => r.user.emailAddress.fold(false)(duplicatedEmails.contains)).size} results / ${cols.size}")
   }
 
-  case class CSVColumn(name: String, valueExtractor: Result => String)
+  case class CSVColumn(name: String, valueExtractor: Result => String, title: String = "", quoted: Boolean = true, enabled: Boolean = true)
 
   def makeCSV(data: Iterable[Result], columns: IndexedSeq[CSVColumn], out: OutputStream): Unit = {
-    val ps = new PrintStream(out, true, "utf-8")
+    val ps = new PrintStream(out, true, "windows-1250")
     ps.println(columns.map(_.name).map(s => "\"" + s + "\"").mkString(","))
     for (row <- data) {
-      ps.println(columns.map(c => c.valueExtractor(row)).map(s => "\"" + s + "\"").mkString(","))
+      ps.println(columns.filter(_.enabled).map(c => if (c.quoted) "\"" + c.valueExtractor(row) + "\"" else c.valueExtractor(row)).mkString(","))
     }
   }
 
   def saveResults(data: Iterable[Result], columns: IndexedSeq[CSVColumn], path: Path): Unit = {
-    val out = Files.newOutputStream(path, StandardOpenOption.TRUNCATE_EXISTING, StandardOpenOption.WRITE)
+    val out = Files.newOutputStream(path, StandardOpenOption.TRUNCATE_EXISTING, StandardOpenOption.CREATE, StandardOpenOption.WRITE)
     try {
       makeCSV(data, columns, out)
+    } catch {
+      case e: Exception => e.printStackTrace()
+    }
+    out.close()
+  }
+
+  def saveColumns(columns: IndexedSeq[CSVColumn], path: Path): Unit = {
+    val out = Files.newOutputStream(path, StandardOpenOption.TRUNCATE_EXISTING, StandardOpenOption.CREATE, StandardOpenOption.WRITE)
+    try {
+      val ps = new PrintStream(out, true, "windows-1250")
+      ps.println(columns.filter(_.enabled).map(s => "\"" + s.title + "\"").mkString("\n"))
     } catch {
       case e: Exception => e.printStackTrace()
     }
