@@ -34,7 +34,7 @@ object App {
 
   val LINK = "http://badania-inwestorow.pl/trendy-gieldowe/#!login/"
   val ADMIN_USER = "t2734hmtdo2347hdmtso2hs34tog1xo34xfhm3f2z0384gh0234mg0003p3m9xp4hgm93p48nhgz394g"
-  val testMode = false
+  val testMode = true
 
   val providerSuffix = "Provider"
   val userKey = "user"
